@@ -7,6 +7,8 @@ export(NodePath) var camera_path = null
 
 var motion := Vector3()
 
+onready var anim_tree := $AnimationTree
+
 onready var fsm := $FSM
 onready var camera = null
 
@@ -17,7 +19,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if motion:
-		look_at(translation - Vector3(motion.x, 0, motion.z), Global.UP)
+		look_at(translation - Vector3(motion.x, 0, motion.z), Vector3.UP)
 
 func play(anim_name: String) -> void:
 	pass
