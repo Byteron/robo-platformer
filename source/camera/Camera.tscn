@@ -9,9 +9,15 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.624679, 0.2712 ), 0.815605
 script = ExtResource( 1 )
 distance_curve = SubResource( 1 )
 
+[node name="ZoomTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+
 [node name="VerticalGimbal" type="Spatial" parent="."]
 
 [node name="Dummy" type="Spatial" parent="VerticalGimbal"]
 
 [node name="Camera" type="Camera" parent="VerticalGimbal"]
 transform = Transform( 1, 0, 0, 0, 1, -1.52737e-07, 0, 1.52737e-07, 1, 0, 0, 0 )
+[connection signal="timeout" from="ZoomTimer" to="." method="_on_ZoomTimer_timeout"]

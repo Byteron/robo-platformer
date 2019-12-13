@@ -28,13 +28,15 @@ func play(anim_name: String) -> void:
 	pass
 
 func get_walk_input_direction() -> Vector3:
-	var input_direction := Vector3()
+	return get_raw_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
 
+func get_raw_walk_input_direction() -> Vector3:
+	var input_direction := Vector3()
 	input_direction.x = Input.get_joy_axis(0, JOY_AXIS_0)
 	input_direction.z = Input.get_joy_axis(0, JOY_AXIS_1)
 	input_direction.x = input_direction.x if abs(input_direction.x) > DEAD_ZONE else 0
 	input_direction.z = input_direction.z if abs(input_direction.z) > DEAD_ZONE else 0
-	return input_direction.rotated(Vector3(0, 1, 0), camera.rotation.y)
+	return input_direction
 
 func get_look_input_direction() -> Vector3:
 	var input_direction := Vector3()
