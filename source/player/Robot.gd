@@ -21,6 +21,9 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if motion and fsm.is_current_state("Walk"):
 		look_at(translation - Vector3(motion.x, 0, motion.z), Vector3.UP)
+	var carrot = translation - Vector3(motion.x, 0, motion.z)
+	if carrot != translation:
+		look_at(carrot, Vector3.UP)
 
 func play(anim_name: String) -> void:
 	pass

@@ -49,8 +49,12 @@ func update(host: Node, delta: float) -> void:
 		host.motion.x = lerp(host.motion.x, 0, friction)
 		host.motion.z = lerp(host.motion.z, 0, friction)
 
-	host.anim_tree.set("parameters/IdleToWalk/blend_amount", host.motion.length() / max_speed)
+<<<<<<< HEAD
 	
+	
+=======
+	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
+>>>>>>> 9c2e71786c2adc0a6e11a28ac6f81680d728794f
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 
