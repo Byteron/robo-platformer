@@ -8,7 +8,7 @@
 [ext_resource path="res://source/player/states/Jump.gd" type="Script" id=8]
 [ext_resource path="res://source/player/states/Fall.gd" type="Script" id=9]
 
-[sub_resource type="CapsuleShape" id=25]
+[sub_resource type="CapsuleShape" id=1]
 radius = 0.615693
 height = 0.002
 
@@ -20,7 +20,7 @@ transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0198295, 0.618695, 0.0123997 )
-shape = SubResource( 25 )
+shape = SubResource( 1 )
 
 [node name="FSM" type="Node" parent="."]
 script = ExtResource( 6 )
