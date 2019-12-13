@@ -6,10 +6,10 @@
 [ext_resource path="res://graphics/particles/gear_collect_particles.tres" type="Material" id=4]
 [ext_resource path="res://graphics/particles/star_particle.material" type="Material" id=5]
 
-[sub_resource type="QuadMesh" id=6]
+[sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="Gear" type="Spatial" groups=[
@@ -27,14 +27,6 @@ material/0 = ExtResource( 3 )
 repeat = true
 playback/repeat = true
 
-[node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.631706, 0.216182 )
-light_color = Color( 0.658824, 0.760784, 1, 1 )
-
-[node name="OmniLight2" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.631706, -0.269516 )
-light_color = Color( 0.658824, 0.760784, 1, 1 )
-
 [node name="Particles" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242161, 0 )
 emitting = false
@@ -44,12 +36,12 @@ one_shot = true
 speed_scale = 1.5
 explosiveness = 0.91
 process_material = ExtResource( 4 )
-draw_pass_1 = SubResource( 6 )
+draw_pass_1 = SubResource( 1 )
 
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 
 [editable path="gear"]

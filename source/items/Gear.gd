@@ -26,8 +26,7 @@ func collect():
 	$Tween.interpolate_property($gear, "translation:y", $gear.translation.y, $gear.translation.y+1.5, spin_duration/2,Tween.TRANS_LINEAR, Tween.EASE_IN)
 	var mat = $gear/Gear001.get("material/0")
 	print(mat)
-	$Tween.interpolate_property($OmniLight,"light_energy", 1.0, 0.0, spin_duration/2,Tween.TRANS_LINEAR,Tween.EASE_IN)
-	$Tween.interpolate_property($OmniLight2,"light_energy", 1.0, 0.0, spin_duration/2,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	mat.flags_transparent=true
 	$Tween.interpolate_property(mat, "albedo_color:a", 1.0, 0.0, spin_duration/6,Tween.TRANS_LINEAR, Tween.EASE_IN)
 	$Tween.start()
 	
