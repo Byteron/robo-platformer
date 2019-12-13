@@ -17,7 +17,7 @@ func update(host: Node, delta: float) -> void:
 	if host.is_on_floor():
 		host.fsm.change_state("Idle")
 
-	host.move_and_slide_with_snap(host.motion, Global.DOWN, Global.UP)
+	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 
 func exit(host: Node) -> void:
 	host = host as Robot
