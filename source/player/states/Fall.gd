@@ -1,8 +1,9 @@
 extends State
 
 export var max_speed := 450
-export var acceleration := 20
+export var acceleration := 15
 export var friction := 0.4
+export var air_drift := 0.1
 
 func enter(host: Node) -> void:
 	host = host as Robot
@@ -11,6 +12,12 @@ func enter(host: Node) -> void:
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
+	
+	var input_direction = host.get_walk_input_direction()*6
+	
+	if input_direction:
+		host.motion.x = lerp(host.motion.x, input_direction.x, air_drift)
+		host.motion.z = lerp(host.motion.z, input_direction.z, air_drift)
 
 	host.motion.y -= Global.GRAVITY * delta
 
