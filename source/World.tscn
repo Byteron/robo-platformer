@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
+<<<<<<< HEAD
 [ext_resource path="res://source/level/levels/Level2.tscn" type="PackedScene" id=3]
+=======
+[ext_resource path="res://source/level/levels/Level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/enemies/Sawbot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/enemies/Turret.tscn" type="PackedScene" id=5]
+>>>>>>> 140617598f8f86efff968b21105e9be59e2cb305
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -31,3 +37,9 @@ camera_path = NodePath("../Camera")
 target_path = NodePath("../Robot")
 
 [node name="Level" parent="." instance=ExtResource( 3 )]
+
+[node name="Sawbot" parent="." instance=ExtResource( 4 )]
+transform = Transform( 0.796171, 0, -0.605072, 0, 1, 0, 0.605072, 0, 0.796171, 4, 1.06344, 0 )
+
+[node name="Turret" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.619121, 1.03388, 4.52092 )
