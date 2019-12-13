@@ -10,16 +10,12 @@ extents = Vector3( 10, 3, 10 )
 script = ExtResource( 2 )
 
 [node name="turret" parent="." instance=ExtResource( 1 )]
-transform = Transform( -8.14603e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -8.14603e-08, 0, -0.114862, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0718406, 0 )
 
 [node name="DetectionArea" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="DetectionArea"]
 shape = SubResource( 1 )
-
-[node name="TargetRay" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.844811, 0 )
-cast_to = Vector3( 0, 0, 20 )
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_DetectionArea_body_exited"]
 
