@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://graphics/enemies/turret.glb" type="PackedScene" id=1]
+
+[node name="Turret" type="Spatial"]
+
+[node name="turret" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.114862, 0 )
