@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://graphics/gtlf2/Grey.material" type="Material" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -3123,21 +3123,25 @@ height = 0.002
 [sub_resource type="AnimationNodeAnimation" id=26]
 animation = "Robot_Idle"
 
-[sub_resource type="AnimationNodeBlend2" id=27]
-
-[sub_resource type="AnimationNodeAnimation" id=28]
+[sub_resource type="AnimationNodeAnimation" id=29]
 animation = "Robot_Running"
 
-[sub_resource type="AnimationNodeBlendTree" id=29]
-graph_offset = Vector2( -93, 21.5 )
+[sub_resource type="AnimationNodeBlend2" id=27]
+
+[sub_resource type="AnimationNodeTimeScale" id=28]
+
+[sub_resource type="AnimationNodeBlendTree" id=30]
+graph_offset = Vector2( -666, 21.5 )
 nodes/Idle/node = SubResource( 26 )
 nodes/Idle/position = Vector2( 100, 60 )
-nodes/IdleToWalk/node = SubResource( 27 )
-nodes/IdleToWalk/position = Vector2( 300, 60 )
-nodes/Walk/node = SubResource( 28 )
+nodes/Walk/node = SubResource( 29 )
 nodes/Walk/position = Vector2( 60, 220 )
-nodes/output/position = Vector2( 660, 160 )
-node_connections = [ "output", 0, "IdleToWalk", "IdleToWalk", 0, "Idle", "IdleToWalk", 1, "Walk" ]
+nodes/idle_to_walk/node = SubResource( 27 )
+nodes/idle_to_walk/position = Vector2( 300, 60 )
+nodes/output/position = Vector2( 680, 60 )
+nodes/time/node = SubResource( 28 )
+nodes/time/position = Vector2( 500, 60 )
+node_connections = [ "output", 0, "time", "time", 0, "idle_to_walk", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
 [node name="Robot" type="KinematicBody"]
 script = ExtResource( 2 )
@@ -3470,8 +3474,9 @@ script = ExtResource( 8 )
 script = ExtResource( 9 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 29 )
+tree_root = SubResource( 30 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
-parameters/IdleToWalk/blend_amount = 0.0
+parameters/idle_to_walk/blend_amount = 0.0
+parameters/time/scale = 1.0
 [connection signal="state_changed" from="FSM" to="." method="_on_FSM_state_changed"]
