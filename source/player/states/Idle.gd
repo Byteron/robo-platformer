@@ -15,6 +15,7 @@ func update(host: Node, delta: float) -> void:
 	host = host as Robot
 
 	var input_direction = host.get_walk_input_direction()
+	host.move_and_slide_with_snap(Vector3.ZERO, Global.DOWN, Global.UP)
 
 	if not host.is_on_floor():
 		host.change_state("Fall")
