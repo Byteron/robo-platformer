@@ -8,6 +8,8 @@
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
+tonemap_mode = 2
+ssao_enabled = true
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 10, 0.5, 10 )
