@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://graphics/materials/gray.tres" type="Material" id=3]
-[ext_resource path="res://graphics/materials/dark_gray.tres" type="Material" id=4]
+[ext_resource path="res://source/level/levels/Level.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -31,82 +30,4 @@ camera_path = NodePath("../Camera")
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 target_path = NodePath("../Robot")
 
-[node name="Level" type="Spatial" parent="."]
-
-[node name="Floor" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.022593, 2.80388, 0.0371284 )
-use_collision = true
-width = 50.0
-height = 5.0
-depth = 50.0
-material = ExtResource( 3 )
-
-[node name="Floor2" type="CSGBox" parent="Level/Floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6182, 0 )
-operation = 2
-use_collision = true
-width = 49.0
-height = 10.0
-depth = 49.0
-material = ExtResource( 3 )
-
-[node name="CSGBox2" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.82863, 0.967417, 9.36606 )
-use_collision = true
-width = 4.0
-depth = 20.0
-material = ExtResource( 4 )
-
-[node name="CSGBox4" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01055, 0.5, 5.38953 )
-use_collision = true
-width = 4.0
-height = 1.0
-depth = 5.0
-material = ExtResource( 4 )
-
-[node name="CSGBox3" type="CSGBox" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5.63491, 1, -4.88828 )
-use_collision = true
-width = 4.0
-depth = 5.0
-material = ExtResource( 4 )
-
-[node name="CSGBox5" type="CSGBox" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.72376, 2, -4.888 )
-use_collision = true
-width = 4.0
-height = 4.0
-depth = 17.2895
-material = ExtResource( 4 )
-
-[node name="CSGBox6" type="CSGBox" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15.7865, 2, -11.9668 )
-use_collision = true
-width = 4.0
-height = 4.0
-depth = 2.89893
-material = ExtResource( 4 )
-
-[node name="CSGBox7" type="CSGBox" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.353, 2, -17.061 )
-use_collision = true
-width = 4.0
-height = 4.0
-depth = 2.89893
-material = ExtResource( 4 )
-
-[node name="CSGBox8" type="CSGBox" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.30401, 2, -17.061 )
-use_collision = true
-width = 4.0
-height = 4.0
-depth = 2.89893
-material = ExtResource( 4 )
-
-[node name="CSGPolygon" type="CSGPolygon" parent="Level"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14.6205, 0, 5.10067 )
-use_collision = true
-polygon = PoolVector2Array( 0, 0, 8, 4, 8, 0 )
-depth = 3.0
-material = ExtResource( 4 )
+[node name="Level" parent="." instance=ExtResource( 3 )]
