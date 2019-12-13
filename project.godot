@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/items/Gear.gd"
 }, {
+"base": "Control",
+"class": "HUD",
+"language": "GDScript",
+"path": "res://source/HUD.gd"
+}, {
 "base": "KinematicBody",
 "class": "Robot",
 "language": "GDScript",
@@ -32,6 +37,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "FiniteStateMachine": "",
 "Gear": "",
+"HUD": "",
 "Robot": "",
 "State": ""
 }
@@ -45,6 +51,7 @@ run/main_scene="res://source/World.tscn"
 
 Global="*res://source/global/Global.gd"
 Devices="*res://source/global/Devices.gd"
+Gamestate="*res://source/global/Gamestate.gd"
 
 [editor_plugins]
 

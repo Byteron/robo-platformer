@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/level/levels/Level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/enemies/Sawbot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/enemies/Turret.tscn" type="PackedScene" id=5]
+[ext_resource path="res://graphics/icons/gear.png" type="Texture" id=6]
+[ext_resource path="res://fonts/droid-sans/DroidSans.tres" type="DynamicFont" id=7]
+[ext_resource path="res://source/HUD.gd" type="Script" id=8]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -39,3 +42,57 @@ transform = Transform( 0.796171, 0, -0.605072, 0, 1, 0, 0.605072, 0, 0.796171, 4
 
 [node name="Turret" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.619121, 1.03388, 4.52092 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer" groups=[
+"HUD",
+]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.698334
+margin_right = -0.698364
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomLeftPanel" type="PanelContainer" parent="CanvasLayer/HUD"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -52.0
+margin_right = 96.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GearContainer" type="HBoxContainer" parent="CanvasLayer/HUD/BottomLeftPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 89.0
+margin_bottom = 45.0
+
+[node name="Gear" type="Control" parent="CanvasLayer/HUD/BottomLeftPanel/GearContainer"]
+margin_right = 38.4
+margin_bottom = 38.4
+rect_min_size = Vector2( 38.4, 38.4 )
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/BottomLeftPanel/GearContainer/Gear"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/BottomLeftPanel/GearContainer"]
+margin_left = 42.0
+margin_right = 82.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 40, 0 )
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.701961, 0.701961, 0.701961, 1 )
+text = "0"
+align = 1
