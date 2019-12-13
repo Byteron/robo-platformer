@@ -4,8 +4,11 @@ var zoom_level = 0.5
 
 export(NodePath) var target_path = null
 
+export var offset := Vector3(0, 1, 0)
+
 export var max_distance := 10
 export var max_rotation_speed := 4
+
 export(float, 0.0, 1.0) var smoothing := 0.8
 
 onready var target : Robot = null
@@ -20,7 +23,7 @@ func _ready() -> void:
 		set_process(false)
 
 func _process(delta: float) -> void:
-	translation = target.translation
+	translation = target.translation + offset
 
 	var input_direction = target.get_look_input_direction()
 	# rotation_degrees.y = 0
