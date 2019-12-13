@@ -8,6 +8,7 @@ export(NodePath) var camera_path = null
 var motion := Vector3()
 
 onready var anim_tree := $AnimationTree
+onready var anim_player := $Robot/AnimationPlayer
 
 onready var fsm := $FSM
 onready var camera = null
@@ -19,7 +20,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
-	if carrot != translation:
+
+	if carrot != translation and fsm.is_current_state("Walk"):
 		look_at(carrot, Vector3.UP)
 
 func play(anim_name: String) -> void:
