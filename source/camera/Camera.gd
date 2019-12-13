@@ -8,4 +8,4 @@ func _ready() -> void:
 	target = get_node(target_path)
 
 func _process(delta: float) -> void:
-	translation = target.translation + Vector3(0, 1, -3)
+	translation = lerp(translation, target.translation + Vector3(0, 1, -3), 0.2)
