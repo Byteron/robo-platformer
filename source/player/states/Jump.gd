@@ -1,6 +1,6 @@
 extends State
 
-export var jump_force := 5
+export var jump_force := 20
 
 export var max_speed := 450
 export var acceleration := 20
