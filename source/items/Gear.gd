@@ -1,4 +1,7 @@
 extends Spatial
+class_name Gear
+
+signal collected
 
 var spin_duration = 4.0
 var collected = false
@@ -14,6 +17,7 @@ func spin():
 	$Tween.start()
 
 func collect():
+	emit_signal("collected")
 	$Particles.restart()
 	collected = true
 	$Tween.stop_all()

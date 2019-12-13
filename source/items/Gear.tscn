@@ -12,7 +12,9 @@ material = ExtResource( 5 )
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.2, 0.2, 0.2 )
 
-[node name="Gear" type="Spatial"]
+[node name="Gear" type="Spatial" groups=[
+"gear",
+]]
 script = ExtResource( 2 )
 
 [node name="gear" parent="." instance=ExtResource( 1 )]

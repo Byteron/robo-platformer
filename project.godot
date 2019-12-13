@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/finite_state_machine/source/FiniteStateMachine.gd"
 }, {
+"base": "Spatial",
+"class": "Gear",
+"language": "GDScript",
+"path": "res://source/items/Gear.gd"
+}, {
 "base": "KinematicBody",
 "class": "Robot",
 "language": "GDScript",
@@ -26,6 +31,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "FiniteStateMachine": "",
+"Gear": "",
 "Robot": "",
 "State": ""
 }
