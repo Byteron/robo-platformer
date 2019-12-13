@@ -3123,23 +3123,23 @@ height = 0.002
 [sub_resource type="AnimationNodeAnimation" id=26]
 animation = "Robot_Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=29]
+[sub_resource type="AnimationNodeAnimation" id=27]
 animation = "Robot_Running"
 
-[sub_resource type="AnimationNodeBlend2" id=27]
+[sub_resource type="AnimationNodeBlend2" id=28]
 
-[sub_resource type="AnimationNodeTimeScale" id=28]
+[sub_resource type="AnimationNodeTimeScale" id=29]
 
 [sub_resource type="AnimationNodeBlendTree" id=30]
 graph_offset = Vector2( -666, 21.5 )
 nodes/Idle/node = SubResource( 26 )
 nodes/Idle/position = Vector2( 100, 60 )
-nodes/Walk/node = SubResource( 29 )
+nodes/Walk/node = SubResource( 27 )
 nodes/Walk/position = Vector2( 60, 220 )
-nodes/idle_to_walk/node = SubResource( 27 )
+nodes/idle_to_walk/node = SubResource( 28 )
 nodes/idle_to_walk/position = Vector2( 300, 60 )
 nodes/output/position = Vector2( 680, 60 )
-nodes/time/node = SubResource( 28 )
+nodes/time/node = SubResource( 29 )
 nodes/time/position = Vector2( 500, 60 )
 node_connections = [ "output", 0, "time", "time", 0, "idle_to_walk", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
