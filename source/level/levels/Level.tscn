@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://graphics/materials/dark_gray.tres" type="Material" id=1]
 [ext_resource path="res://graphics/materials/gray.tres" type="Material" id=2]
 [ext_resource path="res://source/items/Gear.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/level/RotoPlatform.tscn" type="PackedScene" id=4]
 
 [node name="Level" type="Spatial"]
 
@@ -142,3 +143,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.79807, 2.74992, 16.9272 )
 
 [node name="Gear10" parent="Items" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.79807, 2.74992, 16.9272 )
+
+[node name="Props" type="Spatial" parent="."]
+
+[node name="RotoPlatform" parent="Props" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4362, 1.89273, 10.1051 )
