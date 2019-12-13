@@ -1,4 +1,4 @@
-extends Camera
+extends Spatial
 
 export(NodePath) var target_path = null
 
