@@ -9,6 +9,8 @@ export var offset := Vector3(0, 1, 0)
 export var max_distance := 10
 export var max_rotation_speed := 4
 
+export(Curve) var distance_curve : Curve = null
+
 export(float, 0.0, 1.0) var smoothing := 0.8
 
 onready var target : Robot = null
@@ -32,7 +34,7 @@ func _process(delta: float) -> void:
 	zoom_level = clamp(zoom_level + input_direction.y * delta, 0, 1)
 
 	rotation_degrees.y += -input_direction.x * max_rotation_speed
-	gimbal_v.rotation_degrees.x = lerp(0, -90, zoom_level)
+	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 	camera.translation = Vector3(0, 0, lerp(0, max_distance, zoom_level))
 
 func get_direction() -> Vector3:
