@@ -12,9 +12,9 @@ func enter(host: Node) -> void:
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
-	
+
 	var input_direction = host.get_walk_input_direction()*6
-	
+
 	if input_direction:
 		host.motion.x = lerp(host.motion.x, input_direction.x, air_drift)
 		host.motion.z = lerp(host.motion.z, input_direction.z, air_drift)
