@@ -36,7 +36,7 @@ func update(host: Node, delta: float) -> void:
 	if input_direction:
 		
 		
-			# makes space for a possible turnaround animation
+		#makes space for a possible turnaround animation
 		#if (input_direction.dot(host.motion) < turn_threshhold) and (host.motion.dot(Vector3(1,1,1)) > 0.3):
 		#	print("turn")
 		#	host.motion = lerp(host.motion, Vector3(0.1,0,0.1), 0.1)
@@ -49,12 +49,11 @@ func update(host: Node, delta: float) -> void:
 		host.motion.x = lerp(host.motion.x, 0, friction)
 		host.motion.z = lerp(host.motion.z, 0, friction)
 
-<<<<<<< HEAD
-	
-	
-=======
-	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
->>>>>>> 9c2e71786c2adc0a6e11a28ac6f81680d728794f
+
+	#host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
+
+	host.anim_tree.set("parameters/time/scale", host.motion.length() / max_speed * 1.5)
+
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 

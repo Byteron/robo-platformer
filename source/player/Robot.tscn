@@ -3131,7 +3131,7 @@ animation = "Robot_Running"
 [sub_resource type="AnimationNodeTimeScale" id=28]
 
 [sub_resource type="AnimationNodeBlendTree" id=30]
-graph_offset = Vector2( -93, 21.5 )
+graph_offset = Vector2( -666, 21.5 )
 nodes/Idle/node = SubResource( 26 )
 nodes/Idle/position = Vector2( 100, 60 )
 nodes/Walk/node = SubResource( 29 )
