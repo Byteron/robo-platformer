@@ -2,7 +2,7 @@ extends State
 
 func enter(host: Node) -> void:
 	host = host as Robot
-	host.play("idle")
+	host.play("walk")
 	host.motion = Vector3()
 
 func input(host: Node, event: InputEvent) -> void:

@@ -1,9 +1,9 @@
-extends Control
+extends CanvasLayer
 class_name HUD
 
 var gears_displayed = 0 setget set_gears
 
-onready var gear_label = $BottomLeftPanel/GearContainer/Label
+onready var gear_label = $BottomLeftPanel/CenterContainer/GearContainer/Label
 
 func _ready():
 	Gamestate.hud = self
@@ -11,4 +11,4 @@ func _ready():
 func set_gears(g):
 	gears_displayed = g
 	gear_label.text = str(gears_displayed)
-	
+

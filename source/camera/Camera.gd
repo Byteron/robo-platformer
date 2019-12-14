@@ -10,10 +10,13 @@ export var max_distance := 10
 export var max_rotation_speed := 4
 
 export(Curve) var distance_curve : Curve = null
-
+export var collision_margin := 2.0
 export(float, 0.0, 1.0) var smoothing := 0.95
 
 onready var target : Robot = null
+
+onready var zoom_timer := $ZoomTimer
+onready var tween := $Tween
 
 onready var gimbal_v := $VerticalGimbal
 onready var dummy := $VerticalGimbal/Dummy
@@ -35,11 +38,23 @@ func _process(delta: float) -> void:
 	else:
 		translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
 
-	var input_direction = target.get_look_input_direction()
+	var look_input_direction = target.get_look_input_direction()
 
-	zoom_level = clamp(zoom_level + input_direction.y * delta, 0, 1)
+	if not look_input_direction and zoom_timer.is_stopped():
+		zoom_timer.start(3)
 
-	rotation_degrees.y += -input_direction.x * max_rotation_speed
+	if look_input_direction and not zoom_timer.is_stopped():
+		zoom_timer.stop()
+
+	if look_input_direction and tween.is_active():
+		tween.stop_all()
+
+	if not tween.is_active():
+		zoom_level = clamp(zoom_level + look_input_direction.y * delta, 0, 1)
+
+	rotation_degrees.y += -look_input_direction.x * max_rotation_speed
+	rotation_degrees.y += -target.get_raw_walk_input_direction().x
+
 	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 
 	dummy.translation = Vector3(0, 0, lerp(0, max_distance, zoom_level))
@@ -49,7 +64,7 @@ func _process(delta: float) -> void:
 	var new_camera_position = dummy.translation
 
 	if result:
-		new_camera_position.z = target.global_transform.origin.distance_to(result.position)
+		new_camera_position.z = target.global_transform.origin.distance_to(result.position) - collision_margin
 
 	camera.translation = lerp(camera.translation, new_camera_position, .5)
 
@@ -60,3 +75,7 @@ func get_direction() -> Vector3:
 	var direction = camera.translation.direction_to(target.translation)
 	direction.y = 0
 	return direction
+
+func _on_ZoomTimer_timeout() -> void:
+	tween.interpolate_property(self, "zoom_level", zoom_level, 0.5, 3.5, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	tween.start()

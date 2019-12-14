@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/items/Gear.gd"
 }, {
-"base": "Control",
+"base": "CanvasLayer",
 "class": "HUD",
 "language": "GDScript",
-"path": "res://source/HUD.gd"
+"path": "res://source/hud/HUD.gd"
 }, {
 "base": "KinematicBody",
 "class": "Robot",

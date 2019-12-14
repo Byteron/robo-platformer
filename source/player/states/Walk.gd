@@ -60,3 +60,4 @@ func update(host: Node, delta: float) -> void:
 
 func exit(host: Node) -> void:
 	host = host as Robot
+	host.anim_tree.set("parameters/idle_to_walk/blend_amount", 0)
