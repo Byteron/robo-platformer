@@ -12,6 +12,9 @@ script = ExtResource( 2 )
 [node name="turret" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0718406, 0 )
 
+[node name="BulletPos" type="Position3D" parent="turret/Cannon" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62827, 0, 0 )
+
 [node name="DetectionArea" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="DetectionArea"]
