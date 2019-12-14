@@ -1,0 +1,137 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://source/projectile/Laser.tres" type="Material" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.00740741, 0.8, 1 )
+colors = PoolColorArray( 1, 0.234375, 0.234375, 1, 1, 0.218633, 0.218633, 0.932836, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 0.02, 4, 0.02 )
+gravity = Vector3( 0, 0, 0 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="QuadMesh" id=5]
+material = ExtResource( 1 )
+
+[sub_resource type="QuadMesh" id=6]
+size = Vector2( 0.1, 4 )
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.292398, 0.532164, 0.695906, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 0.498039, 1, 1, 1, 1, 1, 0, 0, 0.537255, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="VisualShaderNodeTexture" id=9]
+texture = SubResource( 8 )
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id=10]
+input_name = "time"
+
+[sub_resource type="OpenSimplexNoise" id=11]
+
+[sub_resource type="NoiseTexture" id=12]
+noise = SubResource( 11 )
+
+[sub_resource type="VisualShaderNodeTexture" id=13]
+texture = SubResource( 12 )
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeInput" id=14]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeScalarOp" id=15]
+operator = 2
+
+[sub_resource type="VisualShaderNodeScalarInterp" id=16]
+output_port_for_preview = 0
+default_input_values = [ 0, 0.0, 1, 1.0, 2, 0.3 ]
+
+[sub_resource type="VisualShader" id=17]
+code = "shader_type spatial;
+render_mode blend_add;
+
+uniform sampler2D tex_frg_2 : hint_albedo;uniform sampler2D tex_frg_4 : hint_albedo;
+
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Texture:2
+	vec3 n_out2p0;
+	float n_out2p1;
+	vec4 tex_frg_2_read = texture( tex_frg_2 , UV.xy );
+	n_out2p0 = tex_frg_2_read.rgb;
+	n_out2p1 = tex_frg_2_read.a;
+
+// Input:3
+	float n_out3p0;
+	n_out3p0 = TIME;
+
+// Texture:4
+	vec3 n_out4p0;
+	float n_out4p1;
+	vec4 tex_frg_4_read = texture( tex_frg_4 , vec3(n_out3p0).xy );
+	n_out4p0 = tex_frg_4_read.rgb;
+	n_out4p1 = tex_frg_4_read.a;
+
+// ScalarMix:7
+	float n_in7p2 = 0.30000;
+	float n_out7p0;
+	n_out7p0 = mix( n_out2p1 , dot(n_out4p0,vec3(0.333333,0.333333,0.333333)) , n_in7p2 );
+
+// Output:0
+	ALBEDO = n_out2p0;
+	ALPHA = n_out7p0;
+	EMISSION = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+graph_offset = Vector2( -50, 86.75 )
+modes/blend = 1
+nodes/fragment/0/position = Vector2( 900, 80 )
+nodes/fragment/2/node = SubResource( 9 )
+nodes/fragment/2/position = Vector2( 180, 80 )
+nodes/fragment/3/node = SubResource( 10 )
+nodes/fragment/3/position = Vector2( -20, 440 )
+nodes/fragment/4/node = SubResource( 13 )
+nodes/fragment/4/position = Vector2( 300, 300 )
+nodes/fragment/5/node = SubResource( 14 )
+nodes/fragment/5/position = Vector2( -20, 200 )
+nodes/fragment/6/node = SubResource( 15 )
+nodes/fragment/6/position = Vector2( 100, 280 )
+nodes/fragment/7/node = SubResource( 16 )
+nodes/fragment/7/position = Vector2( 560, 300 )
+nodes/fragment/connections = PoolIntArray( 5, 0, 6, 0, 3, 0, 6, 1, 4, 0, 7, 1, 3, 0, 4, 0, 2, 1, 7, 0, 2, 0, 0, 0, 7, 0, 0, 1, 2, 0, 0, 5 )
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = SubResource( 17 )
+
+[node name="Laser" type="Spatial"]
+
+[node name="Particles" type="Particles" parent="."]
+visible = false
+amount = 256
+lifetime = 0.5
+speed_scale = 2.0
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 6 )
+material/0 = SubResource( 18 )

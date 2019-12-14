@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://graphics/level/test-level.glb" type="PackedScene" id=1]
+[ext_resource path="res://source/items/Gear.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/level/RotoPlatform.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Move"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("KinematicBody:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, 5 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="TestLevel" type="Spatial"]
+
+[node name="test-level" parent="." instance=ExtResource( 1 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+
+[node name="Gears" type="Spatial" parent="."]
+
+[node name="Gear" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 1.40351, 3.81344, -2.56219 )
+
+[node name="Gear2" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 2.70503, 3.81344, -2.62566 )
+
+[node name="Gear3" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 3.87481, 3.81344, -2.64612 )
+
+[node name="Gear4" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 5.2806, 3.81344, -2.38962 )
+
+[node name="Gear5" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 12.4258, 3.5784, 19.3786 )
+
+[node name="Gear6" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 13.593, 3.5784, 19.3786 )
+
+[node name="Gear7" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 14.9794, 3.5784, 19.3786 )
+
+[node name="Gear10" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 12.4258, 3.5784, 18.2601 )
+
+[node name="Gear9" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 13.593, 3.5784, 18.2601 )
+
+[node name="Gear8" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 14.9794, 3.5784, 18.2601 )
+
+[node name="Gear13" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 12.4258, 3.5784, 17.0653 )
+
+[node name="Gear12" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 13.593, 3.5784, 17.0653 )
+
+[node name="Gear11" parent="Gears" instance=ExtResource( 2 )]
+transform = Transform( 0.986115, 0, -0.166063, 0, 1, 0, 0.166063, 0, 0.986115, 14.9794, 3.5784, 17.0653 )
+
+[node name="Platforms" type="Spatial" parent="."]
+
+[node name="RotoPlatform" parent="Platforms" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2936, 13.3388, 7.45967 )
+
+[node name="Marker" parent="Platforms/RotoPlatform" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7633, 0.514565, -3.96018 )
+
+[node name="RotoPlatform2" parent="Platforms" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98789, 13.3388, 3.3352 )
+duration = 8.0
+
+[node name="Marker" parent="Platforms/RotoPlatform2" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6607, 3.04844, 0 )
+
+[node name="AnimationPlayer" parent="Platforms/RotoPlatform2" index="3"]
+anims/Move = SubResource( 1 )
+
+[node name="RotoPlatform3" parent="Platforms" instance=ExtResource( 3 )]
+transform = Transform( 0.859665, 0, -0.510858, 0, 1, 0, 0.510858, 0, 0.859665, 19.5639, 4.43913, 12.4844 )
+
+[node name="Marker" parent="Platforms/RotoPlatform3" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+
+[editable path="test-level"]
+
+[editable path="Platforms/RotoPlatform"]
+
+[editable path="Platforms/RotoPlatform2"]
+
+[editable path="Platforms/RotoPlatform3"]

@@ -8,7 +8,6 @@ func _physics_process(delta):
 	global_translate(vel * delta)
 	if get_overlapping_bodies().size() > 0:
 		print("COL")
-	
 
 func _on_EnergyBullet_body_entered(body):
 	var e = explosion.instance()
@@ -16,3 +15,5 @@ func _on_EnergyBullet_body_entered(body):
 	e.global_transform.origin = global_transform.origin
 	queue_free()
 
+func _on_DespawnTimer_timeout():
+	queue_free()

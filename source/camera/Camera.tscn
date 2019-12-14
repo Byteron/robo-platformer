@@ -20,4 +20,5 @@ one_shot = true
 
 [node name="Camera" type="Camera" parent="VerticalGimbal"]
 transform = Transform( 1, 0, 0, 0, 1, -1.52737e-07, 0, 1.52737e-07, 1, 0, 0, 0 )
+far = 300.0
 [connection signal="timeout" from="ZoomTimer" to="." method="_on_ZoomTimer_timeout"]
