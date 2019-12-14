@@ -678,6 +678,7 @@ tracks/42/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 3.33333, 1, 
 [sub_resource type="Animation" id=17]
 resource_name = "Robot_Idle"
 length = 3.33333
+loop = true
 tracks/0/type = "transform"
 tracks/0/path = NodePath("RobotArmature/Skeleton:foot_l")
 tracks/0/interp = 1
