@@ -11,13 +11,13 @@ colors = PoolColorArray( 0.503906, 0.64101, 1, 1, 0.503514, 0.640649, 1, 0.79850
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.4439 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
-curve = SubResource( 9 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 2
 emission_box_extents = Vector3( 0.1, 0.2, 0.1 )
 spread = 180.0
@@ -26,10 +26,10 @@ initial_velocity = 0.5
 tangential_accel = 8.0
 damping = 8.0
 scale = 1.3
-scale_curve = SubResource( 10 )
+scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
@@ -40,10 +40,10 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_texture = ExtResource( 1 )
 
-[sub_resource type="QuadMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="QuadMesh" id=7]
+material = SubResource( 6 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
@@ -55,11 +55,11 @@ particles_anim_loop = false
 albedo_color = Color( 0.517647, 0.784314, 1, 1 )
 albedo_texture = ExtResource( 2 )
 
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
 size = Vector2( 2, 2 )
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=10]
 extents = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="EnergyBullet" type="Area"]
@@ -71,11 +71,11 @@ amount = 32
 lifetime = 0.2
 speed_scale = 2.0
 local_coords = false
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 5 )
+process_material = SubResource( 5 )
+draw_pass_1 = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 7 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="OmniLight" type="OmniLight" parent="."]
@@ -84,5 +84,5 @@ light_energy = 2.0
 omni_range = 2.75131
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 [connection signal="body_entered" from="." to="." method="_on_EnergyBullet_body_entered"]

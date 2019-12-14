@@ -5,12 +5,12 @@
 [ext_resource path="res://graphics/particles/kenney pack/flare_01.png" type="Texture" id=3]
 [ext_resource path="res://graphics/particles/kenney pack/scorch_03.png" type="Texture" id=4]
 
-[sub_resource type="Gradient" id=14]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.037037, 0.496296 )
 colors = PoolColorArray( 0.608143, 0.902824, 0.915979, 0.895522, 0.195801, 0.195801, 0.195801, 0 )
 
 [sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 14 )
+gradient = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 spread = 180.0
@@ -19,7 +19,7 @@ initial_velocity = 2.0
 damping = 12.64
 color_ramp = SubResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
@@ -30,23 +30,23 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_texture = ExtResource( 4 )
 
-[sub_resource type="QuadMesh" id=13]
-material = SubResource( 12 )
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.496296 )
 colors = PoolColorArray( 0.777344, 0.990485, 1, 1, 0.195801, 0.195801, 0.195801, 0 )
 
-[sub_resource type="GradientTexture" id=8]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
-[sub_resource type="Curve" id=15]
+[sub_resource type="Curve" id=8]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=16]
-curve = SubResource( 15 )
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=9]
+[sub_resource type="ParticlesMaterial" id=10]
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 8.0
@@ -54,10 +54,10 @@ damping = 12.64
 angle = -5.9
 scale = 0.5
 scale_random = 0.5
-scale_curve = SubResource( 16 )
-color_ramp = SubResource( 8 )
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
@@ -68,10 +68,10 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=11]
-material = SubResource( 10 )
+[sub_resource type="QuadMesh" id=12]
+material = SubResource( 11 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=13]
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 3.0
@@ -79,11 +79,10 @@ damping = 10.0
 scale = 1.5
 color_ramp = SubResource( 2 )
 
-[sub_resource type="QuadMesh" id=4]
+[sub_resource type="QuadMesh" id=14]
 material = ExtResource( 1 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "explode"
+[sub_resource type="Animation" id=15]
 length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Particles:emitting")
@@ -145,7 +144,7 @@ one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
 process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 13 )
+draw_pass_1 = SubResource( 5 )
 
 [node name="Particles3" type="Particles" parent="."]
 emitting = false
@@ -154,8 +153,8 @@ lifetime = 1.2
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
-process_material = SubResource( 9 )
-draw_pass_1 = SubResource( 11 )
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 12 )
 
 [node name="Particles2" type="Particles" parent="."]
 emitting = false
@@ -164,11 +163,11 @@ lifetime = 0.8
 one_shot = true
 speed_scale = 1.2
 explosiveness = 1.0
-process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 4 )
+process_material = SubResource( 13 )
+draw_pass_1 = SubResource( 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/explode = SubResource( 6 )
+anims/explode = SubResource( 15 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 light_color = Color( 0.705882, 0.952941, 1, 1 )
