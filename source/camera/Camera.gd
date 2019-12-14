@@ -10,7 +10,7 @@ export var max_distance := 10
 export var max_rotation_speed := 4
 
 export(Curve) var distance_curve : Curve = null
-
+export var collision_margin := 2.0
 export(float, 0.0, 1.0) var smoothing := 0.95
 
 onready var target : Robot = null
@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 	var new_camera_position = dummy.translation
 
 	if result:
-		new_camera_position.z = target.global_transform.origin.distance_to(result.position)
+		new_camera_position.z = target.global_transform.origin.distance_to(result.position) - collision_margin
 
 	camera.translation = lerp(camera.translation, new_camera_position, .5)
 
