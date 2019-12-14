@@ -9,11 +9,10 @@ func _physics_process(delta):
 	if get_overlapping_bodies().size() > 0:
 		print("COL")
 
+
 func _on_EnergyBullet_body_entered(body):
 	var e = explosion.instance()
 	get_parent().call_deferred("add_child", e)
 	e.global_transform.origin = global_transform.origin
 	queue_free()
 
-func _on_DespawnTimer_timeout():
-	queue_free()

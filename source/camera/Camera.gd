@@ -1,6 +1,7 @@
 extends Spatial
 
 var zoom_level = 0.5
+var scroll_zoom_level = 0.5
 
 export(NodePath) var target_path = null
 
@@ -28,6 +29,12 @@ func _ready() -> void:
 	else:
 		set_process(false)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("scroll_up"):
+		scroll_zoom_level = clamp(scroll_zoom_level - 0.05, 0, 1)
+	elif event.is_action_pressed("scroll_down"):
+		scroll_zoom_level = clamp(scroll_zoom_level + 0.05, 0, 1)
+
 func _process(delta: float) -> void:
 	var space_state = get_world().direct_space_state
 
@@ -49,8 +56,11 @@ func _process(delta: float) -> void:
 	if look_input_direction and tween.is_active():
 		tween.stop_all()
 
-	if not tween.is_active():
+	if not tween.is_active() and Devices.current_device == Devices.DEVICES.GAMEPAD:
 		zoom_level = clamp(zoom_level + look_input_direction.y * delta, 0, 1)
+		scroll_zoom_level = zoom_level
+	elif not tween.is_active() and Devices.current_device == Devices.DEVICES.KEYBOARD:
+		zoom_level = lerp(zoom_level, scroll_zoom_level, 1.0 - smoothing)
 
 	rotation_degrees.y += -look_input_direction.x * max_rotation_speed
 	rotation_degrees.y += -target.get_raw_walk_input_direction().x
@@ -67,6 +77,7 @@ func _process(delta: float) -> void:
 		new_camera_position.z = target.global_transform.origin.distance_to(result.position) - collision_margin
 
 	camera.translation = lerp(camera.translation, new_camera_position, .5)
+
 
 func get_direction() -> Vector3:
 	if not target:
