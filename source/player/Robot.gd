@@ -25,7 +25,12 @@ func _process(delta: float) -> void:
 		look_at(carrot, Vector3.UP)
 
 func play(anim_name: String) -> void:
-	pass
+	var idx = 0
+	if anim_name == "walk": idx = 0
+	if anim_name == "jump": idx = 1
+	if anim_name == "fall": idx = 2
+	if anim_name == "land": idx = 3
+	anim_tree.set("parameters/state/current", idx)
 
 func get_walk_input_direction() -> Vector3:
 	return get_raw_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
