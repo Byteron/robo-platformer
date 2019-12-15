@@ -14,11 +14,14 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
+var spawn_pos := Vector3()
+
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	fsm.host = self
 	camera = get_node(camera_path)
 	fsm.change_state("Idle")
+	spawn_pos = global_transform.origin
 
 func _process(delta: float) -> void:
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
@@ -79,3 +82,6 @@ func change_state(state: String) -> void:
 
 func _on_FSM_state_changed(state_name) -> void:
 	print(name, ": ", state_name)
+
+func respawn():
+	global_transform.origin = spawn_pos
