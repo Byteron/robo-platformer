@@ -31,6 +31,7 @@ tracks/0/keys = {
 script = ExtResource( 2 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00277546, 0 )

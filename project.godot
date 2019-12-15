@@ -104,6 +104,11 @@ scroll_down={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Player"
+3d_physics/layer_2="World"
+
 [rendering]
 
 quality/filters/msaa=3
