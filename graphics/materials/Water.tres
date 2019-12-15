@@ -1,0 +1,56 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=2]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode unshaded;
+
+uniform sampler2D noise1;
+uniform sampler2D noise2;
+uniform float speed : hint_range(-1,1) = 0.0;
+
+uniform vec4 water_color: hint_color;
+
+void fragment() {
+	float t = TIME * speed;
+	vec3 v1 = texture(noise1, UV+t).rgb;
+	vec3 v2  =texture(noise2, UV -t).rgb;
+	float sum = (v1.r + v2.r) - 0.7;
+	
+	vec4 back = vec4(1.0);
+	
+	if (water_color.a < 1.0) {
+		back = texture(SCREEN_TEXTURE, SCREEN_UV)
+	}
+	
+	float fin = 0.0;
+	if (sum > 0.0 && sum <0.2) fin = 0.1;
+	if (sum > 0.2 && sum <0.5) fin = 0.0;
+	if (sum > 0.5) fin = 0.3;
+	
+	ALBEDO = vec3(fin) + mix(back.rgb, water_color.rgb, water_color.a);
+}"
+
+[sub_resource type="OpenSimplexNoise" id=4]
+period = 16.0
+
+[sub_resource type="NoiseTexture" id=5]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource( 4 )
+
+[sub_resource type="OpenSimplexNoise" id=6]
+period = 16.0
+
+[sub_resource type="NoiseTexture" id=7]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource( 6 )
+
+[resource]
+shader = SubResource( 3 )
+shader_param/speed = 0.005
+shader_param/water_color = Color( 0, 0.65098, 1, 0.254902 )
+shader_param/noise1 = SubResource( 5 )
+shader_param/noise2 = SubResource( 7 )
