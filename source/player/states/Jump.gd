@@ -4,7 +4,7 @@ var host : Robot = null
 
 var jumped := false
 
-export var jump_force := 18
+export var jump_force := 12
 
 export var max_speed := 450
 export var acceleration := 15
@@ -37,8 +37,10 @@ func update(host: Node, delta: float) -> void:
 		if host.motion.y > 0.0:
 			canceled = true
 			print("jump canceled")
-			host.motion.y = 0
-
+	if canceled and host.motion.y > 0.0:
+		host.motion.y = lerp ( host.motion.y, 0.0, friction)
+		if host.motion.y < 0.1:
+			host.motion.y = 0.0
 	host.move_and_slide(host.motion, Vector3.UP)
 
 	if host.is_on_floor() and jumped:
