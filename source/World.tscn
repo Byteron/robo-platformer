@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/level/test-level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/enemies/Sawbot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://graphics/materials/Water.tres" type="Material" id=5]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.239216, 0.521569, 0.678431, 1 )
@@ -16,67 +18,15 @@ ground_horizon_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 background_mode = 2
 background_sky = SubResource( 1 )
 ambient_light_sky_contribution = 0.0
+fog_enabled = true
+fog_depth_begin = 50.0
+fog_depth_end = 150.0
 tonemap_mode = 2
 ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="Shader" id=4]
-code = "shader_type spatial;
-render_mode unshaded;
-
-uniform sampler2D noise1;
-uniform sampler2D noise2;
-uniform float speed : hint_range(-1,1) = 0.0;
-
-uniform vec4 water_color: hint_color;
-
-void fragment() {
-	float t = TIME * speed;
-	vec3 v1 = texture(noise1, UV+t).rgb;
-	vec3 v2  =texture(noise2, UV -t).rgb;
-	float sum = (v1.r + v2.r) - 0.7;
-	
-	vec4 back = vec4(1.0);
-	
-	if (water_color.a < 1.0) {
-		back = texture(SCREEN_TEXTURE, SCREEN_UV)
-	}
-	
-	float fin = 0.0;
-	if (sum > 0.0 && sum <0.2) fin = 0.1;
-	if (sum > 0.2 && sum <0.5) fin = 0.0;
-	if (sum > 0.5) fin = 0.3;
-	
-	ALBEDO = vec3(fin) + mix(back.rgb, water_color.rgb, water_color.a);
-}"
-
-[sub_resource type="OpenSimplexNoise" id=6]
-period = 16.0
-
-[sub_resource type="NoiseTexture" id=7]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource( 6 )
-
-[sub_resource type="OpenSimplexNoise" id=8]
-period = 16.0
-
-[sub_resource type="NoiseTexture" id=9]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource( 8 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
-shader_param/speed = 0.005
-shader_param/water_color = Color( 0, 0.65098, 1, 0.254902 )
-shader_param/noise1 = SubResource( 7 )
-shader_param/noise2 = SubResource( 9 )
-
-[sub_resource type="PlaneMesh" id=3]
-material = SubResource( 5 )
+[sub_resource type="PlaneMesh" id=9]
+material = ExtResource( 5 )
 size = Vector2( 300, 300 )
 
 [sub_resource type="SpatialMaterial" id=10]
@@ -85,6 +35,10 @@ albedo_color = Color( 0.243137, 0.380392, 0.611765, 1 )
 [sub_resource type="PlaneMesh" id=11]
 material = SubResource( 10 )
 size = Vector2( 300, 300 )
+
+[sub_resource type="SpatialMaterial" id=12]
+flags_unshaded = true
+albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
 [node name="World" type="Spatial"]
 
@@ -112,12 +66,23 @@ transform = Transform( -0.673942, 0, -0.738785, 0, 1, 0, 0.738785, 0, -0.673942,
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="Water" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
+mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Water2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.66295, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.38001, 0 )
 mesh = SubResource( 11 )
 material/0 = null
 
 [node name="test-level" parent="." instance=ExtResource( 3 )]
+
+[node name="Horizon" type="CSGTorus" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
+inner_radius = 115.556
+outer_radius = 300.0
+sides = 12
+material = SubResource( 12 )
+
+[node name="WaterArea" parent="." instance=ExtResource( 7 )]
+
+[editable path="WaterArea"]
