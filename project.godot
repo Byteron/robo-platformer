@@ -24,22 +24,58 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/hud/HUD.gd"
 }, {
+"base": "Node",
+"class": "MusicBooth",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/MusicBooth.gd"
+}, {
 "base": "KinematicBody",
 "class": "Robot",
 "language": "GDScript",
 "path": "res://source/player/Robot.gd"
 }, {
 "base": "Node",
+"class": "Song",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/Song.gd"
+}, {
+"base": "Node",
+"class": "Sound",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/sfx/Sound.gd"
+}, {
+"base": "Node",
+"class": "SoundBooth",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/sfx/SoundBooth.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://addons/finite_state_machine/source/State.gd"
+}, {
+"base": "Node",
+"class": "StingerContainer",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/containers/StingerContainer.gd"
+}, {
+"base": "Node",
+"class": "TrackContainer",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/containers/TrackContainer.gd"
 } ]
 _global_script_class_icons={
 "FiniteStateMachine": "",
 "Gear": "",
 "HUD": "",
+"MusicBooth": "",
 "Robot": "",
-"State": ""
+"Song": "",
+"Sound": "",
+"SoundBooth": "",
+"State": "",
+"StingerContainer": "",
+"TrackContainer": ""
 }
 
 [application]
@@ -52,10 +88,11 @@ run/main_scene="res://source/World.tscn"
 Global="*res://source/global/Global.gd"
 Devices="*res://source/global/Devices.gd"
 Gamestate="*res://source/global/Gamestate.gd"
+Music="*res://source/global/Music.tscn"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "finite_state_machine" )
+enabled=PoolStringArray( "audio_booth", "finite_state_machine" )
 
 [input]
 

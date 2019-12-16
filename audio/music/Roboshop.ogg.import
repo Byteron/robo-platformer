@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Roboshop.ogg-4705ced4eab32aaf9c9bfcb1f37753ee.oggstr"
+
+[deps]
+
+source_file="res://audio/music/Roboshop.ogg"
+dest_files=[ "res://.import/Roboshop.ogg-4705ced4eab32aaf9c9bfcb1f37753ee.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=13.33

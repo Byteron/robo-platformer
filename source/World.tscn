@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://graphics/materials/Water.tres" type="Material" id=5]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/World.gd" type="Script" id=8]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.239216, 0.521569, 0.678431, 1 )
@@ -41,6 +42,7 @@ flags_unshaded = true
 albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
 [node name="World" type="Spatial"]
+script = ExtResource( 8 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.203898, 0.978992, 0, -0.978992, 0.203898, 0, 3.6036, 8.99302 )
