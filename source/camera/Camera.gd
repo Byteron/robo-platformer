@@ -21,7 +21,7 @@ onready var tween := $Tween
 
 onready var gimbal_v := $VerticalGimbal
 onready var dummy := $VerticalGimbal/Dummy
-onready var camera := $VerticalGimbal/Camera
+onready var camera := $VerticalGimbal/ClippedCamera
 
 func _ready() -> void:
 	if target_path:
@@ -67,16 +67,7 @@ func _process(delta: float) -> void:
 
 	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 
-	dummy.translation = Vector3(0, 0, lerp(0, max_distance, zoom_level))
-
-	result = space_state.intersect_ray(target.translation + Vector3(0, 1, 0), dummy.global_transform.origin, [target])
-
-	var new_camera_position = dummy.translation
-
-	if result:
-		new_camera_position.z = target.global_transform.origin.distance_to(result.position) - collision_margin
-
-	camera.translation = lerp(camera.translation, new_camera_position, .5)
+	camera.translation = Vector3(0, 0, lerp(0, max_distance, zoom_level))
 
 
 func get_direction() -> Vector3:

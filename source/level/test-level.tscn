@@ -26,6 +26,36 @@ tracks/0/keys = {
 [node name="test-level" parent="." instance=ExtResource( 1 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
+[node name="static_collision" parent="test-level/Platform001" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform008" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform002" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform007" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform003" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform006" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform004" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform009" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform005" index="0"]
+collision_layer = 2
+
+[node name="static_collision" parent="test-level/Platform" index="0"]
+collision_layer = 2
+
 [node name="Gears" type="Spatial" parent="."]
 
 [node name="Gear" parent="Gears" instance=ExtResource( 2 )]

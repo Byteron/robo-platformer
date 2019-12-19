@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://source/global/Music.gd" type="Script" id=1]
+[ext_resource path="res://audio/music/Roboshop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://addons/audio_booth/source/music/containers/TrackContainer.gd" type="Script" id=3]
+[ext_resource path="res://addons/audio_booth/source/music/Song.gd" type="Script" id=4]
+
+[node name="Music" type="Node"]
+script = ExtResource( 1 )
+
+[node name="Roboshop" type="Node" parent="."]
+script = ExtResource( 4 )
+tempo = 180.0
+beats = 4
+
+[node name="TrackContainer" type="Node" parent="Roboshop"]
+script = ExtResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Roboshop/TrackContainer"]
+stream = ExtResource( 2 )

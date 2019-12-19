@@ -24,22 +24,58 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/hud/HUD.gd"
 }, {
+"base": "Node",
+"class": "MusicBooth",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/MusicBooth.gd"
+}, {
 "base": "KinematicBody",
 "class": "Robot",
 "language": "GDScript",
 "path": "res://source/player/Robot.gd"
 }, {
 "base": "Node",
+"class": "Song",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/Song.gd"
+}, {
+"base": "Node",
+"class": "Sound",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/sfx/Sound.gd"
+}, {
+"base": "Node",
+"class": "SoundBooth",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/sfx/SoundBooth.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://addons/finite_state_machine/source/State.gd"
+}, {
+"base": "Node",
+"class": "StingerContainer",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/containers/StingerContainer.gd"
+}, {
+"base": "Node",
+"class": "TrackContainer",
+"language": "GDScript",
+"path": "res://addons/audio_booth/source/music/containers/TrackContainer.gd"
 } ]
 _global_script_class_icons={
 "FiniteStateMachine": "",
 "Gear": "",
 "HUD": "",
+"MusicBooth": "",
 "Robot": "",
-"State": ""
+"Song": "",
+"Sound": "",
+"SoundBooth": "",
+"State": "",
+"StingerContainer": "",
+"TrackContainer": ""
 }
 
 [application]
@@ -52,6 +88,7 @@ run/main_scene="res://source/World.tscn"
 Global="*res://source/global/Global.gd"
 Devices="*res://source/global/Devices.gd"
 Gamestate="*res://source/global/Gamestate.gd"
+Music="*res://source/global/Music.tscn"
 
 [display]
 
@@ -60,7 +97,7 @@ window/size/height=720
 
 [editor_plugins]
 
-enabled=PoolStringArray( "finite_state_machine" )
+enabled=PoolStringArray( "audio_booth", "finite_state_machine" )
 
 [input]
 
@@ -128,6 +165,11 @@ debug-down={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777352,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="Player"
+3d_physics/layer_2="World"
 
 [rendering]
 

@@ -18,7 +18,7 @@ one_shot = true
 
 [node name="Dummy" type="Spatial" parent="VerticalGimbal"]
 
-[node name="Camera" type="Camera" parent="VerticalGimbal"]
-transform = Transform( 1, 0, 0, 0, 1, -1.52737e-07, 0, 1.52737e-07, 1, 0, 0, 0 )
-far = 300.0
+[node name="ClippedCamera" type="ClippedCamera" parent="VerticalGimbal"]
+margin = 1.0
+collision_mask = 2
 [connection signal="timeout" from="ZoomTimer" to="." method="_on_ZoomTimer_timeout"]

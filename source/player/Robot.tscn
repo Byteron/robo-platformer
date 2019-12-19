@@ -4098,6 +4098,7 @@ nodes/time/position = Vector2( 760, 140 )
 node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
 [node name="Robot" type="KinematicBody"]
+collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Robot" type="Spatial" parent="."]
