@@ -8,7 +8,7 @@ export var max_speed := 6.0
 
 export var acceleration = 0.6
 
-export var friction := 0.02
+export var friction := 0.2
 
 export var turn_threshhold := 0.7
 
