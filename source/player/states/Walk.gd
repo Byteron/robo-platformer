@@ -8,7 +8,7 @@ export var max_speed := 6.0
 
 export var acceleration = 0.6
 
-export var friction := 0.2
+export var friction := 0.4
 
 export var turn_threshhold := 0.7
 
@@ -29,17 +29,15 @@ func update(host: Node, delta: float) -> void:
 
 	if input_direction:
 		speed = clamp(speed + acceleration, 0, max_speed)
-		host.motion = input_direction * speed
+		host.motion.x = input_direction.x * speed
+		host.motion.z = input_direction.z * speed
 	else:
 		speed = lerp(speed, 0, friction)
 		host.motion.x = lerp(host.motion.x, 0, friction)
 		host.motion.z = lerp(host.motion.z, 0, friction)
 
-
 	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
-
 	host.anim_tree.set("parameters/time/scale", host.motion.length() / max_speed * 1.5)
-
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 
