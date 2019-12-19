@@ -8,7 +8,6 @@
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/World.gd" type="Script" id=9]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.239216, 0.521569, 0.678431, 1 )

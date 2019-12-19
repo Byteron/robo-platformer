@@ -69,23 +69,24 @@ shadow_enabled = true
 spot_range = 12.4081
 spot_angle = 29.6559
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.258819, -0.482963, 0.836516, 0, 0.866025, 0.5, -0.965926, -0.129409, 0.224144, 5.412, 3.963, 0.895 )
-fov = 65.6
-size = 9.96
-near = 0.06
-
 [node name="Menu" type="MeshInstance" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -0.833058, 1.6169, -1.494 )
+transform = Transform( 0.271718, -0.0328669, 0.418437, -0.0211481, 0.496758, 0.052752, -0.419192, -0.0463655, 0.268568, -0.554664, 1.57455, -0.378608 )
 layers = 2
 mesh = SubResource( 3 )
 material/0 = SubResource( 5 )
 
-[node name="Menu2" type="MeshInstance" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, -1.03209, 2.0683, 0.133681 )
+[node name="Menu2" type="MeshInstance" parent="Menu"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62768, 0.4514, -0.199032 )
 layers = 2
 mesh = SubResource( 7 )
 material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.877188, -0.13808, 0.459864, 0, 0.957757, 0.287578, -0.480147, -0.25226, 0.840133, 1.05378, 2.43955, 2.11086 )
+current = true
+fov = 65.6
+size = 9.96
+near = 0.06
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1280, 720 )
