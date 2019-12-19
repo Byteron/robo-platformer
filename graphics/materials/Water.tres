@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=2]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type spatial;
 render_mode unshaded;
 
@@ -30,6 +30,15 @@ void fragment() {
 	ALBEDO = vec3(fin) + mix(back.rgb, water_color.rgb, water_color.a);
 }"
 
+[sub_resource type="OpenSimplexNoise" id=2]
+period = 16.0
+
+[sub_resource type="NoiseTexture" id=3]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource( 2 )
+
 [sub_resource type="OpenSimplexNoise" id=4]
 period = 16.0
 
@@ -39,18 +48,9 @@ height = 1024
 seamless = true
 noise = SubResource( 4 )
 
-[sub_resource type="OpenSimplexNoise" id=6]
-period = 16.0
-
-[sub_resource type="NoiseTexture" id=7]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource( 6 )
-
 [resource]
-shader = SubResource( 3 )
+shader = SubResource( 1 )
 shader_param/speed = 0.005
 shader_param/water_color = Color( 0, 0.65098, 1, 0.254902 )
-shader_param/noise1 = SubResource( 5 )
-shader_param/noise2 = SubResource( 7 )
+shader_param/noise1 = SubResource( 3 )
+shader_param/noise2 = SubResource( 5 )

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/droid-sans/DroidSans-Bold.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 144
+outline_size = 10
+outline_color = Color( 0, 0.0901961, 0.286275, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 400, 200 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 785.0
+margin_bottom = 168.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.313726, 0.615686, 0.776471, 1 )
+text = "Start Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 172.0
+margin_right = 785.0
+margin_bottom = 340.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.105882, 0.333333, 0.654902, 1 )
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+margin_top = 344.0
+margin_right = 785.0
+margin_bottom = 512.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.105882, 0.333333, 0.654902, 1 )
+text = "Exit"
+__meta__ = {
+"_edit_use_anchors_": false
+}

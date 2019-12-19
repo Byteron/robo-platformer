@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=2]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.2
+
+[sub_resource type="CapsuleMesh" id=2]
+radius = 0.2
+
+[sub_resource type="BoxShape" id=3]
+
+[sub_resource type="CubeMesh" id=4]
+
+[sub_resource type="ProceduralSky" id=5]
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Segment" type="RigidBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Segment"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Segment"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Segment2" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Segment2"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Segment2"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Segment3" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Segment3"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Segment3"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Segment4" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.9 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Segment4"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Segment4"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Cube" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.52144 )
+mass = 50.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Cube"]
+shape = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cube"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
+
+[node name="PinJoint1" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.65 )
+nodes/node_a = NodePath("../Segment")
+nodes/node_b = NodePath("../Segment2")
+params/damping = 1.2
+
+[node name="PinJoint2" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.95 )
+nodes/node_a = NodePath("../Segment2")
+nodes/node_b = NodePath("../Segment3")
+params/damping = 1.2
+
+[node name="PinJoint3" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.25 )
+nodes/node_a = NodePath("../Segment3")
+nodes/node_b = NodePath("../Segment4")
+params/damping = 1.2
+
+[node name="PinJoint4" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.45 )
+nodes/node_a = NodePath("../Segment4")
+nodes/node_b = NodePath("../Cube")
+params/damping = 1.2
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -10.419, -0.001, -0.012 )
+
+[node name="PinJoint" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.65 )
+nodes/node_b = NodePath("../Segment")

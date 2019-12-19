@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://graphics/materials/metal.tres" type="Material" id=1]
+[ext_resource path="res://source/level/crane/Crane.gd" type="Script" id=2]
+[ext_resource path="res://graphics/materials/gray.tres" type="Material" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 2, 2, 4 )
+
+[sub_resource type="CubeMesh" id=2]
+material = ExtResource( 1 )
+size = Vector3( 1, 20, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+material = ExtResource( 1 )
+size = Vector3( 1, 1, 20 )
+
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 1 )
+size = Vector3( 2, 0.2, 2 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 1, 0.1, 1 )
+
+[node name="Crane" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Base" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+mesh = SubResource( 1 )
+material/0 = ExtResource( 1 )
+
+[node name="Back" type="MeshInstance" parent="Base"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 1 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Arm" type="MeshInstance" parent="Base/Back"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 10 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Platform" type="KinematicBody" parent="Base/Back/Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 8 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Base/Back/Arm/Platform"]
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Base/Back/Arm/Platform"]
+shape = SubResource( 5 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Base/Back/Arm/Platform"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, -0.125, 0, -0.125 )
+polygon = PoolVector2Array( 0, 0, 0, 0.25, 0.25, 0.25, 0.25, 0 )
+depth = 19.0
+material = ExtResource( 3 )

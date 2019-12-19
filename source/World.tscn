@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://graphics/materials/Water.tres" type="Material" id=5]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.239216, 0.521569, 0.678431, 1 )
@@ -25,18 +26,18 @@ tonemap_mode = 2
 ssao_enabled = true
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id=9]
+[sub_resource type="PlaneMesh" id=3]
 material = ExtResource( 5 )
 size = Vector2( 300, 300 )
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 0.243137, 0.380392, 0.611765, 1 )
 
-[sub_resource type="PlaneMesh" id=11]
-material = SubResource( 10 )
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 size = Vector2( 300, 300 )
 
-[sub_resource type="SpatialMaterial" id=12]
+[sub_resource type="SpatialMaterial" id=6]
 flags_unshaded = true
 albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
@@ -66,12 +67,12 @@ transform = Transform( -0.673942, 0, -0.738785, 0, 1, 0, 0.738785, 0, -0.673942,
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="Water" type="MeshInstance" parent="."]
-mesh = SubResource( 9 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="Water2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.38001, 0 )
-mesh = SubResource( 11 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="test-level" parent="." instance=ExtResource( 3 )]
@@ -81,8 +82,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
 inner_radius = 115.556
 outer_radius = 300.0
 sides = 12
-material = SubResource( 12 )
+material = SubResource( 6 )
 
 [node name="WaterArea" parent="." instance=ExtResource( 7 )]
+
+[node name="Crane" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2838, 4, -2.99531 )
 
 [editable path="WaterArea"]
