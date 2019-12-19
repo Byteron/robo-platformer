@@ -8,7 +8,7 @@ export var air_drift := 0.1
 func enter(host: Node) -> void:
 	host = host as Robot
 	host.motion.y = 0
-	host.play("fall")
+	host.play("jump")
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
@@ -19,7 +19,7 @@ func update(host: Node, delta: float) -> void:
 		host.motion.x = lerp(host.motion.x, input_direction.x, air_drift)
 		host.motion.z = lerp(host.motion.z, input_direction.z, air_drift)
 
-	host.motion.y -= Global.GRAVITY * delta
+	host.motion.y -= Global.GRAVITY * delta * 1.5
 
 	if host.is_on_floor():
 		host.fsm.change_state("Idle")
@@ -29,3 +29,4 @@ func update(host: Node, delta: float) -> void:
 func exit(host: Node) -> void:
 	host = host as Robot
 	host.motion.y = 0
+	host.play("land")

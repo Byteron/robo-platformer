@@ -32,11 +32,18 @@ func _process(delta: float) -> void:
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
 
 func play(anim_name: String) -> void:
+
 	var idx = 0
-	if anim_name == "walk": idx = 0
+
 	if anim_name == "jump": idx = 1
 	if anim_name == "fall": idx = 2
 	if anim_name == "land": idx = 3
+
+	if anim_tree.get("parameters/state/current") == 3:
+		return
+
+	if anim_name == "walk": idx = 0
+
 	anim_tree.set("parameters/state/current", idx)
 
 func get_walk_input_direction() -> Vector3:
