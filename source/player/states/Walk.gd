@@ -9,8 +9,8 @@ export var max_speed_run := 8.0
 
 export var max_speed_walk := 6.0
 
-export var acceleration = 0.5
-export var deceleration = 0.5
+export var acceleration = 0.35
+export var deceleration = 0.35
 
 export var turn_threshhold := 0.7
 
