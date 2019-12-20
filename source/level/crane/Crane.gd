@@ -18,4 +18,4 @@ func _physics_process(delta):
 	$Base/Back.rotate_y(dir.x * turning_speed * delta)
 	$Base/Back/Arm/Platform.translate(Vector3(0,dir.y * lifting_speed,0))
 
-#	$Base/Back/Arm/Platform/CSGPolygon.depth = $Base/Back/Arm/Platform.translation.y
+	# $Base/Back/Arm/Platform/CSGPolygon.depth = $Base/Back/Arm/Platform.translation.y

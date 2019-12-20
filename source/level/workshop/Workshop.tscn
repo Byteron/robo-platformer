@@ -1,0 +1,237 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://graphics/gtlf2/Robot.glb" type="PackedScene" id=1]
+[ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://graphics/workshop/ceiling_fan.glb" type="PackedScene" id=3]
+[ext_resource path="res://graphics/workshop/workshop-extended.glb" type="PackedScene" id=4]
+[ext_resource path="res://source/level/workshop/Menu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/level/workshop/Workshop.gd" type="Script" id=6]
+[ext_resource path="res://graphics/workshop/ceiling_fan.gd" type="Script" id=7]
+
+[sub_resource type="ProceduralSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 1
+background_sky = SubResource( 1 )
+background_color = Color( 0.0980392, 0.227451, 0.435294, 1 )
+ambient_light_color = Color( 0.498039, 0.564706, 0.635294, 1 )
+ambient_light_energy = 0.59
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+glow_blend_mode = 1
+
+[sub_resource type="QuadMesh" id=3]
+size = Vector2( 8, 4 )
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = SubResource( 4 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+albedo_color = Color( 0.282353, 0.478431, 1, 0.14902 )
+
+[sub_resource type="QuadMesh" id=7]
+material = SubResource( 6 )
+size = Vector2( 6, 3.5 )
+
+[sub_resource type="QuadMesh" id=13]
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_transparent = true
+albedo_color = Color( 0, 0, 0, 0 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 30, 1, 30 )
+
+[sub_resource type="Animation" id=15]
+resource_name = "fade_to_black"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera/Black:material/0:albedo_color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "flicker"
+length = 6.0
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("workshop-extended/Screen:mesh:surface_2/material:emission_energy")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4, 0.55, 2.05, 2.1, 2.2, 3.65, 3.75, 3.9, 4.1, 4.2, 5.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 1.3, 1.3, 1.0, 1.3, 1.3, 1.4, 1.3, 1.3, 1.0, 1.3, 1.0, 1.3, 1.3 ]
+}
+
+[sub_resource type="CapsuleMesh" id=11]
+radius = 0.04
+mid_height = 0.61
+
+[sub_resource type="CapsuleShape" id=12]
+radius = 0.0409967
+height = 0.609573
+
+[node name="Workshop" type="Spatial"]
+script = ExtResource( 6 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1280, 720 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="Control" parent="Viewport" instance=ExtResource( 5 )]
+
+[node name="Menu" type="MeshInstance" parent="."]
+transform = Transform( 0.271718, -0.0328669, 0.418437, -0.0211481, 0.496758, 0.052752, -0.419192, -0.0463655, 0.268568, -0.554664, 1.57455, -0.378608 )
+layers = 2
+mesh = SubResource( 3 )
+material/0 = SubResource( 5 )
+
+[node name="Menu2" type="MeshInstance" parent="Menu"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.62768, 0.4514, -0.199032 )
+layers = 2
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.877188, -0.13808, 0.459864, 0, 0.957757, 0.287578, -0.480147, -0.25226, 0.840133, 1.866, 2.427, 2.516 )
+current = true
+fov = 65.6
+size = 9.96
+near = 0.06
+
+[node name="Black" type="MeshInstance" parent="Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0.00886977, -0.0419196, -0.405533 )
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="SpotLight2" type="SpotLight" parent="."]
+transform = Transform( 0.983153, -0.0289402, 0.180479, -0.177976, -0.376552, 0.909139, 0.041649, -0.925943, -0.375359, 3.08658, 1.76151, -1.6737 )
+light_energy = 1.12
+light_indirect_energy = 1.07
+shadow_enabled = true
+spot_range = 2.80311
+
+[node name="HorizontalGimbal" parent="." instance=ExtResource( 2 )]
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.964357, 0 )
+shape = SubResource( 8 )
+
+[node name="OmniLight2" type="OmniLight" parent="."]
+transform = Transform( 0.999914, -0.0131245, 0, 0.0131245, 0.999914, 0, 0, 0, 1, 0.539504, 4.87784, 1.43032 )
+light_color = Color( 0.85098, 0.905882, 1, 1 )
+light_energy = 1.92
+shadow_enabled = true
+omni_range = 7.12017
+
+[node name="ScreenFader" type="AnimationPlayer" parent="."]
+anims/fade_to_black = SubResource( 15 )
+
+[node name="FlickerAnim" type="AnimationPlayer" parent="."]
+autoplay = "flicker"
+anims/flicker = SubResource( 10 )
+
+[node name="workshop-extended" parent="." instance=ExtResource( 4 )]
+
+[node name="OmniLight3" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.30149, 3.55468, -6.63434 )
+light_color = Color( 0.960784, 0.843137, 0.388235, 1 )
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 12.32
+
+[node name="PinJoint" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.59943, 0 )
+nodes/node_a = NodePath("../RigidBody")
+nodes/node_b = NodePath("../RigidBody2")
+
+[node name="PinJoint2" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.22444, 0 )
+nodes/node_a = NodePath("../RigidBody")
+
+[node name="RigidBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90288, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+visible = false
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 12 )
+
+[node name="RigidBody2" type="RigidBody" parent="."]
+transform = Transform( 0.988951, -0.148241, 0, 0.148241, 0.988951, 0, 0, 0, 1, 0.0459695, 4.29461, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="RigidBody2"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+visible = false
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="RigidBody2"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+shape = SubResource( 12 )
+
+[node name="SpotLight" type="SpotLight" parent="RigidBody2"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.342713, 0 )
+light_color = Color( 0.996078, 0.972549, 0.639216, 1 )
+light_energy = 5.0
+shadow_enabled = true
+spot_range = 5.3
+spot_angle = 35.8
+
+[node name="ceiling_fan" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.876349, 2.93387, -0.647365 )
+script = ExtResource( 7 )
+
+[node name="blades" parent="ceiling_fan" index="0"]
+cast_shadow = 0
+
+[node name="base" parent="ceiling_fan" index="1"]
+cast_shadow = 0
+
+[node name="Robot" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.216053, 0, 0.208137, 0, 0.3, 0, -0.208137, 0, 0.216053, 0.44978, 0.153038, -0.719303 )
+
+[node name="AnimationPlayer" parent="Robot" index="1"]
+autoplay = "Robot_Idle"
+[connection signal="start_called" from="Viewport/Control" to="." method="_on_Control_start_called"]
+
+[editable path="Viewport/Control"]
+
+[editable path="workshop-extended"]
+
+[editable path="ceiling_fan"]
+
+[editable path="Robot"]
