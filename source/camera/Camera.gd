@@ -3,6 +3,8 @@ extends Spatial
 var zoom_level = 0.5
 var scroll_zoom_level = 0.5
 
+export var limit_bottom = 0.0
+
 export(NodePath) var target_path = null
 
 export var offset := Vector3(0, 1, 0)
@@ -20,7 +22,6 @@ onready var zoom_timer := $ZoomTimer
 onready var tween := $Tween
 
 onready var gimbal_v := $VerticalGimbal
-onready var dummy := $VerticalGimbal/Dummy
 onready var camera := $VerticalGimbal/ClippedCamera
 
 func _ready() -> void:
@@ -44,7 +45,9 @@ func _process(delta: float) -> void:
 		translation = lerp(translation, result.position + offset, 1.0 - smoothing)
 	else:
 		translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
-
+	
+	translation.y = clamp(translation.y, limit_bottom, translation.y)
+	
 	var look_input_direction = target.get_look_input_direction()
 
 	if not look_input_direction and zoom_timer.is_stopped():
@@ -68,7 +71,6 @@ func _process(delta: float) -> void:
 	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 
 	camera.translation = Vector3(0, 0, lerp(0, max_distance, zoom_level))
-
 
 func get_direction() -> Vector3:
 	if not target:

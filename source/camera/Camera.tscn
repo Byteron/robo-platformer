@@ -7,6 +7,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.624679, 0.2712 ), 0.815605
 
 [node name="HorizontalGimbal" type="Spatial"]
 script = ExtResource( 1 )
+limit_bottom = 3.0
 distance_curve = SubResource( 1 )
 
 [node name="ZoomTimer" type="Timer" parent="."]
@@ -15,8 +16,6 @@ one_shot = true
 [node name="Tween" type="Tween" parent="."]
 
 [node name="VerticalGimbal" type="Spatial" parent="."]
-
-[node name="Dummy" type="Spatial" parent="VerticalGimbal"]
 
 [node name="ClippedCamera" type="ClippedCamera" parent="VerticalGimbal"]
 margin = 1.0

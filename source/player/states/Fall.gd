@@ -8,7 +8,8 @@ export var max_speed_walk := 6.0
 export var max_speed_run := 6.0
 
 export var acceleration := 0.6
-export var friction := 0.4
+
+export var friction := 0.1
 
 func enter(host: Node) -> void:
 	host = host as Robot
