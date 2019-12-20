@@ -26,7 +26,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
 
-	if carrot != translation and fsm.is_current_state("Walk"):
+	if carrot != translation:
 		look_at(carrot, Vector3.UP)
 
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
