@@ -4,7 +4,7 @@ var speed := 0.0
 
 var max_speed := 0.0
 
-export var gravity_mod := 1.0
+export var gravity_mod := 1.2
 
 export var max_speed_walk := 6.0
 export var max_speed_run := 6.0
