@@ -9,6 +9,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.624679, 0.2712 ), 0.815605
 script = ExtResource( 1 )
 limit_bottom = 3.0
 distance_curve = SubResource( 1 )
+smoothing = 0.85
 
 [node name="ZoomTimer" type="Timer" parent="."]
 one_shot = true
