@@ -1,0 +1,165 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://graphics/particles/water_diffuse.png" type="Texture" id=1]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type spatial;
+
+uniform vec2 amplitude = vec2(0.2, 0.1);
+uniform vec2 frequency = vec2(3.0, 2.5);
+uniform vec2 time_factor = vec2(2.0, 3.0);
+
+uniform sampler2D texturemap : hint_albedo;
+uniform vec2 texture_scale = vec2(0.8, 4.0);
+
+uniform sampler2D uv_offset_texture : hint_black;
+uniform vec2 uv_offset_scale = vec2(0.2, 0.2);
+uniform float uv_offset_time_scale = 0.05;
+uniform float uv_offset_amplitude = 0.2;
+
+uniform sampler2D normalmap : hint_normal;
+uniform float refraction = 0.0;
+uniform float alpha = 0.3;
+
+float height(vec2 pos, float time){
+	return (amplitude.x * sin(pos.x * frequency.x + time * time_factor.x)) + (amplitude.y * sin(pos.y * frequency.y + time * time_factor.y));
+}
+void vertex() {
+	VERTEX.y += height(VERTEX.xz, TIME);
+	
+	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), TIME), 0.4));
+	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), TIME), 0.0));
+	NORMAL = cross(TANGENT, BINORMAL);
+}
+
+void fragment() {
+	vec2 base_uv_offset = UV * uv_offset_scale;
+	base_uv_offset += TIME * uv_offset_time_scale;
+	
+	vec2 texture_based_offset = texture(uv_offset_texture, base_uv_offset).rg;
+	texture_based_offset = texture_based_offset * 2.0 -1.0;
+	
+	vec2 texture_uv = UV * texture_scale;
+	texture_uv = uv_offset_amplitude * texture_based_offset;
+	
+	ALBEDO = texture(texturemap, texture_uv).rgb;
+	if (ALBEDO.r > 0.9 && ALBEDO.g > 0.9 && ALBEDO.b > 0.9) {
+		ALPHA = 0.9;
+	} else {
+		ALPHA = 0.3;
+	}
+	NORMALMAP = texture(normalmap, base_uv_offset).rgb;
+	
+	METALLIC = 0.1;
+	ROUGHNESS = 0.9;
+	
+	vec3 ref_normal = normalize(mix(NORMAL, TANGENT * NORMALMAP.x + BINORMAL * NORMALMAP.y + NORMAL * NORMALMAP.z, NORMALMAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * refraction;
+	EMISSION += textureLod(SCREEN_TEXTURE, ref_ofs, ROUGHNESS * 8.0).rgb * (1.0 - ALPHA);
+	ALBEDO *= ALPHA;
+	ALPHA = alpha;
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+render_priority = 1
+shader = SubResource( 2 )
+shader_param/amplitude = Vector2( 0, 0 )
+shader_param/frequency = Vector2( 100, 100 )
+shader_param/time_factor = Vector2( 100, 100 )
+shader_param/texture_scale = Vector2( 20, 20 )
+shader_param/uv_offset_scale = Vector2( 1, 1 )
+shader_param/uv_offset_time_scale = 0.1
+shader_param/uv_offset_amplitude = 1.0
+shader_param/refraction = 0.0
+shader_param/alpha = 0.2
+shader_param/texturemap = ExtResource( 1 )
+shader_param/uv_offset_texture = ExtResource( 1 )
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+
+uniform vec2 amplitude = vec2(0.2, 0.1);
+uniform vec2 frequency = vec2(3.0, 2.5);
+uniform vec2 time_factor = vec2(2.0, 3.0);
+
+uniform sampler2D texturemap : hint_albedo;
+uniform vec2 texture_scale = vec2(0.8, 4.0);
+
+uniform sampler2D uv_offset_texture : hint_black;
+uniform vec2 uv_offset_scale = vec2(0.2, 0.2);
+uniform float uv_offset_time_scale = 0.05;
+uniform float uv_offset_amplitude = 0.2;
+
+uniform sampler2D normalmap : hint_normal;
+uniform float refraction = 0.0;
+uniform float alpha = 0.3;
+
+float height(vec2 pos, float time){
+	return (amplitude.x * sin(pos.x * frequency.x + time * time_factor.x)) + (amplitude.y * sin(pos.y * frequency.y + time * time_factor.y));
+}
+void vertex() {
+	VERTEX.y += height(VERTEX.xz, TIME);
+	
+	TANGENT = normalize(vec3(0.0, height(VERTEX.xz + vec2(0.0, 0.2), TIME) - height(VERTEX.xz + vec2(0.0, -0.2), TIME), 0.4));
+	BINORMAL = normalize(vec3(0.4, height(VERTEX.xz + vec2(0.2, 0.0), TIME) - height(VERTEX.xz + vec2(-0.2, 0.0), TIME), 0.0));
+	NORMAL = cross(TANGENT, BINORMAL);
+}
+
+void fragment() {
+	vec2 base_uv_offset = UV * uv_offset_scale;
+	base_uv_offset += TIME * uv_offset_time_scale;
+	
+	vec2 texture_based_offset = texture(uv_offset_texture, base_uv_offset).rg;
+	texture_based_offset = texture_based_offset * 2.0 -1.0;
+	
+	vec2 texture_uv = UV * texture_scale;
+	texture_uv = uv_offset_amplitude * texture_based_offset;
+	
+	ALBEDO = texture(texturemap, texture_uv).rgb;
+	if (ALBEDO.r > 0.9 && ALBEDO.g > 0.9 && ALBEDO.b > 0.9) {
+		ALPHA = 0.9;
+	} else {
+		ALPHA = 0.3;
+	}
+	NORMALMAP = texture(normalmap, base_uv_offset).rgb;
+	
+	METALLIC = 0.1;
+	ROUGHNESS = 0.9;
+	
+	vec3 ref_normal = normalize(mix(NORMAL, TANGENT * NORMALMAP.x + BINORMAL * NORMALMAP.y + NORMAL * NORMALMAP.z, NORMALMAP_DEPTH));
+	vec2 ref_ofs = SCREEN_UV - ref_normal.xy * refraction;
+	EMISSION += textureLod(SCREEN_TEXTURE, ref_ofs, ROUGHNESS * 8.0).rgb * (1.0 - ALPHA);
+	ALBEDO *= ALPHA;
+	ALPHA = alpha;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+next_pass = SubResource( 3 )
+shader = SubResource( 4 )
+shader_param/amplitude = Vector2( 0, 0 )
+shader_param/frequency = Vector2( 1, 1 )
+shader_param/time_factor = Vector2( 1, 1 )
+shader_param/texture_scale = Vector2( 100, 100 )
+shader_param/uv_offset_scale = Vector2( 2, 2 )
+shader_param/uv_offset_time_scale = 0.05
+shader_param/uv_offset_amplitude = 0.2
+shader_param/refraction = 0.0
+shader_param/alpha = 0.3
+shader_param/uv_offset_texture = ExtResource( 1 )
+shader_param/normalmap = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+next_pass = SubResource( 5 )
+params_diffuse_mode = 4
+albedo_color = Color( 0.4, 0.588235, 0.596078, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 6 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.674289, 0.738467, 0, -0.738467, 0.674289, 0, 0, 1.35669 )
