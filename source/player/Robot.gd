@@ -3,10 +3,14 @@ class_name Robot
 
 const DEAD_ZONE = 0.1
 
-export(NodePath) var camera_path = null
+var spawn_pos := Vector3()
 
 var motion := Vector3()
 var mouse_axis = Vector3()
+
+var sprinting := false
+
+export(NodePath) var camera_path = null
 
 onready var anim_tree := $AnimationTree
 onready var anim_player := $Robot/AnimationPlayer
@@ -14,7 +18,6 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
-var spawn_pos := Vector3()
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -30,6 +33,8 @@ func _process(delta: float) -> void:
 		look_at(carrot, Vector3.UP)
 
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
+
+	sprinting = Input.is_action_pressed("sprint")
 
 func play(anim_name: String) -> void:
 

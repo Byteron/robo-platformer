@@ -5,9 +5,13 @@ var host : Robot = null
 var jumped := false
 var speed := 0.0
 
+var max_speed := 0.0
+
 export var jump_force := 12.0
 
-export var max_speed := 6.0
+export var max_speed_walk := 6.0
+export var max_speed_run := 8.0
+
 export var acceleration := 0.6
 export var friction := 0.4
 
@@ -19,8 +23,13 @@ func enter(host: Node) -> void:
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
 
-	var input_direction = host.get_walk_input_direction()
+	if host.sprinting:
+		max_speed = max_speed_run
+	else:
+		max_speed = max_speed_walk
 
+	var input_direction = host.get_walk_input_direction()	
+	
 	if input_direction:
 		speed = clamp(speed + acceleration, 0, max_speed)
 		host.motion.x = input_direction.x * speed

@@ -4410,16 +4410,19 @@ script = ExtResource( 5 )
 
 [node name="Walk" type="Node" parent="FSM"]
 script = ExtResource( 7 )
-max_speed = 6.8
+max_speed_run = 7.8
+max_speed_walk = 5.6
 
 [node name="Jump" type="Node" parent="FSM"]
 script = ExtResource( 8 )
 jump_force = 10.0
-max_speed = 6.8
+max_speed_walk = 5.6
+max_speed_run = 7.8
 
 [node name="Fall" type="Node" parent="FSM"]
 script = ExtResource( 9 )
-max_speed = 6.8
+max_speed_walk = 5.6
+max_speed_run = 7.8
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 37 )
