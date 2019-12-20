@@ -4,6 +4,8 @@ var speed := 0.0
 
 var max_speed := 0.0
 
+export var gravity_mod := 1.0
+
 export var max_speed_walk := 6.0
 export var max_speed_run := 6.0
 
@@ -34,7 +36,7 @@ func update(host: Node, delta: float) -> void:
 		host.motion.x = lerp(host.motion.x, 0, friction)
 		host.motion.z = lerp(host.motion.z, 0, friction)
 
-	host.motion.y -= Global.GRAVITY * delta * 1.5
+	host.motion.y -= Global.GRAVITY * delta * gravity_mod
 
 	if host.is_on_floor():
 		host.fsm.change_state("Idle")

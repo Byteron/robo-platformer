@@ -7,6 +7,8 @@ var speed := 0.0
 
 var max_speed := 0.0
 
+export var gravity_mod := 1.0
+
 export var jump_force := 12.0
 
 export var max_speed_walk := 6.0
@@ -39,7 +41,7 @@ func update(host: Node, delta: float) -> void:
 		host.motion.x = lerp(host.motion.x, 0, friction)
 		host.motion.z = lerp(host.motion.z, 0, friction)
 
-	host.motion.y -= Global.GRAVITY * delta
+	host.motion.y -= Global.GRAVITY * delta * gravity_mod
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
