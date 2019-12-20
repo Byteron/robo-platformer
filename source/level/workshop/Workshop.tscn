@@ -21,6 +21,7 @@ tonemap_mode = 2
 ssao_enabled = true
 glow_enabled = true
 glow_blend_mode = 1
+glow_bicubic_upscale = true
 
 [sub_resource type="QuadMesh" id=3]
 size = Vector2( 8, 4 )
@@ -42,16 +43,16 @@ albedo_color = Color( 0.282353, 0.478431, 1, 0.14902 )
 material = SubResource( 6 )
 size = Vector2( 6, 3.5 )
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=8]
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
 albedo_color = Color( 0, 0, 0, 0 )
 
-[sub_resource type="BoxShape" id=8]
+[sub_resource type="BoxShape" id=10]
 extents = Vector3( 30, 1, 30 )
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=11]
 resource_name = "fade_to_black"
 length = 0.6
 tracks/0/type = "value"
@@ -67,8 +68,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "flicker"
+[sub_resource type="Animation" id=12]
 length = 6.0
 loop = true
 step = 0.05
@@ -85,11 +85,11 @@ tracks/0/keys = {
 "values": [ 1.3, 1.3, 1.0, 1.3, 1.3, 1.4, 1.3, 1.3, 1.0, 1.3, 1.0, 1.3, 1.3 ]
 }
 
-[sub_resource type="CapsuleMesh" id=11]
+[sub_resource type="CapsuleMesh" id=13]
 radius = 0.04
 mid_height = 0.61
 
-[sub_resource type="CapsuleShape" id=12]
+[sub_resource type="CapsuleShape" id=14]
 radius = 0.0409967
 height = 0.609573
 
@@ -127,8 +127,8 @@ near = 0.06
 
 [node name="Black" type="MeshInstance" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 1.49012e-08, 0, 1.49012e-08, 1, 0.00886977, -0.0419196, -0.405533 )
-mesh = SubResource( 13 )
-material/0 = SubResource( 14 )
+mesh = SubResource( 8 )
+material/0 = SubResource( 9 )
 
 [node name="SpotLight2" type="SpotLight" parent="."]
 transform = Transform( 0.983153, -0.0289402, 0.180479, -0.177976, -0.376552, 0.909139, 0.041649, -0.925943, -0.375359, 3.08658, 1.76151, -1.6737 )
@@ -143,7 +143,7 @@ spot_range = 2.80311
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.964357, 0 )
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 
 [node name="OmniLight2" type="OmniLight" parent="."]
 transform = Transform( 0.999914, -0.0131245, 0, 0.0131245, 0.999914, 0, 0, 0, 1, 0.539504, 4.87784, 1.43032 )
@@ -153,11 +153,11 @@ shadow_enabled = true
 omni_range = 7.12017
 
 [node name="ScreenFader" type="AnimationPlayer" parent="."]
-anims/fade_to_black = SubResource( 15 )
+anims/fade_to_black = SubResource( 11 )
 
 [node name="FlickerAnim" type="AnimationPlayer" parent="."]
 autoplay = "flicker"
-anims/flicker = SubResource( 10 )
+anims/flicker = SubResource( 12 )
 
 [node name="workshop-extended" parent="." instance=ExtResource( 4 )]
 
@@ -183,12 +183,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90288, 0 )
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 visible = false
-mesh = SubResource( 11 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 14 )
 
 [node name="RigidBody2" type="RigidBody" parent="."]
 transform = Transform( 0.988951, -0.148241, 0, 0.148241, 0.988951, 0, 0, 0, 1, 0.0459695, 4.29461, 0 )
@@ -196,12 +196,12 @@ transform = Transform( 0.988951, -0.148241, 0, 0.148241, 0.988951, 0, 0, 0, 1, 0
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody2"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
 visible = false
-mesh = SubResource( 11 )
+mesh = SubResource( 13 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="RigidBody2"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 14 )
 
 [node name="SpotLight" type="SpotLight" parent="RigidBody2"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.342713, 0 )
