@@ -40,6 +40,10 @@ func update(host: Node, delta: float) -> void:
 
 	if host.is_on_floor():
 		host.fsm.change_state("Idle")
+	elif Input.is_action_just_pressed("jump") and host.jumps > 0:
+			host.change_state("Jump")
+	elif Input.is_action_just_pressed("jump") and not host.jumps:
+		host.change_state("Jetpack")
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 

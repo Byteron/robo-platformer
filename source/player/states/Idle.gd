@@ -4,6 +4,8 @@ func enter(host: Node) -> void:
 	host = host as Robot
 	host.play("walk")
 	host.motion = Vector3()
+	host.jumps = host.max_jumps
+	host.energy = 0
 
 func input(host: Node, event: InputEvent) -> void:
 	host = host as Robot

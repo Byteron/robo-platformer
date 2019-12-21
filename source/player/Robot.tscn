@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://graphics/gtlf2/Grey.material" type="Material" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://source/player/states/Walk.gd" type="Script" id=7]
 [ext_resource path="res://source/player/states/Jump.gd" type="Script" id=8]
 [ext_resource path="res://source/player/states/Fall.gd" type="Script" id=9]
+[ext_resource path="res://source/player/states/Jetpack.gd" type="Script" id=10]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "ArmL"
@@ -4423,6 +4424,9 @@ max_speed_run = 7.8
 script = ExtResource( 9 )
 max_speed_walk = 5.6
 max_speed_run = 7.8
+
+[node name="Jetpack" type="Node" parent="FSM"]
+script = ExtResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 37 )

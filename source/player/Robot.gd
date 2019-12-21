@@ -10,6 +10,13 @@ var mouse_axis = Vector3()
 
 var sprinting := false
 
+var jumps := 0
+
+var energy := 0.0
+
+export var max_jumps := 2
+export var max_energy := 60.0
+
 export(NodePath) var camera_path = null
 
 onready var anim_tree := $AnimationTree
@@ -25,6 +32,7 @@ func _ready() -> void:
 	camera = get_node(camera_path)
 	fsm.change_state("Idle")
 	spawn_pos = global_transform.origin
+	jumps = max_jumps
 
 func _process(delta: float) -> void:
 	var carrot = translation - Vector3(motion.x, 0, motion.z)

@@ -2,27 +2,24 @@ extends State
 
 var host : Robot = null
 
-var jumped := false
 var speed := 0.0
 
 var max_speed := 0.0
 
 export var gravity_mod := 1.0
 
-export var jump_force := 12.0
+export var thrust := 35.0
 
+
+export var max_speed_jet := 10.0
 export var max_speed_walk := 6.0
 export var max_speed_run := 8.0
 
 export var acceleration := 0.6
 export var friction := 0.1
 
-
 func enter(host: Node) -> void:
 	self.host = host as Robot
-	host.motion.y = jump_force
-	host.jumps -= 1
-	print("jump!")
 	host.play("jump")
 
 func update(host: Node, delta: float) -> void:
@@ -48,23 +45,13 @@ func update(host: Node, delta: float) -> void:
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
-	if Input.is_action_just_released("jump"):
-		cut()
-	elif Input.is_action_just_pressed("jump") and host.jumps > 0 and jumped:
-		enter(host)
-	elif Input.is_action_just_pressed("jump") and not host.jumps and jumped:
-		host.change_state("Jetpack")
-	elif host.motion.y < 0.5:
+	if Input.is_action_pressed("jump") and host.energy < host.max_energy:
+		host.motion.y += thrust * delta
+		host.motion.y = clamp(host.motion.y, 0, max_speed_jet)
+		host.energy += thrust * delta
+	elif host.motion.y < 0.5 and not Input.is_action_pressed("jump") or host.motion.y < 0.5 and host.energy >= host.max_energy:
 		host.change_state("Fall")
-	elif host.is_on_floor() and jumped:
-		host.change_state("Idle")
-	else:
-		jumped = true
-
-func cut():
-	host.motion.y = 0.5;
 
 func exit(host: Node) -> void:
 	host = host as Robot
 	host.motion.y = 0
-	jumped = false
