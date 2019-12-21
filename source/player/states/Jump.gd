@@ -30,8 +30,8 @@ func update(host: Node, delta: float) -> void:
 	else:
 		max_speed = max_speed_walk
 
-	var input_direction = host.get_walk_input_direction()	
-	
+	var input_direction = host.get_walk_input_direction()
+
 	if input_direction:
 		speed = clamp(speed + acceleration, 0, max_speed)
 		host.motion.x = input_direction.x * speed

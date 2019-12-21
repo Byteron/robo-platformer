@@ -45,9 +45,9 @@ func _process(delta: float) -> void:
 		translation = lerp(translation, result.position + offset, 1.0 - smoothing)
 	else:
 		translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
-	
+
 	translation.y = clamp(translation.y, limit_bottom, translation.y)
-	
+
 	var look_input_direction = target.get_look_input_direction()
 
 	if not look_input_direction and zoom_timer.is_stopped():

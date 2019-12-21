@@ -26,14 +26,14 @@ func input(host: Node, event: InputEvent) -> void:
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
-	
+
 	if host.sprinting:
 		max_speed = max_speed_run
 	else:
 		max_speed = max_speed_walk
-	
+
 	var input_direction = host.get_walk_input_direction()
-		
+
 	if input_direction:
 		speed = clamp(speed + acceleration, 0, max_speed)
 		host.motion.x = input_direction.x * speed
@@ -41,7 +41,7 @@ func update(host: Node, delta: float) -> void:
 	else:
 		speed = clamp(speed - deceleration, 0, max_speed)
 		host.motion = host.motion.normalized() * speed
-		
+
 	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
 	host.anim_tree.set("parameters/time/scale", host.motion.length() / max_speed_walk * 1.5)
 
