@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/water_diffuse.png-3e0e45ab69d3df980669278feac422f4.s3tc.stex"
-path.etc2="res://.import/water_diffuse.png-3e0e45ab69d3df980669278feac422f4.etc2.stex"
+path.s3tc="res://.import/water_uv_offset.png-3f00c9835f8648ffa50a6aaa901d2fac.s3tc.stex"
+path.etc2="res://.import/water_uv_offset.png-3f00c9835f8648ffa50a6aaa901d2fac.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://graphics/particles/water_diffuse.png"
-dest_files=[ "res://.import/water_diffuse.png-3e0e45ab69d3df980669278feac422f4.s3tc.stex", "res://.import/water_diffuse.png-3e0e45ab69d3df980669278feac422f4.etc2.stex" ]
+source_file="res://graphics/particles/water_uv_offset.png"
+dest_files=[ "res://.import/water_uv_offset.png-3f00c9835f8648ffa50a6aaa901d2fac.s3tc.stex", "res://.import/water_uv_offset.png-3f00c9835f8648ffa50a6aaa901d2fac.etc2.stex" ]
 
 [params]
 
@@ -25,7 +25,7 @@ flags/repeat=true
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
