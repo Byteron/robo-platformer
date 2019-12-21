@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://graphics/materials/WaterySurface.tres" type="Material" id=1]
+
+[sub_resource type="SphereMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+next_pass = ExtResource( 1 )
+flags_transparent = true
+albedo_color = Color( 0.380392, 0.380392, 0.380392, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.998065, -0.0621808, 0, 0.0621808, 0.998065, 0, 0, -3.80664 )
+shadow_enabled = true
