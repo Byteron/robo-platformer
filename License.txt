@@ -1,5 +1,9 @@
+Models and Environment by Dalton5000 and Golden
+License:
+https://creativecommons.org/licenses/by-nc/4.0/
+
 ------------------------------------------------------
-LowPoly Models by @Quaternius
+LowPol Robot by @Quaternius
 Consider supporting me on Patreon, even $1 helps me a lot!
 
 https://www.patreon.com/quaternius
