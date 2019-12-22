@@ -8,32 +8,16 @@
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
+[ext_resource path="res://source/level/WorldEnvironment.tscn" type="PackedScene" id=9]
+[ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=10]
 
-[sub_resource type="ProceduralSky" id=1]
-sky_top_color = Color( 0.239216, 0.521569, 0.678431, 1 )
-sky_horizon_color = Color( 0.580392, 0.764706, 0.909804, 1 )
-ground_bottom_color = Color( 0.580392, 0.764706, 0.909804, 1 )
-ground_horizon_color = Color( 0.580392, 0.764706, 0.909804, 1 )
-
-[sub_resource type="Environment" id=2]
-background_mode = 2
-background_sky = SubResource( 1 )
-ambient_light_sky_contribution = 0.0
-fog_enabled = true
-fog_depth_begin = 50.0
-fog_depth_end = 150.0
-tonemap_mode = 2
-ssao_enabled = true
-glow_enabled = true
-glow_bicubic_upscale = true
-
-[sub_resource type="PlaneMesh" id=3]
+[sub_resource type="PlaneMesh" id=1]
 material = ExtResource( 5 )
 size = Vector2( 300, 300 )
 subdivide_width = 100
 subdivide_depth = 100
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=2]
 flags_unshaded = true
 albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
@@ -48,11 +32,11 @@ shadow_enabled = true
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 200.0
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 2 )
+[node name="WorldEnvironment" parent="." instance=ExtResource( 9 )]
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0352, 3.3096, 5.79126 )
+first_checkpoint = NodePath("../Checkpoint")
 camera_path = NodePath("../Camera")
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
@@ -65,7 +49,7 @@ transform = Transform( -0.673942, 0, -0.738785, 0, 1, 0, 0.738785, 0, -0.673942,
 
 [node name="Water" type="MeshInstance" parent="."]
 cast_shadow = 0
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="test-level" parent="." instance=ExtResource( 3 )]
@@ -75,8 +59,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
 inner_radius = 115.556
 outer_radius = 300.0
 sides = 12
-material = SubResource( 4 )
+material = SubResource( 2 )
 
 [node name="WaterArea" parent="." instance=ExtResource( 7 )]
+
+[node name="Checkpoint" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.49303, 11 )
 
 [editable path="WaterArea"]

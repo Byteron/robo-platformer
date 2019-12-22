@@ -3,7 +3,8 @@ class_name Robot
 
 const DEAD_ZONE = 0.1
 
-var spawn_pos := Vector3()
+export(NodePath) var first_checkpoint : NodePath
+var last_checkpoint
 
 var motion := Vector3()
 var mouse_axis = Vector3()
@@ -34,11 +35,11 @@ onready var jet_particles = [
 ]
 
 func _ready() -> void:
+	last_checkpoint = get_node(first_checkpoint)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	fsm.host = self
 	camera = get_node(camera_path)
 	fsm.change_state("Idle")
-	spawn_pos = global_transform.origin
 	jumps = max_jumps
 	set_jet_particles(false)
 	set_dust_particles(false)
@@ -131,4 +132,4 @@ func _on_FSM_state_changed(state_name) -> void:
 	print(name, ": ", state_name)
 
 func respawn():
-	global_transform.origin = spawn_pos
+	global_transform.origin = last_checkpoint.spawn_position.global_transform.origin
