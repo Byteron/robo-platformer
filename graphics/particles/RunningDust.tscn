@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://graphics/particles/dustcloud.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.635246, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+min_value = -1.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 3.72644, 0, 1, Vector2( 0.268353, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.513183, 0.588 ), -2.33631, -2.33631, 0, 0, Vector2( 0.848412, 0 ), -1.75402, 0.0, 1, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3( 0, 0, -1 )
+spread = 35.0
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 4.0
+initial_velocity_random = 0.35
+angle = 360.0
+angle_random = 1.0
+scale = 2.5
+scale_random = 0.7
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 2 )
+hue_variation_curve = SubResource( 4 )
+
+[node name="Particles" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.072361, -0.084424 )
+amount = 12
+lifetime = 0.7
+local_coords = false
+process_material = SubResource( 7 )
+draw_pass_1 = ExtResource( 1 )
