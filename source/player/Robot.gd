@@ -110,10 +110,10 @@ func set_jet_particles(value: bool) -> void:
 	for p in jet_particles:
 		p.emitting = value
 
-func emit_dust(host):
-	if -host.motion.y < 8: return
+func emit_dust():
+	if -motion.y < 8: return
 
-	var dust_scale = range_lerp(-host.motion.y,9,20,0.3 ,1.0)
+	var dust_scale = range_lerp(-motion.y,9,20,0.3 ,1.0)
 	dust_scale = clamp(dust_scale, 0.5, 1.0)
 	landing_dust_particles.process_material.scale = 5.0*dust_scale
 	landing_dust_particles.process_material.initial_velocity = 14.0* dust_scale
