@@ -22,15 +22,15 @@ animation = "Robot_Idle"
 [sub_resource type="AnimationNodeAnimation" id=4]
 animation = "Robot_Jump"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Robot_Fall"
-
 [sub_resource type="AnimationNodeAnimation" id=5]
+animation = "Robot_Land"
+
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Robot_Running"
 
-[sub_resource type="AnimationNodeBlend2" id=6]
+[sub_resource type="AnimationNodeBlend2" id=7]
 
-[sub_resource type="AnimationNodeTransition" id=7]
+[sub_resource type="AnimationNodeTransition" id=8]
 input_count = 4
 xfade_time = 0.1
 input_0/name = "walk"
@@ -42,9 +42,9 @@ input_2/auto_advance = false
 input_3/name = "land"
 input_3/auto_advance = true
 
-[sub_resource type="AnimationNodeTimeScale" id=8]
+[sub_resource type="AnimationNodeTimeScale" id=9]
 
-[sub_resource type="AnimationNodeBlendTree" id=9]
+[sub_resource type="AnimationNodeBlendTree" id=10]
 graph_offset = Vector2( -943.037, -72 )
 nodes/Fall/node = SubResource( 2 )
 nodes/Fall/position = Vector2( 60, 360 )
@@ -52,16 +52,16 @@ nodes/Idle/node = SubResource( 3 )
 nodes/Idle/position = Vector2( -160, 20 )
 nodes/Jump/node = SubResource( 4 )
 nodes/Jump/position = Vector2( 60, 220 )
-nodes/Land/node = SubResource( 10 )
+nodes/Land/node = SubResource( 5 )
 nodes/Land/position = Vector2( 60, 480 )
-nodes/Walk/node = SubResource( 5 )
+nodes/Walk/node = SubResource( 6 )
 nodes/Walk/position = Vector2( -160, 160 )
-nodes/idle_to_walk/node = SubResource( 6 )
+nodes/idle_to_walk/node = SubResource( 7 )
 nodes/idle_to_walk/position = Vector2( 80, 20 )
 nodes/output/position = Vector2( 940, 140 )
-nodes/state/node = SubResource( 7 )
+nodes/state/node = SubResource( 8 )
 nodes/state/position = Vector2( 440, 100 )
-nodes/time/node = SubResource( 8 )
+nodes/time/node = SubResource( 9 )
 nodes/time/position = Vector2( 760, 140 )
 node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
@@ -102,7 +102,7 @@ max_speed_run = 7.8
 script = ExtResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 9 )
+tree_root = SubResource( 10 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
 parameters/idle_to_walk/blend_amount = 0.0

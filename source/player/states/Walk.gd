@@ -51,6 +51,7 @@ func update(host: Node, delta: float) -> void:
 		host.change_state("Idle")
 
 	elif not host.is_on_floor():
+		host.jumps -= 1
 		host.change_state("Fall")
 
 func exit(host: Node) -> void:
