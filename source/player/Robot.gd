@@ -25,6 +25,8 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
+onready var dust_particles = $Robot/Particles
+
 onready var jet_particles = [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles1,
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
@@ -104,6 +106,9 @@ func _input(event):
 func set_jet_particles(value: bool) -> void:
 	for p in jet_particles:
 		p.emitting = value
+
+func set_dust_particles(value: bool) -> void:
+	dust_particles.emitting = value
 
 func change_state(state: String) -> void:
 	fsm.change_state(state)
