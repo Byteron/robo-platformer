@@ -48,7 +48,7 @@ func update(host: Node, delta: float) -> void:
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released("jump") and host.motion.y > 0.5:
 		cut()
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0 and jumped:
 		enter(host)
@@ -66,5 +66,4 @@ func cut():
 
 func exit(host: Node) -> void:
 	host = host as Robot
-	host.motion.y = 0
 	jumped = false

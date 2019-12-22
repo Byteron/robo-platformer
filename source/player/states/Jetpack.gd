@@ -55,5 +55,4 @@ func update(host: Node, delta: float) -> void:
 
 func exit(host: Node) -> void:
 	host = host as Robot
-	host.motion.y = 0
 	host.set_jet_particles(false)

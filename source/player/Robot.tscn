@@ -69,6 +69,7 @@ node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_
 [node name="Robot" type="KinematicBody"]
 collision_mask = 2
 script = ExtResource( 2 )
+max_jumps = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0198295, 0.618695, 0.0123997 )
