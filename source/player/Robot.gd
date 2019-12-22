@@ -25,6 +25,10 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
+onready var jet_particles = [
+	$Robot/RobotArmature/Skeleton/Jetpack/Particles1,
+	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
+]
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -96,6 +100,10 @@ func get_look_input_direction() -> Vector3:
 func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_axis.x += event.relative.normalized().x * 0.1
+
+func set_jet_particles(value: bool) -> void:
+	for p in jet_particles:
+		p.emitting = value
 
 func change_state(state: String) -> void:
 	fsm.change_state(state)

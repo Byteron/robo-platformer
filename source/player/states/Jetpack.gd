@@ -20,7 +20,8 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
-	host.play("jump")
+	host.play("fall")
+	host.set_jet_particles(true)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
@@ -55,3 +56,4 @@ func update(host: Node, delta: float) -> void:
 func exit(host: Node) -> void:
 	host = host as Robot
 	host.motion.y = 0
+	host.set_jet_particles(false)
