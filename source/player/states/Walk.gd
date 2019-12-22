@@ -16,6 +16,7 @@ export var turn_threshhold := 0.7
 
 func enter(host: Node) -> void:
 	host = host as Robot
+	host.motion.y = 0
 	host.play("walk")
 
 func input(host: Node, event: InputEvent) -> void:
@@ -51,6 +52,7 @@ func update(host: Node, delta: float) -> void:
 		host.change_state("Idle")
 
 	elif not host.is_on_floor():
+		host.jumps -= 1
 		host.change_state("Fall")
 
 func exit(host: Node) -> void:

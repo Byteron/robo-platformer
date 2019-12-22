@@ -8,7 +8,7 @@ var max_speed := 0.0
 
 export var gravity_mod := 1.0
 
-export var thrust := 35.0
+export var thrust := 32.0
 
 
 export var max_speed_jet := 10.0
@@ -20,7 +20,8 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
-	host.play("jump")
+	host.play("fall")
+	host.set_jet_particles(true)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
@@ -54,4 +55,4 @@ func update(host: Node, delta: float) -> void:
 
 func exit(host: Node) -> void:
 	host = host as Robot
-	host.motion.y = 0
+	host.set_jet_particles(false)
