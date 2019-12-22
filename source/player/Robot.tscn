@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://graphics/gtlf2/robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -29,16 +29,13 @@ animation = "Robot_Jump"
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Robot_Land"
 
-[sub_resource type="AnimationNodeAnimation" id=11]
-animation = "Robot_ThumbsUp"
-
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Robot_Running"
 
 [sub_resource type="AnimationNodeBlend2" id=7]
 
 [sub_resource type="AnimationNodeTransition" id=8]
-input_count = 5
+input_count = 4
 xfade_time = 0.1
 input_0/name = "walk"
 input_0/auto_advance = false
@@ -47,14 +44,12 @@ input_1/auto_advance = false
 input_2/name = "fall"
 input_2/auto_advance = false
 input_3/name = "land"
-input_3/auto_advance = true
-input_4/name = "like"
-input_4/auto_advance = true
+input_3/auto_advance = false
 
 [sub_resource type="AnimationNodeTimeScale" id=9]
 
 [sub_resource type="AnimationNodeBlendTree" id=10]
-graph_offset = Vector2( -211.037, -116 )
+graph_offset = Vector2( -237.99, 117 )
 nodes/Fall/node = SubResource( 2 )
 nodes/Fall/position = Vector2( 60, 360 )
 nodes/Idle/node = SubResource( 3 )
@@ -63,8 +58,6 @@ nodes/Jump/node = SubResource( 4 )
 nodes/Jump/position = Vector2( 60, 220 )
 nodes/Land/node = SubResource( 5 )
 nodes/Land/position = Vector2( 60, 480 )
-nodes/ThumbsUp/node = SubResource( 11 )
-nodes/ThumbsUp/position = Vector2( 60, 600 )
 nodes/Walk/node = SubResource( 6 )
 nodes/Walk/position = Vector2( -160, 160 )
 nodes/idle_to_walk/node = SubResource( 7 )
@@ -74,7 +67,7 @@ nodes/state/node = SubResource( 8 )
 nodes/state/position = Vector2( 420, 120 )
 nodes/time/node = SubResource( 9 )
 nodes/time/position = Vector2( 760, 140 )
-node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "state", 4, "ThumbsUp", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
+node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
 [node name="Robot" type="KinematicBody"]
 collision_mask = 2
