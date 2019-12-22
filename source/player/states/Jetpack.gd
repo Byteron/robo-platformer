@@ -8,10 +8,9 @@ var max_speed := 0.0
 
 export var gravity_mod := 1.0
 
-export var thrust := 32.0
+export var thrust := 45.0
 
-
-export var max_speed_jet := 10.0
+export var max_speed_jet := 5.6
 export var max_speed_walk := 6.0
 export var max_speed_run := 8.0
 

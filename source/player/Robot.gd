@@ -15,7 +15,7 @@ var jumps := 0
 var energy := 0.0
 
 export var max_jumps := 2
-export var max_energy := 60.0
+export var max_energy := 100.0
 
 export(NodePath) var camera_path = null
 
