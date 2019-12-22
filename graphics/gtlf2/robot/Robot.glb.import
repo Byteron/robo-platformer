@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Robot.glb-4c76a259683defc5452d9db1cfb6b0c4.scn"
+path="res://.import/Robot.glb-4d832b38e864110628955dd214d4d22a.scn"
 
 [deps]
 
-source_file="res://graphics/gtlf2/Robot.glb"
-dest_files=[ "res://.import/Robot.glb-4c76a259683defc5452d9db1cfb6b0c4.scn" ]
+source_file="res://graphics/gtlf2/robot/Robot.glb"
+dest_files=[ "res://.import/Robot.glb-4d832b38e864110628955dd214d4d22a.scn" ]
 
 [params]
 
@@ -28,8 +28,8 @@ external_files/store_in_subdir=false
 animation/import=true
 animation/fps=15
 animation/filter_script=""
-animation/storage=false
-animation/keep_custom_tracks=false
+animation/storage=2
+animation/keep_custom_tracks=true
 animation/optimizer/enabled=true
 animation/optimizer/max_linear_error=0.05
 animation/optimizer/max_angular_error=0.01

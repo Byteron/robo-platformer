@@ -2,9 +2,10 @@
 
 [ext_resource path="res://graphics/items/gear.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/items/Gear.gd" type="Script" id=2]
-[ext_resource path="res://graphics/gtlf2/Main.material" type="Material" id=3]
+[ext_resource path="res://graphics/gtlf2/robot/Main.material" type="Material" id=3]
 [ext_resource path="res://graphics/particles/gear_collect_particles.tres" type="Material" id=4]
 [ext_resource path="res://graphics/particles/star_particle.material" type="Material" id=5]
+
 
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
