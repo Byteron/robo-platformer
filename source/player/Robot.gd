@@ -39,6 +39,8 @@ func _ready() -> void:
 	fsm.change_state("Idle")
 	spawn_pos = global_transform.origin
 	jumps = max_jumps
+	set_jet_particles(false)
+	set_dust_particles(false)
 
 func _process(delta: float) -> void:
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
