@@ -79,7 +79,4 @@ material = SubResource( 4 )
 
 [node name="WaterArea" parent="." instance=ExtResource( 7 )]
 
-[node name="Crane" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.2838, 4, -2.99531 )
-
 [editable path="WaterArea"]
