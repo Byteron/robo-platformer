@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/dustcloud.obj-e0b9b1570b49a2e83812184f8e01d6d4.mesh"
+
+[deps]
+
+files=[ "res://.import/dustcloud.obj-e0b9b1570b49a2e83812184f8e01d6d4.mesh" ]
+
+source_file="res://graphics/particles/dustcloud.obj"
+dest_files=[ "res://.import/dustcloud.obj-e0b9b1570b49a2e83812184f8e01d6d4.mesh", "res://.import/dustcloud.obj-e0b9b1570b49a2e83812184f8e01d6d4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
