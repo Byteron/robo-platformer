@@ -1,16 +1,33 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://graphics/particles/dustcloud.obj" type="ArrayMesh" id=1]
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.1832 ), 0.0, 2.66071, 0, 0, Vector2( 0.27212, 0.7728 ), 0.0, 0.0, 0, 0, Vector2( 0.464217, 0.7728 ), -0.175223, -0.222506, 0, 0, Vector2( 0.577216, 0 ), -6.07768, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
 spread = 180.0
 flatness = 1.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 6.0
+initial_velocity = 14.0
+damping = 85.0
+damping_random = 0.25
+angle = 360.0
+angle_random = 1.0
+scale = 3.0
+scale_random = 0.28
+scale_curve = SubResource( 2 )
 
-[node name="Particles" type="Particles"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7645, 4.05456, 7.2291 )
-amount = 64
-explosiveness = 1.0
-process_material = SubResource( 1 )
+[node name="ImpactParticles" type="Particles"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0.328042, 0 )
+emitting = false
+amount = 24
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.93
+local_coords = false
+process_material = SubResource( 3 )
 draw_pass_1 = ExtResource( 1 )

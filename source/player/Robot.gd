@@ -25,7 +25,8 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
-onready var dust_particles = $Robot/Particles
+onready var dust_particles = $Robot/RunningDust
+onready var landing_dust_particles = $Robot/ImpactParticles
 
 onready var jet_particles = [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles1,

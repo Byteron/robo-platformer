@@ -38,7 +38,7 @@ scale_curve = SubResource( 6 )
 color_ramp = SubResource( 2 )
 hue_variation_curve = SubResource( 4 )
 
-[node name="Particles" type="Particles"]
+[node name="RunningDust" type="Particles"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.072361, -0.084424 )
 amount = 12
 lifetime = 0.7

@@ -3,14 +3,14 @@
 [ext_resource path="res://graphics/gtlf2/robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
 [ext_resource path="res://graphics/particles/JetpackParticles.tscn" type="PackedScene" id=3]
-[ext_resource path="res://source/player/states/Dive.gd" type="Script" id=4]
-[ext_resource path="res://graphics/particles/RunningDust.tscn" type="PackedScene" id=5]
-[ext_resource path="res://source/player/states/Idle.gd" type="Script" id=6]
-[ext_resource path="res://addons/finite_state_machine/source/FiniteStateMachine.gd" type="Script" id=7]
-[ext_resource path="res://source/player/states/Walk.gd" type="Script" id=8]
-[ext_resource path="res://source/player/states/Jump.gd" type="Script" id=9]
-[ext_resource path="res://source/player/states/Fall.gd" type="Script" id=10]
-[ext_resource path="res://source/player/states/Jetpack.gd" type="Script" id=11]
+[ext_resource path="res://graphics/particles/RunningDust.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/player/states/Idle.gd" type="Script" id=5]
+[ext_resource path="res://addons/finite_state_machine/source/FiniteStateMachine.gd" type="Script" id=6]
+[ext_resource path="res://source/player/states/Walk.gd" type="Script" id=7]
+[ext_resource path="res://source/player/states/Jump.gd" type="Script" id=8]
+[ext_resource path="res://source/player/states/Fall.gd" type="Script" id=9]
+[ext_resource path="res://source/player/states/Jetpack.gd" type="Script" id=10]
+[ext_resource path="res://graphics/particles/ImpactDust.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.615693
@@ -88,36 +88,36 @@ emitting = false
 transform = Transform( -0.049948, 0, 0.998752, 0, 1, 0, -0.998752, 0, -0.049948, -0.373098, 1.03614, -0.664294 )
 emitting = false
 
-[node name="Particles" parent="Robot" instance=ExtResource( 5 )]
+[node name="RunningDust" parent="Robot" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501893, 0.0486623 )
 
-[node name="FSM" type="Node" parent="."]
-script = ExtResource( 7 )
+[node name="ImpactParticles" parent="Robot" instance=ExtResource( 11 )]
+speed_scale = 1.4
 
-[node name="Idle" type="Node" parent="FSM"]
+[node name="FSM" type="Node" parent="."]
 script = ExtResource( 6 )
 
+[node name="Idle" type="Node" parent="FSM"]
+script = ExtResource( 5 )
+
 [node name="Walk" type="Node" parent="FSM"]
-script = ExtResource( 8 )
+script = ExtResource( 7 )
 max_speed_run = 7.8
 max_speed_walk = 5.6
 
 [node name="Jump" type="Node" parent="FSM"]
-script = ExtResource( 9 )
+script = ExtResource( 8 )
 jump_force = 10.0
 max_speed_walk = 5.6
 max_speed_run = 7.8
 
-[node name="Dive" type="Node" parent="FSM"]
-script = ExtResource( 4 )
-
 [node name="Fall" type="Node" parent="FSM"]
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 max_speed_walk = 5.6
 max_speed_run = 7.8
 
 [node name="Jetpack" type="Node" parent="FSM"]
-script = ExtResource( 11 )
+script = ExtResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 10 )
