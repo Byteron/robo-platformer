@@ -44,7 +44,7 @@ input_1/auto_advance = false
 input_2/name = "fall"
 input_2/auto_advance = false
 input_3/name = "land"
-input_3/auto_advance = false
+input_3/auto_advance = true
 
 [sub_resource type="AnimationNodeTimeScale" id=9]
 
