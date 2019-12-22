@@ -41,7 +41,7 @@ func update(host: Node, delta: float) -> void:
 	if Input.is_action_just_pressed("dive") and input_direction:
 		host.change_state("Dive")
 	elif host.is_on_floor():
-		emit_dust(host)
+		host.emit_dust()
 		host.fsm.change_state("Idle")
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0:
 			host.change_state("Jump")
@@ -55,13 +55,3 @@ func exit(host: Node) -> void:
 	host = host as Robot
 	host.play("land")
 
-func emit_dust(host):
-	print(host.motion.y)
-	if -host.motion.y < 9: return
-
-	var dust_scale = range_lerp(-host.motion.y,9,20,0.5 ,1.0)
-	dust_scale = clamp(dust_scale, 0.5, 1.0)
-	print(dust_scale)
-	host.landing_dust_particles.process_material.scale = 3.0*dust_scale
-	host.landing_dust_particles.process_material.initial_velocity = 14.0* dust_scale
-	host.landing_dust_particles.restart()
