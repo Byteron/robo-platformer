@@ -50,10 +50,10 @@ func play(anim_name: String) -> void:
 
 	if anim_name == "jump": idx = 1
 	if anim_name == "fall": idx = 2
-	# if anim_name == "land": idx = 3
+	if anim_name == "land": idx = 3
 
-	# if anim_tree.get("parameters/state/current") == 3:
-	# 	return
+	if anim_tree.get("parameters/state/current") == 3:
+		return
 
 	if anim_name == "walk": idx = 0
 
