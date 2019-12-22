@@ -116,7 +116,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.6607, 3.04844, 0 )
 anims/Move = SubResource( 1 )
 
 [node name="RotoPlatform3" parent="Platforms" instance=ExtResource( 3 )]
-transform = Transform( 0.859665, 0, -0.510858, 0, 1, 0, 0.510858, 0, 0.859665, 19.5639, 4.43913, 12.4844 )
+transform = Transform( 0.859665, 0, -0.510858, 0, 1, 0, 0.510858, 0, 0.859665, 15.8752, 4.43913, 6.69348 )
+
+[node name="roto-platform" parent="Platforms/RotoPlatform3/KinematicBody" index="1"]
+transform = Transform( 0.552621, 0, -0.833433, 0, 1, 0, 0.833433, 0, 0.552621, 0, 0, 0 )
 
 [node name="Marker" parent="Platforms/RotoPlatform3" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
