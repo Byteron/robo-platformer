@@ -48,7 +48,7 @@ func update(host: Node, delta: float) -> void:
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
-	if Input.is_action_just_pressed("dive"):
+	if Input.is_action_just_pressed("dive") and input_direction:
 		host.change_state("Dive")
 	elif Input.is_action_just_released("jump") and host.motion.y > 0.5:
 		cut()

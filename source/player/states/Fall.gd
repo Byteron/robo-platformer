@@ -38,7 +38,7 @@ func update(host: Node, delta: float) -> void:
 
 	host.motion.y -= Global.GRAVITY * delta * gravity_mod
 
-	if Input.is_action_just_pressed("dive"):
+	if Input.is_action_just_pressed("dive") and input_direction:
 		host.change_state("Dive")
 	elif host.is_on_floor():
 		host.fsm.change_state("Idle")

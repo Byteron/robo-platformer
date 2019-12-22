@@ -4,17 +4,15 @@ var host : Robot = null
 
 export var gravity_mod := 1.0
 
-export var jump_force := 12.0
-
-export var max_speed := 10.0
+export var max_speed := 12.0
 
 export var acceleration := 0.6
 export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
-	host.motion = host.get_walk_input_direction() * jump_force
-	host.motion.y = jump_force / 2
+	host.motion.x = host.get_walk_input_direction().x * max_speed
+	host.motion.z = host.get_walk_input_direction().z * max_speed
 	host.play("jump")
 
 func update(host: Node, delta: float) -> void:
