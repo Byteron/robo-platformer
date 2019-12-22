@@ -17,6 +17,7 @@ export var turn_threshhold := 0.7
 func enter(host: Node) -> void:
 	host = host as Robot
 	host.motion.y = 0
+	host.set_dust_particles(true)
 	host.play("walk")
 
 func input(host: Node, event: InputEvent) -> void:
@@ -39,12 +40,17 @@ func update(host: Node, delta: float) -> void:
 		speed = clamp(speed + acceleration, 0, max_speed)
 		host.motion.x = input_direction.x * speed
 		host.motion.z = input_direction.z * speed
-	else:
+	elif Devices.current_device == Devices.DEVICES.KEYBOARD:
 		speed = clamp(speed - deceleration, 0, max_speed)
+		host.motion = host.motion.normalized() * speed
+	else:
+		speed = clamp(speed - deceleration, 0, host.motion.max_axis())
 		host.motion = host.motion.normalized() * speed
 
 	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
 	host.anim_tree.set("parameters/time/scale", host.motion.length() / max_speed_walk * 1.5)
+
+	host.dust_particles.process_material.set("scale", host.motion.length() / max_speed * 2.5)
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 
@@ -59,3 +65,4 @@ func exit(host: Node) -> void:
 	host = host as Robot
 	host.anim_tree.set("parameters/idle_to_walk/blend_amount", 0)
 	host.anim_tree.set("parameters/time/scale", 1.0)
+	host.set_dust_particles(false)

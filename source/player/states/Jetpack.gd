@@ -48,7 +48,7 @@ func update(host: Node, delta: float) -> void:
 
 	if Input.is_action_pressed("jump") and host.energy < host.max_energy:
 		host.motion.y += thrust * delta
-		host.motion.y = clamp(host.motion.y, 0, max_speed_jet)
+		host.motion.y = clamp(host.motion.y, -2.8, max_speed_jet)
 		host.energy += thrust * delta
 	elif host.motion.y < 0.5 and not Input.is_action_pressed("jump") or host.motion.y < 0.5 and host.energy >= host.max_energy:
 		host.change_state("Fall")
