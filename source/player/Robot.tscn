@@ -130,6 +130,12 @@ active = true
 parameters/idle_to_walk/blend_amount = 0.0
 parameters/state/current = 0
 parameters/time/scale = 1.0
+
+[node name="FootRay" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0905071, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.2, 0 )
+collision_mask = 32
 [connection signal="state_changed" from="FSM" to="." method="_on_FSM_state_changed"]
 
 [editable path="Robot"]

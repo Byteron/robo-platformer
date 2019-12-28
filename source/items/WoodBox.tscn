@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://graphics/WoodBox/v3.glb" type="PackedScene" id=1]
+[ext_resource path="res://source/items/WoodBox.gd" type="Script" id=2]
+[ext_resource path="res://graphics/particles/kenney pack/smoke_04.png" type="Texture" id=3]
+[ext_resource path="res://graphics/particles/kenney pack/magic_05.png" type="Texture" id=4]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.00409836, 0.459016 )
+colors = PoolColorArray( 1, 0.978943, 0.460938, 1, 1, 0.970947, 0.535156, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 2
+emission_box_extents = Vector3( 0.5, 0.5, 0.5 )
+direction = Vector3( 0, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+damping = 86.5
+scale = 3.0
+color_ramp = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 4 )
+
+[sub_resource type="QuadMesh" id=6]
+material = SubResource( 5 )
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0.381148, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.0614754, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+spread = 180.0
+gravity = Vector3( 0, 1, 0 )
+initial_velocity = 1.0
+damping = 2.74
+scale = 3.0
+color_ramp = SubResource( 11 )
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="QuadMesh" id=9]
+material = SubResource( 8 )
+
+[node name="WoodBox" type="StaticBody"]
+collision_layer = 33
+script = ExtResource( 2 )
+
+[node name="v3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.836138 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="Particles" type="Particles" parent="."]
+emitting = false
+amount = 64
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
+
+[node name="Particles2" type="Particles" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 9 )

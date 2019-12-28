@@ -1,23 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/level/test-level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/enemies/Sawbot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://graphics/materials/Water.tres" type="Material" id=5]
+[ext_resource path="res://source/level/WaterArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/level/PitArea.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/items/WoodBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
 [ext_resource path="res://source/level/WorldEnvironment.tscn" type="PackedScene" id=9]
 [ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=10]
 
-[sub_resource type="PlaneMesh" id=1]
-material = ExtResource( 5 )
-size = Vector2( 300, 300 )
-subdivide_width = 100
-subdivide_depth = 100
-
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
 albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
@@ -47,23 +41,27 @@ transform = Transform( -0.673942, 0, -0.738785, 0, 1, 0, 0.738785, 0, -0.673942,
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
-[node name="Water" type="MeshInstance" parent="."]
-cast_shadow = 0
-mesh = SubResource( 1 )
-material/0 = null
-
 [node name="test-level" parent="." instance=ExtResource( 3 )]
+
+[node name="WaterArea" parent="." instance=ExtResource( 5 )]
 
 [node name="Horizon" type="CSGTorus" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
 inner_radius = 115.556
 outer_radius = 300.0
 sides = 12
-material = SubResource( 2 )
-
-[node name="WaterArea" parent="." instance=ExtResource( 7 )]
+material = SubResource( 1 )
 
 [node name="Checkpoint" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.49303, 11 )
+
+[node name="WoodBox" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 8.45507 )
+
+[node name="WoodBox2" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 9.18069 )
+
+[node name="WoodBox3" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 9.86804 )
 
 [editable path="WaterArea"]
