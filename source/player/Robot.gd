@@ -36,6 +36,13 @@ onready var jet_particles = [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
 ]
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("like"):
+		play("like")
+
+	elif event is InputEventMouseMotion:
+		mouse_axis.x += event.relative.normalized().x * 0.1
+
 func _ready() -> void:
 	last_checkpoint = get_node(first_checkpoint)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -63,6 +70,7 @@ func play(anim_name: String) -> void:
 	if anim_name == "jump": idx = 1
 	if anim_name == "fall": idx = 2
 	if anim_name == "land": idx = 3
+	#if anim_name == "like": idx = 4
 
 	if anim_tree.get("parameters/state/current") == 3:
 		return
@@ -104,10 +112,6 @@ func get_look_input_direction() -> Vector3:
 	input_direction = mouse_direction if mouse_direction.length() > pad_direction.length() else pad_direction
 
 	return input_direction
-
-func _input(event):
-	if event is InputEventMouseMotion:
-		mouse_axis.x += event.relative.normalized().x * 0.1
 
 func set_jet_particles(value: bool) -> void:
 	for p in jet_particles:

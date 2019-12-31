@@ -9,8 +9,9 @@ export(NodePath) var target_path = null
 
 export var offset := Vector3(0, 1, 0)
 
-export var max_distance := 10
-export var max_rotation_speed := 4
+export var max_distance := 10.0
+export var max_rotation_speed := 280.0
+export var follow_rotation_speed := 80.0
 
 export(Curve) var distance_curve : Curve = null
 export var collision_margin := 2.0
@@ -65,8 +66,8 @@ func _process(delta: float) -> void:
 	elif not tween.is_active() and Devices.current_device == Devices.DEVICES.KEYBOARD:
 		zoom_level = lerp(zoom_level, scroll_zoom_level, 1.0 - smoothing)
 
-	rotation_degrees.y += -look_input_direction.x * max_rotation_speed
-	rotation_degrees.y += -target.get_raw_walk_input_direction().x
+	rotation_degrees.y += -look_input_direction.x * max_rotation_speed * delta
+	rotation_degrees.y += -target.get_raw_walk_input_direction().x * follow_rotation_speed * delta
 
 	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 

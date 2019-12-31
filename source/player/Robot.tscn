@@ -49,7 +49,7 @@ input_3/auto_advance = true
 [sub_resource type="AnimationNodeTimeScale" id=9]
 
 [sub_resource type="AnimationNodeBlendTree" id=10]
-graph_offset = Vector2( -943.037, -72 )
+graph_offset = Vector2( -237.99, 117 )
 nodes/Fall/node = SubResource( 2 )
 nodes/Fall/position = Vector2( 60, 360 )
 nodes/Idle/node = SubResource( 3 )
@@ -64,7 +64,7 @@ nodes/idle_to_walk/node = SubResource( 7 )
 nodes/idle_to_walk/position = Vector2( 80, 20 )
 nodes/output/position = Vector2( 940, 140 )
 nodes/state/node = SubResource( 8 )
-nodes/state/position = Vector2( 440, 100 )
+nodes/state/position = Vector2( 420, 120 )
 nodes/time/node = SubResource( 9 )
 nodes/time/position = Vector2( 760, 140 )
 node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
