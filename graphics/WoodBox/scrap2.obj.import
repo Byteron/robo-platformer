@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/scrap2.obj-ed039be3f4d5179896e995c74d80c3dc.mesh"
+
+[deps]
+
+files=[ "res://.import/scrap2.obj-ed039be3f4d5179896e995c74d80c3dc.mesh" ]
+
+source_file="res://graphics/WoodBox/scrap2.obj"
+dest_files=[ "res://.import/scrap2.obj-ed039be3f4d5179896e995c74d80c3dc.mesh", "res://.import/scrap2.obj-ed039be3f4d5179896e995c74d80c3dc.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
