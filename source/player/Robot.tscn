@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://graphics/gtlf2/robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -14,8 +14,8 @@
 [ext_resource path="res://source/player/states/Dive.gd" type="Script" id=12]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.615693
-height = 0.002
+radius = 0.345899
+height = 0.567878
 
 [sub_resource type="AnimationNodeAnimation" id=2]
 animation = "Robot_Fall"
@@ -69,13 +69,16 @@ nodes/time/node = SubResource( 9 )
 nodes/time/position = Vector2( 760, 140 )
 node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
 
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 0.2, 0.119692, 0.2 )
+
 [node name="Robot" type="KinematicBody"]
 collision_mask = 2
 script = ExtResource( 2 )
 max_jumps = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0198295, 0.618695, 0.0123997 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.0198295, 0.618695, 0.0123997 )
 shape = SubResource( 1 )
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
@@ -131,11 +134,13 @@ parameters/idle_to_walk/blend_amount = 0.0
 parameters/state/current = 0
 parameters/time/scale = 1.0
 
-[node name="FootRay" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0905071, 0 )
-enabled = true
-cast_to = Vector3( 0, -0.2, 0 )
+[node name="FootArea" type="Area" parent="."]
+collision_layer = 32
 collision_mask = 32
+
+[node name="CollisionShape" type="CollisionShape" parent="FootArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0519124, 0 )
+shape = SubResource( 11 )
 [connection signal="state_changed" from="FSM" to="." method="_on_FSM_state_changed"]
 
 [editable path="Robot"]

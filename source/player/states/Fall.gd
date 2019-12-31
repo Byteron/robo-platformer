@@ -19,11 +19,11 @@ func enter(host: Node) -> void:
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
-
-	if host.foot_ray.is_colliding():
-		host.foot_ray.get_collider().explode()
-		host.change_state("Jump")
-		return
+	for body in host.foot_area.get_overlapping_bodies():
+		if body.is_in_group("jumpable_box"):
+			body.explode()
+			host.change_state("Jump")
+			return
 
 	if host.sprinting:
 		max_speed = max_speed_run

@@ -20,7 +20,7 @@ export var max_energy := 100.0
 
 export(NodePath) var camera_path = null
 
-onready var foot_ray := $FootRay
+onready var foot_area := $FootArea
 
 onready var anim_tree := $AnimationTree
 onready var anim_player := $Robot/AnimationPlayer
