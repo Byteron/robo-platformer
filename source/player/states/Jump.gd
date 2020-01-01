@@ -20,6 +20,7 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
+	host.can_charge = false
 	host.motion.y = jump_force
 	host.jumps -= 1
 	print("jump!")

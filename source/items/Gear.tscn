@@ -6,7 +6,6 @@
 [ext_resource path="res://graphics/particles/gear_collect_particles.tres" type="Material" id=4]
 [ext_resource path="res://graphics/particles/star_particle.material" type="Material" id=5]
 
-
 [sub_resource type="QuadMesh" id=1]
 material = ExtResource( 5 )
 
@@ -29,7 +28,7 @@ repeat = true
 playback/repeat = true
 
 [node name="Particles" type="Particles" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.242161, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.242161, 0 )
 emitting = false
 amount = 22
 lifetime = 3.0

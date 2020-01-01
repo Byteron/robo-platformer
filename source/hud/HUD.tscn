@@ -1,62 +1,148 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://fonts/droid-sans/DroidSans.tres" type="DynamicFont" id=1]
 [ext_resource path="res://source/hud/HUD.gd" type="Script" id=2]
-[ext_resource path="res://graphics/icons/gear.png" type="Texture" id=3]
+[ext_resource path="res://graphics/icons/GearPanel.png" type="Texture" id=3]
+[ext_resource path="res://graphics/icons/BoostBarUnder.png" type="Texture" id=4]
+[ext_resource path="res://graphics/icons/Progress.png" type="Texture" id=5]
+[ext_resource path="res://graphics/icons/BoostBarOver.png" type="Texture" id=6]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.207843, 0.207843, 0.207843, 1 )
-border_width_top = 3
-border_width_right = 3
-border_color = Color( 0.505882, 0.505882, 0.505882, 1 )
-shadow_size = 3
+[sub_resource type="Animation" id=2]
+resource_name = "hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BoostBar:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 3,
+"values": [ Vector2( 525, 667 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BoostBar:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"update": 3,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BoostBar:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 3,
+"values": [ Vector2( 525, 637 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BoostBar:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 3,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start_hide"
+tracks/0/type = "method"
+tracks/0/path = NodePath("BoostAnim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hide", -1, 1.0, false ],
+"method": "play"
+} ]
+}
 
 [node name="HUD" type="CanvasLayer" groups=[
 "HUD",
 ]]
 script = ExtResource( 2 )
 
-[node name="BottomLeftPanel" type="PanelContainer" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -52.0
-margin_right = 106.0
-custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CenterContainer" type="CenterContainer" parent="BottomLeftPanel"]
-margin_top = 3.0
-margin_right = 103.0
-margin_bottom = 52.0
-
-[node name="GearContainer" type="HBoxContainer" parent="BottomLeftPanel/CenterContainer"]
-margin_left = 10.0
-margin_top = 5.0
-margin_right = 92.0
-margin_bottom = 43.0
-
-[node name="TextureRect" type="TextureRect" parent="BottomLeftPanel/CenterContainer/GearContainer"]
-margin_right = 38.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 38, 38 )
-size_flags_horizontal = 3
+[node name="GearPanel" type="TextureRect" parent="."]
+margin_left = 13.0
+margin_top = 10.9999
+margin_right = 288.0
+margin_bottom = 170.0
+rect_scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 3 )
-expand = true
-stretch_mode = 6
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="BottomLeftPanel/CenterContainer/GearContainer"]
-margin_left = 42.0
-margin_right = 82.0
-margin_bottom = 38.0
+[node name="Label" type="Label" parent="GearPanel"]
+margin_left = 161.333
+margin_top = 43.0
+margin_right = 246.333
+margin_bottom = 119.0
 rect_min_size = Vector2( 40, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0.701961, 0.701961, 0.701961, 1 )
+custom_colors/font_color = Color( 0.894118, 0.960784, 1, 1 )
 text = "0"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoostBar" type="TextureProgress" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_top = -52.9999
+margin_right = 644.0
+margin_bottom = 161.0
+rect_scale = Vector2( 0.3, 0.3 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 0.01
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 6 )
+texture_progress = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BoostBar"]
+margin_left = 101.571
+margin_top = 154.149
+margin_right = 141.571
+margin_bottom = 230.149
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoostAnim" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 2 )
+anims/show = SubResource( 1 )
+anims/start_hide = SubResource( 3 )

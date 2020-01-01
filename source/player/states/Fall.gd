@@ -15,6 +15,7 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	host = host as Robot
+	host.can_charge = false
 	host.play("fall")
 
 func update(host: Node, delta: float) -> void:
@@ -22,7 +23,8 @@ func update(host: Node, delta: float) -> void:
 	for body in host.foot_area.get_overlapping_bodies():
 		if body.is_in_group("jumpable_box"):
 			body.explode()
-			host.change_state("Jump")
+			if body.explosive: host.change_state("BounceHigh")
+			else: host.change_state("BounceLow")
 			return
 
 	if host.sprinting:

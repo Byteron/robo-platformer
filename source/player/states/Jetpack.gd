@@ -21,6 +21,7 @@ func enter(host: Node) -> void:
 	self.host = host as Robot
 	host.play("fall")
 	host.set_jet_particles(true)
+	host.can_charge = false
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot

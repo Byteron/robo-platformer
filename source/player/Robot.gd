@@ -17,6 +17,10 @@ var energy := 0.0
 
 export var max_jumps := 2
 export var max_energy := 100.0
+export var energy_charge_rate = 50.0
+
+var can_charge = true
+
 
 export(NodePath) var camera_path = null
 
@@ -62,6 +66,11 @@ func _process(delta: float) -> void:
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
 
 	sprinting = Input.is_action_pressed("sprint")
+
+	get_tree().call_group("HUD", "set_boost", ceil(max_energy-energy / max_energy *  100.0))
+	if can_charge and is_on_floor():
+		if energy > 0:
+			energy -= energy_charge_rate * delta
 
 func play(anim_name: String) -> void:
 

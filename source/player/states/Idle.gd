@@ -5,7 +5,6 @@ func enter(host: Node) -> void:
 	host.play("walk")
 	host.motion = Vector3()
 	host.jumps = host.max_jumps
-	host.energy = 0
 
 func input(host: Node, event: InputEvent) -> void:
 	host = host as Robot
@@ -15,7 +14,7 @@ func input(host: Node, event: InputEvent) -> void:
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
-
+	host.can_charge = true
 	var input_direction = host.get_walk_input_direction()
 	host.move_and_slide_with_snap(Vector3.ZERO, Vector3.DOWN, Vector3.UP)
 

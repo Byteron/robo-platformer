@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
 [ext_resource path="res://source/level/WorldEnvironment.tscn" type="PackedScene" id=9]
 [ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=10]
+[ext_resource path="res://graphics/WoodBox/TntBox/Tntbox.tscn" type="PackedScene" id=11]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -55,13 +56,94 @@ material = SubResource( 1 )
 [node name="Checkpoint" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.49303, 11 )
 
-[node name="WoodBox" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 8.45507 )
+[node name="TntBox" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 10.8901 )
 
-[node name="WoodBox2" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 9.18069 )
+[node name="TntBox2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 10.8901 )
 
-[node name="WoodBox3" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 13.6016, 3.29439, 9.86804 )
+[node name="TntBox3" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 10.8901 )
+
+[node name="TntBox6" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 11.6922 )
+
+[node name="TntBox5" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 11.6922 )
+
+[node name="TntBox4" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 11.6922 )
+
+[node name="TntBox12" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 14.9271 )
+
+[node name="TntBox11" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 14.9271 )
+
+[node name="TntBox10" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 14.9271 )
+
+[node name="TntBox9" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 15.7291 )
+
+[node name="TntBox8" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 15.7291 )
+
+[node name="TntBox7" parent="." instance=ExtResource( 11 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 15.7291 )
+
+[node name="WoodBox5" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 8.45119 )
+
+[node name="WoodBox6" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 9.21391 )
+
+[node name="WoodBox7" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 10.0506 )
+
+[node name="WoodBox10" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 8.45119 )
+
+[node name="WoodBox9" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 9.21391 )
+
+[node name="WoodBox8" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 10.0506 )
+
+[node name="WoodBox13" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 8.45119 )
+
+[node name="WoodBox12" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 9.21391 )
+
+[node name="WoodBox11" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 10.0506 )
+
+[node name="WoodBox22" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 12.52 )
+
+[node name="WoodBox21" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 13.2827 )
+
+[node name="WoodBox20" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 14.1193 )
+
+[node name="WoodBox19" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 12.52 )
+
+[node name="WoodBox18" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 13.2827 )
+
+[node name="WoodBox17" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 14.1193 )
+
+[node name="WoodBox16" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 12.52 )
+
+[node name="WoodBox15" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 13.2827 )
+
+[node name="WoodBox14" parent="." instance=ExtResource( 7 )]
+transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 14.1193 )
 
 [editable path="WaterArea"]

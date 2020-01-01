@@ -11,6 +11,7 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
+	host.can_charge = false
 	host.motion.x = host.get_walk_input_direction().x * max_speed
 	host.motion.z = host.get_walk_input_direction().z * max_speed
 	host.play("jump")

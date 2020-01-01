@@ -16,6 +16,7 @@ export var turn_threshhold := 0.7
 
 func enter(host: Node) -> void:
 	host = host as Robot
+	host.can_charge = true
 	host.motion.y = 0
 	host.set_dust_particles(true)
 	host.play("walk")

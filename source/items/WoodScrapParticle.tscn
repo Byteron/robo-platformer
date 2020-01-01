@@ -9,6 +9,7 @@ extents = Vector3( 0.0244743, 0.0456502, 0.297647 )
 
 [node name="WoodScrapParticle" type="RigidBody"]
 collision_mask = 0
+continuous_cd = true
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
