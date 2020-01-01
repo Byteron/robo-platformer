@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/items/BaseBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://graphics/WoodBox/TntBox/tntbox.glb" type="PackedScene" id=2]
+
+[node name="TntBox" instance=ExtResource( 1 )]
+explosive = true
+
+[node name="mesh" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.784679 )
