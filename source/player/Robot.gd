@@ -15,6 +15,14 @@ var jumps := 0
 
 var energy := 0.0
 
+
+var wrench_scene = preload("res://source/player/wrench/WrenchProjectile.tscn")
+export var wrench_throw_force = 50.0
+export var wrench_timeout = 0.8
+var wrench_throw_timer = 0.0
+
+
+
 export var max_jumps := 2
 export var max_energy := 100.0
 export var energy_charge_rate = 50.0
@@ -31,6 +39,8 @@ onready var anim_player := $Robot/AnimationPlayer
 
 onready var fsm := $FSM
 onready var camera = null
+
+onready var throw_position = $Robot/RobotArmature/Skeleton/WrenchPosition
 
 onready var dust_particles = $Robot/RunningDust
 onready var landing_dust_particles = $Robot/ImpactParticles
@@ -58,6 +68,8 @@ func _ready() -> void:
 	set_dust_particles(false)
 
 func _process(delta: float) -> void:
+	wrench_throw_timer += delta
+
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
 
 	if carrot != translation:
@@ -71,6 +83,12 @@ func _process(delta: float) -> void:
 	if can_charge and is_on_floor():
 		if energy > 0:
 			energy -= energy_charge_rate * delta
+
+	if Input.is_action_just_pressed("throw"):
+		if wrench_throw_timer > wrench_timeout:
+			wrench_throw_timer = 0.0
+			throw_wrench()
+
 
 func play(anim_name: String) -> void:
 
@@ -125,6 +143,16 @@ func get_look_input_direction() -> Vector3:
 func set_jet_particles(value: bool) -> void:
 	for p in jet_particles:
 		p.emitting = value
+
+func throw_wrench():
+	var w = wrench_scene.instance()
+	get_parent().call_deferred("add_child", w)
+	w.global_transform = throw_position.global_transform
+	var dir = $Robot/RobotArmature/Skeleton.global_transform.basis.z
+	dir.y = 0.05
+	w.add_torque(dir.rotated(Vector3.UP,PI/2)*300)
+#	w.apply_torque_impulse(Vector3.UP)
+	w.apply_central_impulse(dir* wrench_throw_force)
 
 func emit_dust():
 	if -motion.y < 8: return

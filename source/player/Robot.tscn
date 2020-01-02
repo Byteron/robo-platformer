@@ -92,6 +92,9 @@ emitting = false
 transform = Transform( -0.049948, 0, 0.998752, 0, 1, 0, -0.998752, 0, -0.049948, -0.373098, 1.03614, -0.664294 )
 emitting = false
 
+[node name="WrenchPosition" type="Position3D" parent="Robot/RobotArmature/Skeleton" index="15"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.652098, 3.05487, 1.55713 )
+
 [node name="RunningDust" parent="Robot" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501893, 0.0486623 )
 
