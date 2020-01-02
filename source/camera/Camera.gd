@@ -42,10 +42,12 @@ func _process(delta: float) -> void:
 
 	var result = space_state.intersect_ray(target.translation + Vector3(0, 1, 0), target.translation + Vector3(0, -3, 0), [target])
 
-	if result:
-		translation = lerp(translation, result.position + offset, 1.0 - smoothing)
-	else:
-		translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
+#	if result:
+#		translation = lerp(translation, result.position + offset, 1.0 - smoothing)
+#	else:
+#		translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
+#
+	translation = lerp(translation, target.translation + offset, 1.0 - smoothing)
 
 	translation.y = clamp(translation.y, limit_bottom, translation.y)
 
