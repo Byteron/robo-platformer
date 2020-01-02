@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://graphics/gtlf2/robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -20,19 +20,11 @@ height = 0.567878
 [sub_resource type="AnimationNodeAnimation" id=2]
 animation = "Robot_Fall"
 
-[sub_resource type="AnimationNodeAnimation" id=3]
-animation = "Robot_Idle"
-
 [sub_resource type="AnimationNodeAnimation" id=4]
 animation = "Robot_Jump"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Robot_Land"
-
-[sub_resource type="AnimationNodeAnimation" id=6]
-animation = "Robot_Running"
-
-[sub_resource type="AnimationNodeBlend2" id=7]
 
 [sub_resource type="AnimationNodeTransition" id=8]
 input_count = 4
@@ -48,26 +40,45 @@ input_3/auto_advance = true
 
 [sub_resource type="AnimationNodeTimeScale" id=9]
 
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Robot_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Robot_Running"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Robot_Sprinting"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "Robot_Sprinting"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=15]
+blend_point_0/node = SubResource( 12 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 13 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 14 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 16 )
+blend_point_3/pos = Vector2( 1, 1 )
+min_space = Vector2( 0, -1 )
+
 [sub_resource type="AnimationNodeBlendTree" id=10]
-graph_offset = Vector2( -237.99, 117 )
-nodes/Fall/node = SubResource( 2 )
-nodes/Fall/position = Vector2( 60, 360 )
-nodes/Idle/node = SubResource( 3 )
-nodes/Idle/position = Vector2( -160, 20 )
-nodes/Jump/node = SubResource( 4 )
-nodes/Jump/position = Vector2( 60, 220 )
-nodes/Land/node = SubResource( 5 )
-nodes/Land/position = Vector2( 60, 480 )
-nodes/Walk/node = SubResource( 6 )
-nodes/Walk/position = Vector2( -160, 160 )
-nodes/idle_to_walk/node = SubResource( 7 )
-nodes/idle_to_walk/position = Vector2( 80, 20 )
+graph_offset = Vector2( -543, 49.75 )
+nodes/fall/node = SubResource( 2 )
+nodes/fall/position = Vector2( 160, 460 )
+nodes/jump/node = SubResource( 4 )
+nodes/jump/position = Vector2( 160, 320 )
+nodes/land/node = SubResource( 5 )
+nodes/land/position = Vector2( 160, 580 )
 nodes/output/position = Vector2( 940, 140 )
 nodes/state/node = SubResource( 8 )
 nodes/state/position = Vector2( 420, 120 )
 nodes/time/node = SubResource( 9 )
 nodes/time/position = Vector2( 760, 140 )
-node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "idle_to_walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Land", "idle_to_walk", 0, "Idle", "idle_to_walk", 1, "Walk" ]
+nodes/walk/node = SubResource( 15 )
+nodes/walk/position = Vector2( 160, 100 )
+node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "walk", "state", 1, "jump", "state", 2, "fall", "state", 3, "land" ]
 
 [sub_resource type="BoxShape" id=11]
 extents = Vector3( 0.2, 0.119692, 0.2 )
@@ -109,8 +120,6 @@ script = ExtResource( 5 )
 
 [node name="Walk" type="Node" parent="FSM"]
 script = ExtResource( 7 )
-max_speed_run = 7.8
-max_speed_walk = 5.6
 
 [node name="Jump" type="Node" parent="FSM"]
 script = ExtResource( 8 )
@@ -145,9 +154,9 @@ script = ExtResource( 10 )
 tree_root = SubResource( 10 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
-parameters/idle_to_walk/blend_amount = 0.0
 parameters/state/current = 0
 parameters/time/scale = 1.0
+parameters/walk/blend_position = Vector2( 1.01519, 1.25954 )
 
 [node name="FootArea" type="Area" parent="."]
 collision_layer = 32

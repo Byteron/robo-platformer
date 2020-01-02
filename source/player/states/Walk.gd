@@ -1,16 +1,16 @@
 extends State
 
 const DEAD_ZONE := 0.2
+const WALK_LERP_WEIGHT := 0.35
 
 var speed := 0.0
-var max_speed := 0.0
+var boost := 0.0
 
-export var max_speed_run := 8.0
+export var max_speed := 5.0
+export var sprint_boost := 3.0
 
-export var max_speed_walk := 6.0
-
-export var acceleration = 0.35
-export var deceleration = 0.35
+export var acceleration = 0.5
+export var deceleration = 0.5
 
 export var turn_threshhold := 0.7
 
@@ -30,26 +30,29 @@ func input(host: Node, event: InputEvent) -> void:
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
 
-	if host.sprinting:
-		max_speed = max_speed_run
-	else:
-		max_speed = max_speed_walk
+	boost = sprint_boost if host.sprinting else 0
 
 	var input_direction = host.get_walk_input_direction()
 
 	if input_direction:
-		speed = clamp(speed + acceleration, 0, max_speed)
+		var target_speed = clamp(speed + acceleration, 0, max_speed + boost)
+		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
 		host.motion.x = input_direction.x * speed
 		host.motion.z = input_direction.z * speed
 	elif Devices.current_device == Devices.DEVICES.KEYBOARD:
-		speed = clamp(speed - deceleration, 0, max_speed)
+		var target_speed = clamp(speed - deceleration, 0, max_speed)
+		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
 		host.motion = host.motion.normalized() * speed
 	else:
-		speed = clamp(speed - deceleration, 0, host.motion.max_axis())
+		var target_speed = clamp(speed - deceleration, 0, host.motion.max_axis())
+		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
 		host.motion = host.motion.normalized() * speed
 
-	host.anim_tree.set("parameters/idle_to_walk/blend_amount", host.motion.length() / max_speed)
-	host.anim_tree.set("parameters/time/scale", host.motion.length() / max_speed_walk * 1.5)
+	var blend_x = host.motion.length() / max_speed
+	var blend_y = max(0, host.motion.length() - max_speed) / sprint_boost
+
+	host.anim_tree.set("parameters/walk/blend_position", Vector2(blend_x, blend_y))
+
 
 	host.dust_particles.process_material.set("scale", host.motion.length() / max_speed * 2.5)
 
@@ -64,6 +67,5 @@ func update(host: Node, delta: float) -> void:
 
 func exit(host: Node) -> void:
 	host = host as Robot
-	host.anim_tree.set("parameters/idle_to_walk/blend_amount", 0)
-	host.anim_tree.set("parameters/time/scale", 1.0)
+	host.anim_tree.set("parameters/walk/blend_position", Vector2())
 	host.set_dust_particles(false)
