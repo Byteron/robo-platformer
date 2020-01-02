@@ -1,13 +1,62 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://fonts/droid-sans/DroidSans.tres" type="DynamicFont" id=1]
 [ext_resource path="res://source/hud/HUD.gd" type="Script" id=2]
-[ext_resource path="res://graphics/icons/GearPanel.png" type="Texture" id=3]
 [ext_resource path="res://graphics/icons/BoostBarUnder.png" type="Texture" id=4]
 [ext_resource path="res://graphics/icons/Progress.png" type="Texture" id=5]
 [ext_resource path="res://graphics/icons/BoostBarOver.png" type="Texture" id=6]
+[ext_resource path="res://source/hud/GearSceneHUD.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=10]
+resource_name = "hide"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("GearRect:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.15, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 3,
+"values": [ Vector2( -24, -2.66266 ), Vector2( -24, -131.57 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "show"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("GearRect:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 3,
+"values": [ Vector2( -24, -2.66266 ), Vector2( -24, -20 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "start_hide"
+tracks/0/type = "method"
+tracks/0/path = NodePath("GearsAnim")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "hide", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=1]
 resource_name = "hide"
 tracks/0/type = "value"
 tracks/0/path = NodePath("BoostBar:rect_position")
@@ -34,8 +83,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "show"
+[sub_resource type="Animation" id=2]
 tracks/0/type = "value"
 tracks/0/path = NodePath("BoostBar:rect_position")
 tracks/0/interp = 2
@@ -78,37 +126,22 @@ tracks/0/keys = {
 } ]
 }
 
+[sub_resource type="ProceduralSky" id=5]
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+
+[sub_resource type="World" id=7]
+environment = SubResource( 6 )
+
+[sub_resource type="ViewportTexture" id=4]
+viewport_path = NodePath("GearViewport")
+
 [node name="HUD" type="CanvasLayer" groups=[
 "HUD",
 ]]
 script = ExtResource( 2 )
-
-[node name="GearPanel" type="TextureRect" parent="."]
-margin_left = 13.0
-margin_top = 10.9999
-margin_right = 288.0
-margin_bottom = 170.0
-rect_scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="GearPanel"]
-margin_left = 161.333
-margin_top = 43.0
-margin_right = 246.333
-margin_bottom = 119.0
-rect_min_size = Vector2( 40, 0 )
-size_flags_horizontal = 3
-size_flags_vertical = 1
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 0.894118, 0.960784, 1, 1 )
-text = "0"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BoostBar" type="TextureProgress" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -117,7 +150,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -115.0
-margin_top = -52.9999
+margin_top = -53.0
 margin_right = 644.0
 margin_bottom = 161.0
 rect_scale = Vector2( 0.3, 0.3 )
@@ -142,7 +175,55 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GearsAnim" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 10 )
+anims/show = SubResource( 8 )
+anims/start_hide = SubResource( 9 )
+
 [node name="BoostAnim" type="AnimationPlayer" parent="."]
-anims/hide = SubResource( 2 )
-anims/show = SubResource( 1 )
+anims/hide = SubResource( 1 )
+anims/show = SubResource( 2 )
 anims/start_hide = SubResource( 3 )
+
+[node name="GearViewport" type="Viewport" parent="."]
+size = Vector2( 150, 150 )
+own_world = true
+world = SubResource( 7 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="GearSceneHUD" parent="GearViewport" instance=ExtResource( 7 )]
+
+[node name="GearRect" type="TextureRect" parent="."]
+margin_left = -24.0
+margin_top = -131.57
+margin_right = 126.0
+margin_bottom = 18.43
+texture = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GearRect"]
+margin_left = 119.359
+margin_top = 38.0494
+margin_right = 159.359
+margin_bottom = 114.049
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.894118, 0.960784, 1, 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GearHideTimer" type="Timer" parent="GearRect"]
+one_shot = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 50, 50 )
+[connection signal="animation_finished" from="GearsAnim" to="." method="_on_GearsAnim_animation_finished"]
+[connection signal="timeout" from="GearRect/GearHideTimer" to="." method="_on_GearHideTimer_timeout"]

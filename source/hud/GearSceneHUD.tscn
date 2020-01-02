@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/items/Gear.tscn" type="PackedScene" id=1]
+
+[node name="GearSceneHUD" type="Spatial"]
+
+[node name="Gear" parent="." instance=ExtResource( 1 )]
+floating = false
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.19767 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7965, 0 )

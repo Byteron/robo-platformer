@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/level/triggercube/TriggerCube.tscn" type="PackedScene" id=1]
+[ext_resource path="res://source/level/triggercube/FallingCube.gd" type="Script" id=2]
+
+[node name="FallingCube" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Body" parent="TriggerCube" index="0"]
+material/0 = null
+
+[node name="FallTimer" type="Timer" parent="." index="3"]
+one_shot = true
+
+[node name="HeadTween" type="Tween" parent="." index="4"]
+[connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
+
+[editable path="TriggerCube"]

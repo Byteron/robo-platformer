@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://source/level/WorldEnvironment.tscn" type="PackedScene" id=9]
 [ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=10]
 [ext_resource path="res://graphics/WoodBox/TntBox/Tntbox.tscn" type="PackedScene" id=11]
+[ext_resource path="res://source/level/triggercube/FallingCube.tscn" type="PackedScene" id=12]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -145,5 +146,41 @@ transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 13.2
 
 [node name="WoodBox14" parent="." instance=ExtResource( 7 )]
 transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 14.1193 )
+
+[node name="FallingCube" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -2.38741 )
+
+[node name="FallingCube2" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -2.38741 )
+
+[node name="FallingCube4" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -5.61612 )
+
+[node name="FallingCube3" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -5.61612 )
+
+[node name="FallingCube6" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -9.00244 )
+
+[node name="FallingCube5" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -9.00244 )
+
+[node name="FallingCube12" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -12.2714 )
+
+[node name="FallingCube11" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -12.2714 )
+
+[node name="FallingCube10" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -15.5001 )
+
+[node name="FallingCube9" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -15.5001 )
+
+[node name="FallingCube8" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -18.8865 )
+
+[node name="FallingCube7" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -18.8865 )
 
 [editable path="WaterArea"]
