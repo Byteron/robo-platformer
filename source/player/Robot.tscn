@@ -156,7 +156,7 @@ anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
 parameters/state/current = 0
 parameters/time/scale = 1.0
-parameters/walk/blend_position = Vector2( 1.01519, 1.25954 )
+parameters/walk/blend_position = Vector2( 0, 0 )
 
 [node name="FootArea" type="Area" parent="."]
 collision_layer = 32
