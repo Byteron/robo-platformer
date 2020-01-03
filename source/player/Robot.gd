@@ -92,14 +92,16 @@ func _process(delta: float) -> void:
 
 func play(anim_name: String) -> void:
 
+	var land_idx := 4
 	var idx = 0
 
 	if anim_name == "jump": idx = 1
 	if anim_name == "fall": idx = 2
-	if anim_name == "land": idx = 3
-	#if anim_name == "like": idx = 4
+	if anim_name == "dive": idx = 3
+	if anim_name == "land": idx = land_idx
+	#if anim_name == "like": idx = 5
 
-	if anim_tree.get("parameters/state/current") == 3:
+	if anim_tree.get("parameters/state/current") == land_idx:
 		return
 
 	if anim_name == "walk": idx = 0

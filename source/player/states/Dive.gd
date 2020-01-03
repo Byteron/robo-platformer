@@ -14,7 +14,7 @@ func enter(host: Node) -> void:
 	host.can_charge = false
 	host.motion.x = host.get_walk_input_direction().x * max_speed
 	host.motion.z = host.get_walk_input_direction().z * max_speed
-	host.play("jump")
+	host.play("dive")
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
