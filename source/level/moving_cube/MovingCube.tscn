@@ -4,8 +4,6 @@
 [ext_resource path="res://source/level/moving_cube/MovingCube.gd" type="Script" id=2]
 [ext_resource path="res://source/level/moving_cube/moving_cube_shining_sign.tres" type="Material" id=3]
 
-
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 0.5, 0.5 )
 
