@@ -76,11 +76,10 @@ func _ready() -> void:
 	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
-	var motion_direction = Vector3(motion.x, 0, motion.z)
-	var current_direction = global_transform.basis.z
-	var target_direction = current_direction.slerp(motion_direction, 0.1)
-	if target_direction != translation:
-		look_at(translation - target_direction, Vector3.UP)
+	var motion_direction = translation - Vector3(motion.x, 0, motion.z)
+
+	if motion_direction != translation:
+		look_at(motion_direction, Vector3.UP)
 
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
 
@@ -96,11 +95,15 @@ func _process(delta: float) -> void:
 			play(ANIMATIONS.THROW)
 			throw_wrench()
 
-	var target_direction_debug = current_direction.slerp(motion_direction, 0.5)
-	debug_look.global_transform.origin = global_transform.origin + global_transform.basis.z * 1.2 + debug_spatial.translation
-	debug_motion.global_transform.origin = global_transform.origin + motion_direction + debug_spatial.translation
-	debug_prediction.global_transform.origin = global_transform.origin + target_direction_debug + debug_spatial.translation
-	motion = Vector3(0, motion.y, 0)
+	debug_sphere(debug_look, global_transform.basis.z * 1.2)
+	debug_sphere(debug_motion, (Vector3(motion.x, 0, motion.z) / 5))
+
+func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
+	spatial.global_transform.origin = global_transform.origin + direction + debug_spatial.translation
+
+func slerp_direction(direction: Vector3, time: float) -> Vector3:
+	var current_direction = global_transform.basis.z
+	return current_direction.slerp(direction, time).
 
 func play(animation: int) -> void:
 
@@ -115,9 +118,7 @@ func play(animation: int) -> void:
 
 func get_walk_input_direction_relative() -> Vector3:
 	var relative_input_direction = get_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
-
 	debug_input.global_transform.origin = global_transform.origin + debug_spatial.translation + relative_input_direction
-
 	return relative_input_direction
 
 func get_walk_input_direction() -> Vector3:

@@ -17,6 +17,7 @@ export var max_speed_run := 8.0
 export var acceleration := 0.6
 export var friction := 0.1
 
+export(float, 0.0, 1.0) var inertia = 0.95
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
@@ -34,6 +35,7 @@ func update(host: Node, delta: float) -> void:
 		max_speed = max_speed_walk
 
 	var input_direction = host.get_walk_input_direction_relative()
+	input_direction = host.slerp_direction(input_direction, 1.0 - inertia)
 
 	if input_direction:
 		speed = clamp(speed + acceleration, 0, max_speed)

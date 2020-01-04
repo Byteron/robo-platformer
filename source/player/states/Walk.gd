@@ -11,6 +11,7 @@ export var sprint_boost := 3.0
 
 export var acceleration = 0.5
 export var deceleration = 0.5
+export(float, 0.0, 1.0) var inertia = 0.8
 
 export var turn_threshhold := 0.7
 
@@ -33,6 +34,9 @@ func update(host: Node, delta: float) -> void:
 	boost = sprint_boost if host.sprinting else 0
 
 	var input_direction = host.get_walk_input_direction_relative()
+	input_direction = host.slerp_direction(input_direction, 1.0 - inertia)
+
+	host.debug_sphere(host.debug_prediction, input_direction)
 
 	if input_direction:
 		var target_speed = clamp(speed + acceleration, 0, max_speed + boost)
@@ -52,7 +56,6 @@ func update(host: Node, delta: float) -> void:
 	var blend_y = max(0, host.motion.length() - max_speed) / sprint_boost
 
 	host.anim_tree.set("parameters/walk/blend_position", Vector2(blend_x, blend_y))
-
 
 	host.dust_particles.process_material.set("scale", host.motion.length() / max_speed * 2.5)
 
