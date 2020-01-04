@@ -69,7 +69,7 @@ func _process(delta: float) -> void:
 		zoom_level = lerp(zoom_level, scroll_zoom_level, 1.0 - smoothing)
 
 	rotation_degrees.y += -look_input_direction.x * max_rotation_speed * delta
-	rotation_degrees.y += -target.get_raw_walk_input_direction().x * follow_rotation_speed * delta
+	rotation_degrees.y += -target.get_walk_input_direction().x * follow_rotation_speed * delta
 
 	gimbal_v.rotation_degrees.x = lerp(0, -90, distance_curve.interpolate(zoom_level))
 

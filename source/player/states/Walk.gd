@@ -32,7 +32,7 @@ func update(host: Node, delta: float) -> void:
 
 	boost = sprint_boost if host.sprinting else 0
 
-	var input_direction = host.get_walk_input_direction()
+	var input_direction = host.get_walk_input_direction_relative()
 
 	if input_direction:
 		var target_speed = clamp(speed + acceleration, 0, max_speed + boost)

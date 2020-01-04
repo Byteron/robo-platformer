@@ -14,15 +14,15 @@ export var friction := 0.1
 func enter(host: Node) -> void:
 	self.host = host as Robot
 	host.can_charge = false
-	host.motion.x = host.get_walk_input_direction().x * max_speed
-	host.motion.z = host.get_walk_input_direction().z * max_speed
+	host.motion.x = host.get_walk_input_direction_relative().x * max_speed
+	host.motion.z = host.get_walk_input_direction_relative().z * max_speed
 	speed = max_speed
 	host.play(host.ANIMATIONS.DIVE)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
 
-	var input_direction = host.get_walk_input_direction()
+	var input_direction = host.get_walk_input_direction_relative()
 
 	if input_direction:
 		host.motion.x = input_direction.x * speed
