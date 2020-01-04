@@ -3,9 +3,9 @@ class_name Robot
 
 enum ANIMATIONS { WALK, JUMP, FALL, DIVE, LAND, THROW }
 
-const DEAD_ZONE = 0.1
-
 const Wrench = preload("res://source/player/wrench/WrenchProjectile.tscn")
+
+const DEAD_ZONE = 0.1
 
 var last_checkpoint
 
@@ -22,6 +22,8 @@ var wrench_throw_timer = 0.0
 
 var can_charge = true
 
+export(NodePath) var camera_path = null
+
 export(NodePath) var first_checkpoint : NodePath
 
 export var wrench_throw_force = 70.0
@@ -31,8 +33,7 @@ export var max_jumps := 2
 export var max_energy := 100.0
 export var energy_charge_rate = 50.0
 
-
-export(NodePath) var camera_path = null
+export var has_jetpack := true setget _set_has_jetpack
 
 onready var foot_area := $FootArea
 
@@ -42,12 +43,14 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
-onready var throw_position = $Robot/RobotArmature/Skeleton/WrenchPosition
+onready var throw_position := $Robot/RobotArmature/Skeleton/WrenchPosition
 
-onready var dust_particles = $Robot/RunningDust
-onready var landing_dust_particles = $Robot/ImpactParticles
+onready var dust_particles := $Robot/RunningDust
+onready var landing_dust_particles := $Robot/ImpactParticles
 
-onready var jet_particles = [
+onready var jetpack := $Robot/RobotArmature/Skeleton/Jetpack
+
+onready var jet_particles := [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles1,
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
 ]
@@ -68,6 +71,7 @@ func _ready() -> void:
 	jumps = max_jumps
 	set_jet_particles(false)
 	set_dust_particles(false)
+	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
 	wrench_throw_timer += delta
@@ -168,8 +172,13 @@ func set_dust_particles(value: bool) -> void:
 func change_state(state: String) -> void:
 	fsm.change_state(state)
 
-func _on_FSM_state_changed(state_name) -> void:
-	print(name, ": ", state_name)
-
 func respawn():
 	global_transform.origin = last_checkpoint.spawn_position.global_transform.origin
+
+func _set_has_jetpack(value: bool) -> void:
+	has_jetpack = value
+	if jetpack:
+		jetpack.visible = has_jetpack
+
+func _on_FSM_state_changed(state_name) -> void:
+	print(name, ": ", state_name)

@@ -53,7 +53,7 @@ func update(host: Node, delta: float) -> void:
 		host.play(host.ANIMATIONS.LAND)
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0:
 			host.change_state("Jump")
-	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy:
+	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy and host.has_jetpack:
 		host.change_state("Jetpack")
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)

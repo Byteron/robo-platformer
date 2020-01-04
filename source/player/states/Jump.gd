@@ -54,7 +54,7 @@ func update(host: Node, delta: float) -> void:
 		cut()
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0 and jumped:
 		enter(host)
-	elif Input.is_action_just_pressed("jump") and not host.jumps and jumped:
+	elif Input.is_action_just_pressed("jump") and not host.jumps and jumped and host.has_jetpack:
 		host.change_state("Jetpack")
 	elif host.motion.y < 0.5:
 		host.change_state("Fall")
