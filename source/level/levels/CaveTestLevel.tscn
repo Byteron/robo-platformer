@@ -5,8 +5,8 @@
 [ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/level/triggercube/FallingCube.tscn" type="PackedScene" id=4]
 [ext_resource path="res://source/items/Gear.tscn" type="PackedScene" id=5]
-[ext_resource path="res://source/level/Stalagtite.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/level/MovingCube.tscn" type="PackedScene" id=7]
+[ext_resource path="res://source/level/stalagtite/Stalagtite.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/level/moving_cube/MovingCube.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.176471, 0.141176, 0.145098, 1 )
@@ -42,7 +42,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0553, 0.572178, -29.9585 )
 
 [node name="MovingCube" parent="Spatial5" instance=ExtResource( 7 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4, 0, 5 )
-distance = 5.0
 
 [node name="MovingCube3" parent="Spatial5" instance=ExtResource( 7 )]
 transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 4, 0, 11 )
