@@ -163,7 +163,8 @@ func emit_dust():
 	landing_dust_particles.restart()
 
 func set_dust_particles(value: bool) -> void:
-	dust_particles.emitting = value
+	if dust_particles.emitting != value:
+		dust_particles.emitting = value
 
 func change_state(state: String) -> void:
 	fsm.change_state(state)

@@ -31,8 +31,10 @@ func update(host: Node, delta: float) -> void:
 	if host.is_on_floor():
 		host.motion.y = 0
 		speed = lerp(speed, 0, friction)
+		host.set_dust_particles(true)
 	elif not host.has_cape:
 		host.motion.y -= Global.GRAVITY * delta * gravity_mod
+		host.set_dust_particles(false)
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
