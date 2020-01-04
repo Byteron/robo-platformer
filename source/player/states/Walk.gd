@@ -19,7 +19,7 @@ func enter(host: Node) -> void:
 	host.can_charge = true
 	host.motion.y = 0
 	host.set_dust_particles(true)
-	host.play("walk")
+	host.play(host.ANIMATIONS.WALK)
 
 func input(host: Node, event: InputEvent) -> void:
 	host = host as Robot

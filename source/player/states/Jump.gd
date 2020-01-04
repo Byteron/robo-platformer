@@ -23,8 +23,7 @@ func enter(host: Node) -> void:
 	host.can_charge = false
 	host.motion.y = jump_force
 	host.jumps -= 1
-	print("jump!")
-	host.play("jump")
+	host.play(host.ANIMATIONS.JUMP)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
