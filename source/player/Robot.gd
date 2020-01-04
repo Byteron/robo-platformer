@@ -17,7 +17,7 @@ var energy := 0.0
 
 
 var wrench_scene = preload("res://source/player/wrench/WrenchProjectile.tscn")
-export var wrench_throw_force = 50.0
+export var wrench_throw_force = 70.0
 export var wrench_timeout = 0.8
 var wrench_throw_timer = 0.0
 

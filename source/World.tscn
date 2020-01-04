@@ -1,38 +1,18 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/level/test-level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/level/CaveTestLevel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/enemies/Sawbot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://source/level/WaterArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
-[ext_resource path="res://source/items/WoodBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
-[ext_resource path="res://source/level/WorldEnvironment.tscn" type="PackedScene" id=9]
-[ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=10]
-[ext_resource path="res://graphics/WoodBox/TntBox/Tntbox.tscn" type="PackedScene" id=11]
-[ext_resource path="res://source/level/triggercube/FallingCube.tscn" type="PackedScene" id=12]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
 
 [node name="World" type="Spatial"]
 script = ExtResource( 8 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.203898, 0.978992, 0, -0.978992, 0.203898, 0, 3.6036, 8.99302 )
-light_color = Color( 1, 0.996078, 0.85098, 1 )
-light_energy = 1.2
-shadow_enabled = true
-directional_shadow_blend_splits = true
-directional_shadow_max_distance = 200.0
-
-[node name="WorldEnvironment" parent="." instance=ExtResource( 9 )]
-
 [node name="Robot" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.0352, 3.3096, 5.79126 )
-first_checkpoint = NodePath("../Checkpoint")
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.00971, 3.3096, -31.5926 )
+first_checkpoint = NodePath("../CaveTestLevel/Checkpoint")
 camera_path = NodePath("../Camera")
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
@@ -43,144 +23,9 @@ transform = Transform( -0.673942, 0, -0.738785, 0, 1, 0, 0.738785, 0, -0.673942,
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
-[node name="test-level" parent="." instance=ExtResource( 3 )]
+[node name="CaveTestLevel" parent="." instance=ExtResource( 3 )]
 
-[node name="WaterArea" parent="." instance=ExtResource( 5 )]
+[node name="MovingCube2" parent="CaveTestLevel/Spatial5" index="6"]
+distance = 5.0
 
-[node name="Horizon" type="CSGTorus" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
-inner_radius = 115.556
-outer_radius = 300.0
-sides = 12
-material = SubResource( 1 )
-
-[node name="Checkpoint" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 3.49303, 11 )
-
-[node name="TntBox" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 10.8901 )
-
-[node name="TntBox2" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 10.8901 )
-
-[node name="TntBox3" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 10.8901 )
-
-[node name="TntBox6" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 11.6922 )
-
-[node name="TntBox5" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 11.6922 )
-
-[node name="TntBox4" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 11.6922 )
-
-[node name="TntBox12" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 14.9271 )
-
-[node name="TntBox11" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 14.9271 )
-
-[node name="TntBox10" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 14.9271 )
-
-[node name="TntBox9" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6599, 3.29439, 15.7291 )
-
-[node name="TntBox8" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8643, 3.29439, 15.7291 )
-
-[node name="TntBox7" parent="." instance=ExtResource( 11 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.0614, 3.29439, 15.7291 )
-
-[node name="WoodBox5" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 8.45119 )
-
-[node name="WoodBox6" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 9.21391 )
-
-[node name="WoodBox7" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 10.0506 )
-
-[node name="WoodBox10" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 8.45119 )
-
-[node name="WoodBox9" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 9.21391 )
-
-[node name="WoodBox8" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 10.0506 )
-
-[node name="WoodBox13" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 8.45119 )
-
-[node name="WoodBox12" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 9.21391 )
-
-[node name="WoodBox11" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 10.0506 )
-
-[node name="WoodBox22" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 12.52 )
-
-[node name="WoodBox21" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 13.2827 )
-
-[node name="WoodBox20" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 12.6464, 3.29439, 14.1193 )
-
-[node name="WoodBox19" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 12.52 )
-
-[node name="WoodBox18" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 13.2827 )
-
-[node name="WoodBox17" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.8622, 3.29439, 14.1193 )
-
-[node name="WoodBox16" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 12.52 )
-
-[node name="WoodBox15" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 13.2827 )
-
-[node name="WoodBox14" parent="." instance=ExtResource( 7 )]
-transform = Transform( 0.33, 0, 0, 0, 0.33, 0, 0, 0, 0.33, 11.097, 3.29439, 14.1193 )
-
-[node name="FallingCube" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -2.38741 )
-
-[node name="FallingCube2" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -2.38741 )
-
-[node name="FallingCube4" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -5.61612 )
-
-[node name="FallingCube3" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -5.61612 )
-
-[node name="FallingCube6" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -9.00244 )
-
-[node name="FallingCube5" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -9.00244 )
-
-[node name="FallingCube12" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -12.2714 )
-
-[node name="FallingCube11" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -12.2714 )
-
-[node name="FallingCube10" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -15.5001 )
-
-[node name="FallingCube9" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -15.5001 )
-
-[node name="FallingCube8" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.1654, 2.34573, -18.8865 )
-
-[node name="FallingCube7" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3762, 2.34573, -18.8865 )
-
-[editable path="WaterArea"]
+[editable path="CaveTestLevel"]

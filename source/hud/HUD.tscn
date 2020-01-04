@@ -7,7 +7,7 @@
 [ext_resource path="res://graphics/icons/BoostBarOver.png" type="Texture" id=6]
 [ext_resource path="res://source/hud/GearSceneHUD.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=1]
 resource_name = "hide"
 step = 0.05
 tracks/0/type = "value"
@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ Vector2( -24, -2.66266 ), Vector2( -24, -131.57 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "show"
 step = 0.05
 tracks/0/type = "value"
@@ -39,7 +39,7 @@ tracks/0/keys = {
 "values": [ Vector2( -24, -2.66266 ), Vector2( -24, -20 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=3]
 resource_name = "start_hide"
 tracks/0/type = "method"
 tracks/0/path = NodePath("GearsAnim")
@@ -56,8 +56,7 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "hide"
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("BoostBar:rect_position")
 tracks/0/interp = 2
@@ -83,7 +82,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("BoostBar:rect_position")
 tracks/0/interp = 2
@@ -109,8 +108,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "start_hide"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "method"
 tracks/0/path = NodePath("BoostAnim")
 tracks/0/interp = 1
@@ -126,16 +124,16 @@ tracks/0/keys = {
 } ]
 }
 
-[sub_resource type="ProceduralSky" id=5]
+[sub_resource type="ProceduralSky" id=7]
 
-[sub_resource type="Environment" id=6]
+[sub_resource type="Environment" id=8]
 background_mode = 2
-background_sky = SubResource( 5 )
+background_sky = SubResource( 7 )
 
-[sub_resource type="World" id=7]
-environment = SubResource( 6 )
+[sub_resource type="World" id=9]
+environment = SubResource( 8 )
 
-[sub_resource type="ViewportTexture" id=4]
+[sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("GearViewport")
 
 [node name="HUD" type="CanvasLayer" groups=[
@@ -176,19 +174,19 @@ __meta__ = {
 }
 
 [node name="GearsAnim" type="AnimationPlayer" parent="."]
-anims/hide = SubResource( 10 )
-anims/show = SubResource( 8 )
-anims/start_hide = SubResource( 9 )
-
-[node name="BoostAnim" type="AnimationPlayer" parent="."]
 anims/hide = SubResource( 1 )
 anims/show = SubResource( 2 )
 anims/start_hide = SubResource( 3 )
 
+[node name="BoostAnim" type="AnimationPlayer" parent="."]
+anims/hide = SubResource( 4 )
+anims/show = SubResource( 5 )
+anims/start_hide = SubResource( 6 )
+
 [node name="GearViewport" type="Viewport" parent="."]
 size = Vector2( 150, 150 )
 own_world = true
-world = SubResource( 7 )
+world = SubResource( 9 )
 transparent_bg = true
 render_target_v_flip = true
 
@@ -199,7 +197,7 @@ margin_left = -24.0
 margin_top = -131.57
 margin_right = 126.0
 margin_bottom = 18.43
-texture = SubResource( 4 )
+texture = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

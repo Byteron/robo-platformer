@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+albedo_color = Color( 0.580392, 0.764706, 0.909804, 1 )
+
+[node name="Horizon" type="CSGTorus"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -78.7533, 0 )
+inner_radius = 115.556
+outer_radius = 300.0
+sides = 12
+material = SubResource( 1 )

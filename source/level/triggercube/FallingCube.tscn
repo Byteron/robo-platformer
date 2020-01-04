@@ -7,12 +7,19 @@
 script = ExtResource( 2 )
 
 [node name="Body" parent="TriggerCube" index="0"]
+use_in_baked_light = true
 material/0 = null
+
+[node name="Head" parent="TriggerCube" index="1"]
+use_in_baked_light = true
 
 [node name="FallTimer" type="Timer" parent="." index="3"]
 one_shot = true
 
 [node name="HeadTween" type="Tween" parent="." index="4"]
+
+[node name="MeshFader" parent="." index="5"]
+target = NodePath("../TriggerCube")
 [connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
 
 [editable path="TriggerCube"]

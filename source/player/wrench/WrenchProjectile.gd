@@ -15,6 +15,8 @@ func _ready():
 func _on_WrenchProjectile_body_entered(body):
 	if body.is_in_group("jumpable_box"):
 		body.explode()
+	if body.owner.is_in_group("stalagtite"):
+		body.owner.fall()
 
 
 func _on_DeathTimer_timeout():

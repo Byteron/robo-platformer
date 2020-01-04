@@ -18,7 +18,9 @@ one_shot = true
 
 [node name="VerticalGimbal" type="Spatial" parent="."]
 
-[node name="ClippedCamera" type="ClippedCamera" parent="VerticalGimbal"]
+[node name="ClippedCamera" type="ClippedCamera" parent="VerticalGimbal" groups=[
+"main_cam",
+]]
 margin = 1.0
 collision_mask = 2
 [connection signal="timeout" from="ZoomTimer" to="." method="_on_ZoomTimer_timeout"]

@@ -6,9 +6,12 @@ onready var shape = $CollisionShape
 var falling = false
 var falling_speed = 2.0
 
+
 func _physics_process(delta):
 	if falling:
 		move_and_slide(Vector3.DOWN * falling_speed)
+	if Input.is_action_just_pressed("debug-down"):
+		$MeshFader.fade(1.0, 0.0)
 
 func trigger():
 	if not triggered:
