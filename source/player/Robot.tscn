@@ -18,7 +18,7 @@ radius = 0.345899
 height = 0.567878
 
 [sub_resource type="AnimationNodeAnimation" id=2]
-animation = "Robot_Dive"
+animation = "Robot_Diving"
 
 [sub_resource type="AnimationNodeAnimation" id=3]
 animation = "Robot_Fall"
@@ -72,7 +72,7 @@ blend_point_4/pos = Vector2( 0.5, 0 )
 min_space = Vector2( 0, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( -753, -175.75 )
+graph_offset = Vector2( -733, -70.75 )
 nodes/Dive/node = SubResource( 2 )
 nodes/Dive/position = Vector2( 140, 320 )
 nodes/Fall/node = SubResource( 3 )
