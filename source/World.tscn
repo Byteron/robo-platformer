@@ -11,8 +11,8 @@ script = ExtResource( 8 )
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.00971, 3.3096, -31.5926 )
-first_checkpoint = NodePath("../CaveTestLevel/Checkpoint")
 camera_path = NodePath("../Camera")
+first_checkpoint = NodePath("../CaveTestLevel/Checkpoint")
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 target_path = NodePath("../Robot")
