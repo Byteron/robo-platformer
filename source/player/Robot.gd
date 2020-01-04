@@ -18,8 +18,6 @@ var jumps := 0
 
 var energy := 0.0
 
-var wrench_throw_timer = 0.0
-
 var can_charge = true
 
 export(NodePath) var camera_path = null
@@ -27,7 +25,6 @@ export(NodePath) var camera_path = null
 export(NodePath) var first_checkpoint : NodePath
 
 export var wrench_throw_force = 70.0
-export var wrench_timeout = 0.8
 
 export var max_jumps := 2
 export var max_energy := 100.0
@@ -74,7 +71,6 @@ func _ready() -> void:
 	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
-	wrench_throw_timer += delta
 
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
 
@@ -86,14 +82,13 @@ func _process(delta: float) -> void:
 	sprinting = Input.is_action_pressed("sprint")
 
 	get_tree().call_group("HUD", "set_boost", ceil(max_energy-energy / max_energy *  100.0))
+
 	if can_charge and is_on_floor():
 		if energy > 0:
 			energy -= energy_charge_rate * delta
 
-	if Input.is_action_just_pressed("throw"):
-		if wrench_throw_timer > wrench_timeout:
+	if Input.is_action_just_pressed("throw") and not anim_tree.get("parameters/throw/active"):
 			play(ANIMATIONS.THROW)
-			wrench_throw_timer = 0.0
 			throw_wrench()
 
 func play(animation: int) -> void:
