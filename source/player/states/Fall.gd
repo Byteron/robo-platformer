@@ -50,6 +50,7 @@ func update(host: Node, delta: float) -> void:
 	elif host.is_on_floor():
 		host.emit_dust()
 		host.fsm.change_state("Idle")
+		host.play("land")
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0:
 			host.change_state("Jump")
 	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy:
@@ -58,7 +59,5 @@ func update(host: Node, delta: float) -> void:
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
 
 func exit(host: Node) -> void:
-
 	host = host as Robot
-	host.play("land")
 

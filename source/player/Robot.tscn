@@ -18,16 +18,19 @@ radius = 0.345899
 height = 0.567878
 
 [sub_resource type="AnimationNodeAnimation" id=2]
-animation = "Robot_Fall"
+animation = "Robot_Dive"
 
 [sub_resource type="AnimationNodeAnimation" id=3]
-animation = "Robot_Jump"
+animation = "Robot_Fall"
 
 [sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Robot_Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Robot_Land"
 
-[sub_resource type="AnimationNodeTransition" id=5]
-input_count = 4
+[sub_resource type="AnimationNodeTransition" id=6]
+input_count = 5
 xfade_time = 0.1
 input_0/name = "walk"
 input_0/auto_advance = false
@@ -35,10 +38,10 @@ input_1/name = "jump"
 input_1/auto_advance = false
 input_2/name = "fall"
 input_2/auto_advance = false
-input_3/name = "land"
-input_3/auto_advance = true
-
-[sub_resource type="AnimationNodeTimeScale" id=6]
+input_3/name = "dive"
+input_3/auto_advance = false
+input_4/name = "land"
+input_4/auto_advance = true
 
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Robot_Idle"
@@ -69,21 +72,21 @@ blend_point_4/pos = Vector2( 0.5, 0 )
 min_space = Vector2( 0, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( 0, 127 )
-nodes/fall/node = SubResource( 2 )
-nodes/fall/position = Vector2( 160, 460 )
-nodes/jump/node = SubResource( 3 )
-nodes/jump/position = Vector2( 160, 320 )
-nodes/land/node = SubResource( 4 )
-nodes/land/position = Vector2( 160, 580 )
+graph_offset = Vector2( -753, -175.75 )
+nodes/Dive/node = SubResource( 2 )
+nodes/Dive/position = Vector2( 140, 320 )
+nodes/Fall/node = SubResource( 3 )
+nodes/Fall/position = Vector2( 140, 200 )
+nodes/Jump/node = SubResource( 4 )
+nodes/Jump/position = Vector2( 140, 80 )
+nodes/Land/node = SubResource( 5 )
+nodes/Land/position = Vector2( 140, 440 )
 nodes/output/position = Vector2( 940, 140 )
-nodes/state/node = SubResource( 5 )
-nodes/state/position = Vector2( 420, 120 )
-nodes/time/node = SubResource( 6 )
-nodes/time/position = Vector2( 760, 140 )
+nodes/state/node = SubResource( 6 )
+nodes/state/position = Vector2( 580, 140 )
 nodes/walk/node = SubResource( 12 )
-nodes/walk/position = Vector2( 160, 100 )
-node_connections = [ "output", 0, "time", "time", 0, "state", "state", 0, "walk", "state", 1, "jump", "state", 2, "fall", "state", 3, "land" ]
+nodes/walk/position = Vector2( 340, -80 )
+node_connections = [ "output", 0, "state", "state", 0, "walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Dive", "state", 4, "Land" ]
 
 [sub_resource type="BoxShape" id=14]
 extents = Vector3( 0.2, 0.119692, 0.2 )
@@ -91,6 +94,7 @@ extents = Vector3( 0.2, 0.119692, 0.2 )
 [node name="Robot" type="KinematicBody"]
 collision_mask = 2
 script = ExtResource( 2 )
+max_jumps = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.0198295, 0.618695, 0.0123997 )
@@ -158,7 +162,6 @@ tree_root = SubResource( 13 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
 parameters/state/current = 0
-parameters/time/scale = 1.0
 parameters/walk/blend_position = Vector2( 0, 0 )
 
 [node name="FootArea" type="Area" parent="."]
