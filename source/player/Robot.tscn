@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://graphics/gtlf2/robot/Robot.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/player/Robot.gd" type="Script" id=2]
@@ -29,6 +29,9 @@ animation = "Robot_Jump"
 [sub_resource type="AnimationNodeAnimation" id=5]
 animation = "Robot_Land"
 
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Robot_Throw"
+
 [sub_resource type="AnimationNodeTransition" id=6]
 input_count = 5
 xfade_time = 0.1
@@ -42,6 +45,10 @@ input_3/name = "dive"
 input_3/auto_advance = false
 input_4/name = "land"
 input_4/auto_advance = true
+
+[sub_resource type="AnimationNodeOneShot" id=16]
+filter_enabled = true
+filters = [ "RobotArmature/Skeleton:lower_arm_r", "RobotArmature/Skeleton:torso", "RobotArmature/Skeleton:upper_arm_r" ]
 
 [sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Robot_Idle"
@@ -72,7 +79,7 @@ blend_point_4/pos = Vector2( 0.5, 0 )
 min_space = Vector2( 0, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=13]
-graph_offset = Vector2( -733, -70.75 )
+graph_offset = Vector2( -657, -171.75 )
 nodes/Dive/node = SubResource( 2 )
 nodes/Dive/position = Vector2( 140, 320 )
 nodes/Fall/node = SubResource( 3 )
@@ -81,12 +88,16 @@ nodes/Jump/node = SubResource( 4 )
 nodes/Jump/position = Vector2( 140, 80 )
 nodes/Land/node = SubResource( 5 )
 nodes/Land/position = Vector2( 140, 440 )
+nodes/Throw/node = SubResource( 15 )
+nodes/Throw/position = Vector2( 480, 380 )
 nodes/output/position = Vector2( 940, 140 )
 nodes/state/node = SubResource( 6 )
-nodes/state/position = Vector2( 580, 140 )
+nodes/state/position = Vector2( 480, 140 )
+nodes/throw/node = SubResource( 16 )
+nodes/throw/position = Vector2( 720, 140 )
 nodes/walk/node = SubResource( 12 )
-nodes/walk/position = Vector2( 340, -80 )
-node_connections = [ "output", 0, "state", "state", 0, "walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Dive", "state", 4, "Land" ]
+nodes/walk/position = Vector2( 140, -100 )
+node_connections = [ "output", 0, "throw", "state", 0, "walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Dive", "state", 4, "Land", "throw", 0, "state", "throw", 1, "Throw" ]
 
 [sub_resource type="BoxShape" id=14]
 extents = Vector3( 0.2, 0.119692, 0.2 )
@@ -162,6 +173,7 @@ tree_root = SubResource( 13 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
 parameters/state/current = 0
+parameters/throw/active = false
 parameters/walk/blend_position = Vector2( 0, 0 )
 
 [node name="FootArea" type="Area" parent="."]

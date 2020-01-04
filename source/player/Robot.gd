@@ -1,9 +1,12 @@
 extends KinematicBody
 class_name Robot
 
+enum ANIMATIONS { WALK, JUMP, FALL, DIVE, LAND, THROW }
+
 const DEAD_ZONE = 0.1
 
-export(NodePath) var first_checkpoint : NodePath
+const Wrench = preload("res://source/player/wrench/WrenchProjectile.tscn")
+
 var last_checkpoint
 
 var motion := Vector3()
@@ -15,19 +18,18 @@ var jumps := 0
 
 var energy := 0.0
 
-
-var wrench_scene = preload("res://source/player/wrench/WrenchProjectile.tscn")
-export var wrench_throw_force = 70.0
-export var wrench_timeout = 0.8
 var wrench_throw_timer = 0.0
 
+var can_charge = true
 
+export(NodePath) var first_checkpoint : NodePath
+
+export var wrench_throw_force = 70.0
+export var wrench_timeout = 0.8
 
 export var max_jumps := 2
 export var max_energy := 100.0
 export var energy_charge_rate = 50.0
-
-var can_charge = true
 
 
 export(NodePath) var camera_path = null
@@ -51,10 +53,10 @@ onready var jet_particles = [
 ]
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("like"):
-		play("like")
+#	if event.is_action_pressed("like"):
+#		play(ANIMATIONS.LIKE)
 
-	elif event is InputEventMouseMotion:
+	if event is InputEventMouseMotion:
 		mouse_axis.x += event.relative.normalized().x * 0.1
 
 func _ready() -> void:
@@ -86,27 +88,20 @@ func _process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("throw"):
 		if wrench_throw_timer > wrench_timeout:
+			play(ANIMATIONS.THROW)
 			wrench_throw_timer = 0.0
 			throw_wrench()
 
+func play(animation: int) -> void:
 
-func play(anim_name: String) -> void:
-
-	var land_idx := 4
-	var idx = 0
-
-	if anim_name == "jump": idx = 1
-	if anim_name == "fall": idx = 2
-	if anim_name == "dive": idx = 3
-	if anim_name == "land": idx = land_idx
-	#if anim_name == "like": idx = 5
-
-	if anim_tree.get("parameters/state/current") == land_idx:
+	if anim_tree.get("parameters/state/current") == ANIMATIONS.LAND:
 		return
 
-	if anim_name == "walk": idx = 0
+	elif animation == ANIMATIONS.THROW:
+		anim_tree.set("parameters/throw/active", true)
+		return
 
-	anim_tree.set("parameters/state/current", idx)
+	anim_tree.set("parameters/state/current", animation)
 
 func get_walk_input_direction() -> Vector3:
 	return get_raw_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
@@ -147,7 +142,7 @@ func set_jet_particles(value: bool) -> void:
 		p.emitting = value
 
 func throw_wrench():
-	var w = wrench_scene.instance()
+	var w = Wrench.instance()
 	get_parent().call_deferred("add_child", w)
 	w.global_transform = throw_position.global_transform
 	var dir = $Robot/RobotArmature/Skeleton.global_transform.basis.z

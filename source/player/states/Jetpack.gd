@@ -19,7 +19,7 @@ export var friction := 0.1
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
-	host.play("land")
+	host.play(host.ANIMATIONS.LAND)
 	host.set_jet_particles(true)
 	host.can_charge = false
 
