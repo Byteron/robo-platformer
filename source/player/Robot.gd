@@ -31,6 +31,7 @@ export var max_energy := 100.0
 export var energy_charge_rate = 50.0
 
 export var has_jetpack := true setget _set_has_jetpack
+export var has_cape := false
 
 onready var foot_area := $FootArea
 
