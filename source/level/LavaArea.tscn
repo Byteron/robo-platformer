@@ -1,89 +1,34 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/level/PitArea.gd" type="Script" id=1]
+[ext_resource path="res://graphics/materials/Lava.shader" type="Shader" id=2]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 150, 1, 150 )
-
-[sub_resource type="Shader" id=6]
-code = "shader_type spatial;
-render_mode unshaded;
-
-uniform sampler2D noise1;
-uniform sampler2D noise2;
-uniform float speed : hint_range(-1,1) = 0.0;
-
-uniform vec4 water_color: hint_color;
-
-void fragment() {
-	float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-
-	float t = TIME * speed;
-	vec3 v1 = texture(noise1, UV +t).rgb;
-	vec3 v2  =texture(noise2, UV -t).rgb;
-	float sum = (v1.r + v2.r) - 0.7;
-
-	vec4 back = vec4(1.0);
-
-	if (water_color.a < 1.0) {
-		back = texture(SCREEN_TEXTURE, SCREEN_UV);
-	}
-
-	float fin = 0.0;
-	if (sum > 0.0 && sum <0.2) fin = 0.1;
-	if (sum > 0.2 && sum <0.5) fin = 0.0;
-	if (sum > 0.5) fin = 0.3;
-
-	depth = depth * 2.0 - 1.0;
-	depth = PROJECTION_MATRIX[3][2] / (depth + PROJECTION_MATRIX[2][2]);
-	depth += VERTEX.z;
-	// depth *= 0.1;
-	depth = exp(-depth * 0.2);
-	depth = clamp(depth, 0.0, 1.0);
-
-	vec3 depth_albedo = vec3(depth, depth, depth);
-	vec3 water_albedo = vec3(fin) + mix(back.rgb, water_color.rgb, 1.0 - depth);
-	// ALBEDO = vec3(fin) + mix(back.rgb, water_color.rgb, water_color.a);
-
-
-	ALBEDO = water_albedo;
-}
-
-void vertex() {
-	float t = TIME * speed;
-	vec3 v1 = texture(noise1, UV +t).rgb;
-	vec3 v2  =texture(noise2, UV -t).rgb;
-	float sum = (v1.r + v2.r) - 0.7;
-	VERTEX.y += sum * 2.0;
-}"
-
-[sub_resource type="OpenSimplexNoise" id=2]
-period = 16.0
-
-[sub_resource type="NoiseTexture" id=3]
-width = 1024
-height = 1024
-seamless = true
-noise = SubResource( 2 )
 
 [sub_resource type="OpenSimplexNoise" id=4]
 period = 16.0
 
 [sub_resource type="NoiseTexture" id=5]
-width = 1024
-height = 1024
 seamless = true
 noise = SubResource( 4 )
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
-shader_param/speed = 0.005
-shader_param/water_color = Color( 1, 0.305882, 0, 0.254902 )
-shader_param/noise1 = SubResource( 3 )
-shader_param/noise2 = SubResource( 5 )
+[sub_resource type="OpenSimplexNoise" id=6]
+period = 16.0
 
-[sub_resource type="PlaneMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="NoiseTexture" id=7]
+seamless = true
+noise = SubResource( 6 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+shader_param/speed = 0.005
+shader_param/water_color = Color( 1, 0.211765, 0, 0.254902 )
+shader_param/noise1 = SubResource( 5 )
+shader_param/noise2 = SubResource( 7 )
+
+[sub_resource type="PlaneMesh" id=3]
+material = SubResource( 2 )
 size = Vector2( 300, 300 )
 subdivide_width = 100
 subdivide_depth = 100
@@ -95,9 +40,9 @@ script = ExtResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
-[node name="Water" type="MeshInstance" parent="."]
+[node name="Lava" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.9706, 0 )
 cast_shadow = 0
-mesh = SubResource( 8 )
+mesh = SubResource( 3 )
 material/0 = null
 [connection signal="body_entered" from="." to="." method="_on_PitArea_body_entered"]
