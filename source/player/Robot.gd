@@ -103,7 +103,7 @@ func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
 
 func slerp_direction(direction: Vector3, time: float) -> Vector3:
 	var current_direction = global_transform.basis.z
-	return current_direction.slerp(direction, time).
+	return current_direction.slerp(direction, time)
 
 func play(animation: int) -> void:
 
