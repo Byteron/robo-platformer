@@ -19,6 +19,7 @@ var jumps := 0
 var energy := 0.0
 
 var can_charge = true
+var coyote_jump = false
 
 export(NodePath) var camera_path = null
 

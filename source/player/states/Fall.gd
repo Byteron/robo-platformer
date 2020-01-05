@@ -14,10 +14,22 @@ export var acceleration := 0.6
 export var friction := 0.1
 export(float, 0.0, 1.0) var inertia := 0.95
 
+export var coyote_time := 0.35
+
+onready var coyote_timer := Timer.new()
+
+func _ready() -> void:
+	coyote_timer.one_shot = true
+	coyote_timer.name = "CoyoteTimer"
+	coyote_timer.connect("timeout", self, "_on_CoyoteTimer_timeout", [get_node("../..")] )
+	add_child(coyote_timer)
+
 func enter(host: Node) -> void:
 	host = host as Robot
 	host.can_charge = false
 	host.play(host.ANIMATIONS.FALL)
+	if host.coyote_jump:
+		coyote_timer.start(coyote_time)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
@@ -46,15 +58,20 @@ func update(host: Node, delta: float) -> void:
 
 	host.motion.y -= Global.GRAVITY * delta * gravity_mod
 
-	if Input.is_action_just_pressed("dive") and input_direction:
+	if Input.is_action_just_pressed("jump") and host.coyote_jump and not coyote_timer.is_stopped():
+		print("Coyote Jump")
+		coyote_timer.stop()
+		_on_CoyoteTimer_timeout(host)
+		host.change_state("Jump")
+	elif Input.is_action_just_pressed("dive") and input_direction:
 		host.change_state("Dive")
 	elif host.is_on_floor():
 		host.emit_dust()
 		host.fsm.change_state("Idle")
 		host.play(host.ANIMATIONS.LAND)
-	elif Input.is_action_just_pressed("jump") and host.jumps > 0:
+	elif Input.is_action_just_pressed("jump") and host.jumps > 0 and coyote_timer.is_stopped():
 			host.change_state("Jump")
-	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy and host.has_jetpack:
+	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy and host.has_jetpack and coyote_timer.is_stopped():
 		host.change_state("Jetpack")
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)
@@ -62,3 +79,6 @@ func update(host: Node, delta: float) -> void:
 func exit(host: Node) -> void:
 	host = host as Robot
 
+func _on_CoyoteTimer_timeout(host: Robot) -> void:
+	host.jumps -= 1
+	host.coyote_jump = false

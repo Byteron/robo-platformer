@@ -21,7 +21,7 @@ func update(host: Node, delta: float) -> void:
 	host.move_and_slide_with_snap(Vector3.ZERO, Vector3.DOWN, Vector3.UP)
 
 	if not host.is_on_floor():
-		host.jumps -= 1
+		host.coyote_jump = true
 		host.change_state("Fall")
 
 	elif input_direction:
