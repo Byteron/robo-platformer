@@ -17,6 +17,7 @@ export var max_speed_run := 8.0
 export var acceleration := 0.6
 export var friction := 0.1
 
+export(float, 0.0, 1.0) var inertia = 0.95
 
 func enter(host: Node) -> void:
 	self.host = host as Robot
@@ -33,16 +34,15 @@ func update(host: Node, delta: float) -> void:
 	else:
 		max_speed = max_speed_walk
 
-	var input_direction = host.get_walk_input_direction()
+	var input_direction = host.get_walk_input_direction_relative()
+	var lerped_direction = host.slerp_direction(input_direction, 1.0 - inertia)
 
-	if input_direction:
-		speed = clamp(speed + acceleration, 0, max_speed)
-		host.motion.x = input_direction.x * speed
-		host.motion.z = input_direction.z * speed
-	else:
-		speed = lerp(speed, 0, friction)
-		host.motion.x = lerp(host.motion.x, 0, friction)
-		host.motion.z = lerp(host.motion.z, 0, friction)
+	var target_motion = input_direction * max_speed
+	host.motion.x = lerp(host.motion.x, target_motion.x, 1.0 - inertia)
+	host.motion.z = lerp(host.motion.z, target_motion.z, 1.0 - inertia)
+
+	host.debug_sphere(host.debug_prediction, lerped_direction)
+	host.debug_sphere(host.debug_input, input_direction)
 
 	host.motion.y -= Global.GRAVITY * delta * gravity_mod
 

@@ -6,11 +6,12 @@ const WALK_LERP_WEIGHT := 0.35
 var speed := 0.0
 var boost := 0.0
 
+var input_direction_keyboard = Vector3()
+
 export var max_speed := 5.0
 export var sprint_boost := 3.0
 
-export var acceleration = 0.5
-export var deceleration = 0.5
+export(float, 0.0, 1.0) var inertia = 0.85
 
 export var turn_threshhold := 0.7
 
@@ -18,6 +19,7 @@ func enter(host: Node) -> void:
 	host = host as Robot
 	host.can_charge = true
 	host.motion.y = 0
+	input_direction_keyboard = Vector3()
 	host.set_dust_particles(true)
 	host.play(host.ANIMATIONS.WALK)
 
@@ -32,27 +34,20 @@ func update(host: Node, delta: float) -> void:
 
 	boost = sprint_boost if host.sprinting else 0
 
-	var input_direction = host.get_walk_input_direction()
+	var input_direction = host.get_walk_input_direction_relative()
+	var lerped_direction = host.slerp_direction(input_direction, 1.0 - inertia)
 
-	if input_direction:
-		var target_speed = clamp(speed + acceleration, 0, max_speed + boost)
-		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
-		host.motion.x = input_direction.x * speed
-		host.motion.z = input_direction.z * speed
-	elif Devices.current_device == Devices.DEVICES.KEYBOARD:
-		var target_speed = clamp(speed - deceleration, 0, max_speed)
-		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
-		host.motion = host.motion.normalized() * speed
-	else:
-		var target_speed = clamp(speed - deceleration, 0, host.motion.max_axis())
-		speed = lerp(speed, target_speed, WALK_LERP_WEIGHT)
-		host.motion = host.motion.normalized() * speed
+	var target_motion = input_direction * (max_speed + boost)
+	host.motion.x = lerp(host.motion.x, target_motion.x, 1.0 - inertia)
+	host.motion.z = lerp(host.motion.z, target_motion.z, 1.0 - inertia)
+
+	host.debug_sphere(host.debug_prediction, lerped_direction)
+	host.debug_sphere(host.debug_input, input_direction)
 
 	var blend_x = host.motion.length() / max_speed
 	var blend_y = max(0, host.motion.length() - max_speed) / sprint_boost
 
 	host.anim_tree.set("parameters/walk/blend_position", Vector2(blend_x, blend_y))
-
 
 	host.dust_particles.process_material.set("scale", host.motion.length() / max_speed * 2.5)
 

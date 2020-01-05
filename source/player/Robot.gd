@@ -53,9 +53,13 @@ onready var jet_particles := [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
 ]
 
+onready var debug_spatial := $Debug
+onready var debug_motion := $Debug/Motion
+onready var debug_look := $Debug/Look
+onready var debug_input := $Debug/Input
+onready var debug_prediction := $Debug/Prediction
+
 func _input(event: InputEvent) -> void:
-#	if event.is_action_pressed("like"):
-#		play(ANIMATIONS.LIKE)
 
 	if event is InputEventMouseMotion:
 		mouse_axis.x += event.relative.normalized().x * 0.1
@@ -72,11 +76,10 @@ func _ready() -> void:
 	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
+	var motion_direction = translation - Vector3(motion.x, 0, motion.z)
 
-	var carrot = translation - Vector3(motion.x, 0, motion.z)
-
-	if carrot != translation:
-		look_at(carrot, Vector3.UP)
+	if motion_direction != translation:
+		look_at(motion_direction, Vector3.UP)
 
 	mouse_axis = lerp (mouse_axis, Vector3.ZERO, 0.1)
 
@@ -92,6 +95,16 @@ func _process(delta: float) -> void:
 			play(ANIMATIONS.THROW)
 			throw_wrench()
 
+	debug_sphere(debug_look, global_transform.basis.z * 1.2)
+	debug_sphere(debug_motion, (Vector3(motion.x, 0, motion.z) / 5))
+
+func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
+	spatial.global_transform.origin = global_transform.origin + direction + debug_spatial.translation
+
+func slerp_direction(direction: Vector3, time: float) -> Vector3:
+	var current_direction = motion.normalized()
+	return current_direction.linear_interpolate(direction, time)
+
 func play(animation: int) -> void:
 
 	if anim_tree.get("parameters/state/current") == ANIMATIONS.LAND:
@@ -103,10 +116,11 @@ func play(animation: int) -> void:
 
 	anim_tree.set("parameters/state/current", animation)
 
-func get_walk_input_direction() -> Vector3:
-	return get_raw_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
+func get_walk_input_direction_relative() -> Vector3:
+	var relative_input_direction = get_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
+	return relative_input_direction
 
-func get_raw_walk_input_direction() -> Vector3:
+func get_walk_input_direction() -> Vector3:
 	var input_direction := Vector3()
 
 	if Devices.current_device == Devices.DEVICES.GAMEPAD:
@@ -121,6 +135,9 @@ func get_raw_walk_input_direction() -> Vector3:
 		input_direction = input_direction.normalized()
 
 	return input_direction
+
+func debug_walk_spheres() -> void:
+	pass
 
 func get_look_input_direction() -> Vector3:
 	var input_direction := Vector3()
