@@ -11,7 +11,7 @@ var input_direction_keyboard = Vector3()
 export var max_speed := 5.0
 export var sprint_boost := 3.0
 
-export(float, 0.0, 1.0) var inertia = 0.85
+export(float, 0.0, 1.0) var inertia = 0.8
 
 export var turn_threshhold := 0.7
 

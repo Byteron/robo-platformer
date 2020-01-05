@@ -14,7 +14,7 @@ export var jump_force := 12.0
 export var max_speed_walk := 6.0
 export var max_speed_run := 8.0
 
-export(float, 0.0, 1.0) var inertia = 0.95
+export(float, 0.0, 1.0) var inertia = 0.85
 
 func enter(host: Node) -> void:
 	self.host = host as Robot

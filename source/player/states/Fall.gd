@@ -9,7 +9,7 @@ export var gravity_mod := 1.2
 export var max_speed_walk := 6.0
 export var max_speed_run := 6.0
 
-export(float, 0.0, 1.0) var inertia := 0.95
+export(float, 0.0, 1.0) var inertia := 0.85
 
 export var coyote_time := 0.35
 
