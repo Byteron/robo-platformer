@@ -2,6 +2,8 @@ extends State
 
 var host : Robot = null
 
+var speed := 0.0
+
 export var gravity_mod := 1.0
 
 export var max_speed := 12.0
@@ -14,7 +16,8 @@ func enter(host: Node) -> void:
 	host.can_charge = false
 	host.motion.x = host.get_walk_input_direction().x * max_speed
 	host.motion.z = host.get_walk_input_direction().z * max_speed
-	host.play("dive")
+	speed = max_speed
+	host.play(host.ANIMATIONS.DIVE)
 
 func update(host: Node, delta: float) -> void:
 	host = host as Robot
@@ -22,17 +25,18 @@ func update(host: Node, delta: float) -> void:
 	var input_direction = host.get_walk_input_direction()
 
 	if input_direction:
-		host.motion.x = input_direction.x * max_speed
-		host.motion.z = input_direction.z * max_speed
-	else:
-		host.motion.x = lerp(host.motion.x, 0, friction)
-		host.motion.z = lerp(host.motion.z, 0, friction)
+		host.motion.x = input_direction.x * speed
+		host.motion.z = input_direction.z * speed
 
-	host.motion.y -= Global.GRAVITY * delta * gravity_mod
+	if host.is_on_floor():
+		host.motion.y = 0
+		speed = lerp(speed, 0, friction)
+	elif not host.has_cape:
+		host.motion.y -= Global.GRAVITY * delta * gravity_mod
 
 	host.move_and_slide(host.motion, Vector3.UP)
 
-	if host.is_on_floor():
+	if host.is_on_floor() and not Input.is_action_pressed("dive") or host.is_on_floor() and speed < 0.5:
 		host.change_state("Idle")
 
 func exit(host: Node) -> void:

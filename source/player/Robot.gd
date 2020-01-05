@@ -1,9 +1,12 @@
 extends KinematicBody
 class_name Robot
 
+enum ANIMATIONS { WALK, JUMP, FALL, DIVE, LAND, THROW }
+
+const Wrench = preload("res://source/player/wrench/WrenchProjectile.tscn")
+
 const DEAD_ZONE = 0.1
 
-export(NodePath) var first_checkpoint : NodePath
 var last_checkpoint
 
 var motion := Vector3()
@@ -15,22 +18,20 @@ var jumps := 0
 
 var energy := 0.0
 
+var can_charge = true
 
-var wrench_scene = preload("res://source/player/wrench/WrenchProjectile.tscn")
+export(NodePath) var camera_path = null
+
+export(NodePath) var first_checkpoint : NodePath
+
 export var wrench_throw_force = 70.0
-export var wrench_timeout = 0.8
-var wrench_throw_timer = 0.0
-
-
 
 export var max_jumps := 2
 export var max_energy := 100.0
 export var energy_charge_rate = 50.0
 
-var can_charge = true
-
-
-export(NodePath) var camera_path = null
+export var has_jetpack := true setget _set_has_jetpack
+export var has_cape := false
 
 onready var foot_area := $FootArea
 
@@ -40,21 +41,23 @@ onready var anim_player := $Robot/AnimationPlayer
 onready var fsm := $FSM
 onready var camera = null
 
-onready var throw_position = $Robot/RobotArmature/Skeleton/WrenchPosition
+onready var throw_position := $Robot/RobotArmature/Skeleton/WrenchPosition
 
-onready var dust_particles = $Robot/RunningDust
-onready var landing_dust_particles = $Robot/ImpactParticles
+onready var dust_particles := $Robot/RunningDust
+onready var landing_dust_particles := $Robot/ImpactParticles
 
-onready var jet_particles = [
+onready var jetpack := $Robot/RobotArmature/Skeleton/Jetpack
+
+onready var jet_particles := [
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles1,
 	$Robot/RobotArmature/Skeleton/Jetpack/Particles2
 ]
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("like"):
-		play("like")
+#	if event.is_action_pressed("like"):
+#		play(ANIMATIONS.LIKE)
 
-	elif event is InputEventMouseMotion:
+	if event is InputEventMouseMotion:
 		mouse_axis.x += event.relative.normalized().x * 0.1
 
 func _ready() -> void:
@@ -66,9 +69,9 @@ func _ready() -> void:
 	jumps = max_jumps
 	set_jet_particles(false)
 	set_dust_particles(false)
+	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
-	wrench_throw_timer += delta
 
 	var carrot = translation - Vector3(motion.x, 0, motion.z)
 
@@ -80,33 +83,25 @@ func _process(delta: float) -> void:
 	sprinting = Input.is_action_pressed("sprint")
 
 	get_tree().call_group("HUD", "set_boost", ceil(max_energy-energy / max_energy *  100.0))
+
 	if can_charge and is_on_floor():
 		if energy > 0:
 			energy -= energy_charge_rate * delta
 
-	if Input.is_action_just_pressed("throw"):
-		if wrench_throw_timer > wrench_timeout:
-			wrench_throw_timer = 0.0
+	if Input.is_action_just_pressed("throw") and not anim_tree.get("parameters/throw/active"):
+			play(ANIMATIONS.THROW)
 			throw_wrench()
 
+func play(animation: int) -> void:
 
-func play(anim_name: String) -> void:
-
-	var land_idx := 4
-	var idx = 0
-
-	if anim_name == "jump": idx = 1
-	if anim_name == "fall": idx = 2
-	if anim_name == "dive": idx = 3
-	if anim_name == "land": idx = land_idx
-	#if anim_name == "like": idx = 5
-
-	if anim_tree.get("parameters/state/current") == land_idx:
+	if anim_tree.get("parameters/state/current") == ANIMATIONS.LAND:
 		return
 
-	if anim_name == "walk": idx = 0
+	elif animation == ANIMATIONS.THROW:
+		anim_tree.set("parameters/throw/active", true)
+		return
 
-	anim_tree.set("parameters/state/current", idx)
+	anim_tree.set("parameters/state/current", animation)
 
 func get_walk_input_direction() -> Vector3:
 	return get_raw_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
@@ -147,7 +142,7 @@ func set_jet_particles(value: bool) -> void:
 		p.emitting = value
 
 func throw_wrench():
-	var w = wrench_scene.instance()
+	var w = Wrench.instance()
 	get_parent().call_deferred("add_child", w)
 	w.global_transform = throw_position.global_transform
 	var dir = $Robot/RobotArmature/Skeleton.global_transform.basis.z
@@ -173,8 +168,13 @@ func set_dust_particles(value: bool) -> void:
 func change_state(state: String) -> void:
 	fsm.change_state(state)
 
-func _on_FSM_state_changed(state_name) -> void:
-	print(name, ": ", state_name)
-
 func respawn():
 	global_transform.origin = last_checkpoint.spawn_position.global_transform.origin
+
+func _set_has_jetpack(value: bool) -> void:
+	has_jetpack = value
+	if jetpack:
+		jetpack.visible = has_jetpack
+
+func _on_FSM_state_changed(state_name) -> void:
+	print(name, ": ", state_name)

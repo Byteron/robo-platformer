@@ -2,7 +2,7 @@ extends State
 
 func enter(host: Node) -> void:
 	host = host as Robot
-	host.play("walk")
+	host.play(host.ANIMATIONS.WALK)
 	host.motion = Vector3()
 	host.jumps = host.max_jumps
 
