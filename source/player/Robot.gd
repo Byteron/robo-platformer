@@ -102,8 +102,8 @@ func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
 	spatial.global_transform.origin = global_transform.origin + direction + debug_spatial.translation
 
 func slerp_direction(direction: Vector3, time: float) -> Vector3:
-	var current_direction = global_transform.basis.z
-	return current_direction.slerp(direction, time)
+	var current_direction = motion.normalized()
+	return current_direction.linear_interpolate(direction, time)
 
 func play(animation: int) -> void:
 
@@ -118,7 +118,6 @@ func play(animation: int) -> void:
 
 func get_walk_input_direction_relative() -> Vector3:
 	var relative_input_direction = get_walk_input_direction().rotated(Vector3(0, 1, 0), camera.rotation.y)
-	debug_input.global_transform.origin = global_transform.origin + debug_spatial.translation + relative_input_direction
 	return relative_input_direction
 
 func get_walk_input_direction() -> Vector3:

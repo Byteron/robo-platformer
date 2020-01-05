@@ -29,30 +29,30 @@ albedo_color = Color( 0.00784314, 0, 1, 1 )
 flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=5]
 flags_unshaded = true
 albedo_color = Color( 1, 0.678431, 0, 1 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=6]
 flags_unshaded = true
 albedo_color = Color( 0.00784314, 1, 0, 1 )
 
-[sub_resource type="AnimationNodeAnimation" id=6]
+[sub_resource type="AnimationNodeAnimation" id=7]
 animation = "Robot_Diving"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "Robot_Fall"
 
-[sub_resource type="AnimationNodeAnimation" id=8]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Robot_Jump"
 
-[sub_resource type="AnimationNodeAnimation" id=9]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "Robot_Land"
 
-[sub_resource type="AnimationNodeAnimation" id=10]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Robot_Throw"
 
-[sub_resource type="AnimationNodeTransition" id=11]
+[sub_resource type="AnimationNodeTransition" id=12]
 input_count = 5
 xfade_time = 0.1
 input_0/name = "walk"
@@ -66,60 +66,60 @@ input_3/auto_advance = false
 input_4/name = "land"
 input_4/auto_advance = true
 
-[sub_resource type="AnimationNodeOneShot" id=12]
+[sub_resource type="AnimationNodeOneShot" id=13]
 filter_enabled = true
 filters = [ "RobotArmature/Skeleton:lower_arm_r", "RobotArmature/Skeleton:torso", "RobotArmature/Skeleton:upper_arm_r" ]
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "Robot_Idle"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
-animation = "Robot_Running"
-
 [sub_resource type="AnimationNodeAnimation" id=15]
-animation = "Robot_Sprinting"
+animation = "Robot_Running"
 
 [sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Robot_Sprinting"
 
 [sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Robot_Sprinting"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
 animation = "Robot_Walking"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=18]
-blend_point_0/node = SubResource( 13 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=19]
+blend_point_0/node = SubResource( 14 )
 blend_point_0/pos = Vector2( 0, 0 )
-blend_point_1/node = SubResource( 14 )
+blend_point_1/node = SubResource( 15 )
 blend_point_1/pos = Vector2( 1, 0 )
-blend_point_2/node = SubResource( 15 )
+blend_point_2/node = SubResource( 16 )
 blend_point_2/pos = Vector2( 0, 1 )
-blend_point_3/node = SubResource( 16 )
+blend_point_3/node = SubResource( 17 )
 blend_point_3/pos = Vector2( 1, 1 )
-blend_point_4/node = SubResource( 17 )
+blend_point_4/node = SubResource( 18 )
 blend_point_4/pos = Vector2( 0.5, 0 )
 min_space = Vector2( 0, -1 )
 
-[sub_resource type="AnimationNodeBlendTree" id=19]
+[sub_resource type="AnimationNodeBlendTree" id=20]
 graph_offset = Vector2( -684, -125 )
-nodes/Dive/node = SubResource( 6 )
+nodes/Dive/node = SubResource( 7 )
 nodes/Dive/position = Vector2( 140, 320 )
-nodes/Fall/node = SubResource( 7 )
+nodes/Fall/node = SubResource( 8 )
 nodes/Fall/position = Vector2( 140, 200 )
-nodes/Jump/node = SubResource( 8 )
+nodes/Jump/node = SubResource( 9 )
 nodes/Jump/position = Vector2( 140, 80 )
-nodes/Land/node = SubResource( 9 )
+nodes/Land/node = SubResource( 10 )
 nodes/Land/position = Vector2( 140, 440 )
-nodes/Throw/node = SubResource( 10 )
+nodes/Throw/node = SubResource( 11 )
 nodes/Throw/position = Vector2( 480, 380 )
 nodes/output/position = Vector2( 940, 140 )
-nodes/state/node = SubResource( 11 )
+nodes/state/node = SubResource( 12 )
 nodes/state/position = Vector2( 480, 140 )
-nodes/throw/node = SubResource( 12 )
+nodes/throw/node = SubResource( 13 )
 nodes/throw/position = Vector2( 720, 140 )
-nodes/walk/node = SubResource( 18 )
+nodes/walk/node = SubResource( 19 )
 nodes/walk/position = Vector2( 140, -100 )
 node_connections = [ "output", 0, "throw", "state", 0, "walk", "state", 1, "Jump", "state", 2, "Fall", "state", 3, "Dive", "state", 4, "Land", "throw", 0, "state", "throw", 1, "Throw" ]
 
-[sub_resource type="BoxShape" id=20]
+[sub_resource type="BoxShape" id=21]
 extents = Vector3( 0.2, 0.119692, 0.2 )
 
 [node name="Robot" type="KinematicBody"]
@@ -148,12 +148,12 @@ material/0 = SubResource( 4 )
 [node name="Prediction" type="MeshInstance" parent="Debug"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.579875, 0, 0.672976 )
 mesh = SubResource( 2 )
-material/0 = SubResource( 21 )
+material/0 = SubResource( 5 )
 
 [node name="Look" type="MeshInstance" parent="Debug"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.572919, 0, 0.672976 )
 mesh = SubResource( 2 )
-material/0 = SubResource( 5 )
+material/0 = SubResource( 6 )
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
 
@@ -213,7 +213,7 @@ max_speed_run = 7.8
 script = ExtResource( 10 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 19 )
+tree_root = SubResource( 20 )
 anim_player = NodePath("../Robot/AnimationPlayer")
 active = true
 parameters/state/current = 0
@@ -226,7 +226,7 @@ collision_mask = 32
 
 [node name="CollisionShape" type="CollisionShape" parent="FootArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0519124, 0 )
-shape = SubResource( 20 )
+shape = SubResource( 21 )
 [connection signal="state_changed" from="FSM" to="." method="_on_FSM_state_changed"]
 
 [editable path="Robot"]
