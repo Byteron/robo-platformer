@@ -134,6 +134,7 @@ shape = SubResource( 1 )
 
 [node name="Debug" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+visible = false
 
 [node name="Input" type="MeshInstance" parent="Debug"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.672976 )
