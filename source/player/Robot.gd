@@ -64,6 +64,13 @@ func _input(event: InputEvent) -> void:
 
 	if event is InputEventMouseMotion:
 		mouse_axis.x += event.relative.normalized().x * 0.1
+	if event.is_action("escape") and not event.is_echo() and event.is_pressed():
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
 
 func _ready() -> void:
 	last_checkpoint = get_node(first_checkpoint)
