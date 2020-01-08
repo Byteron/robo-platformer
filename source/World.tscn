@@ -1,27 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
-[ext_resource path="res://source/level/levels/CaveTestLevel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/level/test-level.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
+[ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=7]
 [ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Spatial"]
 script = ExtResource( 8 )
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.00971, 3.3096, -31.5926 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39.2611, 35.5973, 2.1806 )
 camera_path = NodePath("../Camera")
-first_checkpoint = NodePath("../CaveTestLevel/Checkpoint")
+first_checkpoint = NodePath("../Checkpoint")
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 target_path = NodePath("../Robot")
 
 [node name="HUD" parent="." instance=ExtResource( 6 )]
 
-[node name="CaveTestLevel" parent="." instance=ExtResource( 3 )]
+[node name="TestLevel" parent="." instance=ExtResource( 3 )]
 
-[node name="MovingCube2" parent="CaveTestLevel/Spatial5" index="6"]
-distance = 5.0
+[node name="Camera2" type="Camera" parent="."]
+transform = Transform( -0.151183, -0.48183, 0.863124, -0.0831305, 0.876265, 0.474605, -0.985004, 0, -0.172531, 40.4795, 41.0998, 1.42076 )
 
-[editable path="CaveTestLevel"]
+[node name="Checkpoint" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.3492, 36.4486, 16.6248 )
