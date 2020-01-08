@@ -297,8 +297,8 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=15]
 shader = SubResource( 14 )
-shader_param/scale = 0.769
-shader_param/fade = 1.09917
+shader_param/scale = 0.0
+shader_param/fade = 0.0
 shader_param/color = Color( 0, 0, 0, 1 )
 shader_param/mask = ExtResource( 3 )
 
@@ -395,7 +395,7 @@ position = Vector2( 50, 50 )
 [node name="ColorRect" type="ColorRect" parent="Game Over Layer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.152941, 0.141176, 0.141176, 0.631373 )
+color = Color( 0.152941, 0.141176, 0.141176, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -404,15 +404,15 @@ __meta__ = {
 anims/Death = SubResource( 11 )
 
 [node name="Oh No!" type="TextureRect" parent="Game Over Layer"]
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -197.0
-margin_top = -177.488
+margin_top = -928.6
 margin_right = 197.0
-margin_bottom = -54.4882
-rect_rotation = -3.26937
+margin_bottom = -805.6
 texture = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
