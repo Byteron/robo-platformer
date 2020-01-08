@@ -1,11 +1,14 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://fonts/droid-sans/DroidSans.tres" type="DynamicFont" id=1]
 [ext_resource path="res://source/hud/HUD.gd" type="Script" id=2]
+[ext_resource path="res://graphics/icons/DeathOverla2y.png" type="Texture" id=3]
 [ext_resource path="res://graphics/icons/BoostBarUnder.png" type="Texture" id=4]
 [ext_resource path="res://graphics/icons/Progress.png" type="Texture" id=5]
 [ext_resource path="res://graphics/icons/BoostBarOver.png" type="Texture" id=6]
 [ext_resource path="res://source/hud/GearSceneHUD.tscn" type="PackedScene" id=7]
+[ext_resource path="res://graphics/icons/Oh No!.png" type="Texture" id=8]
+[ext_resource path="res://graphics/icons/mask.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hide"
@@ -136,6 +139,169 @@ environment = SubResource( 8 )
 [sub_resource type="ViewportTexture" id=10]
 viewport_path = NodePath("GearViewport")
 
+[sub_resource type="Animation" id=11]
+resource_name = "Death"
+length = 7.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.35, 1.9, 3.85, 4.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.152941, 0.141176, 0.141176, 0 ), Color( 0.152941, 0.141176, 0.141176, 0 ), Color( 0.152941, 0.141176, 0.141176, 0.631373 ), Color( 0.152941, 0.141176, 0.141176, 0.631373 ), Color( 0.152941, 0.141176, 0.141176, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Oh No!:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.35, 0.4, 3.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 443, -208.6 ), Vector2( 443, 591.4 ), Vector2( 443, 521.4 ), Vector2( 443, 541.4 ), Vector2( 443, 541.4 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Oh No!:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25, 3.85, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Oh No!:rect_rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.25, 0.35, 3.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -3.1, -3.1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FadeIn:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 3.15, 5.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("FadeIn:material:shader_param/cutoff")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 4.35, 5.05 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("..")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 4.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "respawn_ready" ],
+"method": "emit_signal"
+} ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("MaskRect:material:shader_param/scale")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 1.6, 3.05, 3.5, 3.65 ),
+"transitions": PoolRealArray( 1, 2, 2, 2 ),
+"update": 0,
+"values": [ 0.0, 8.0, 8.0, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("MaskRect:material:shader_param/fade")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 1.6, 1.85, 3.5, 3.65 ),
+"transitions": PoolRealArray( 1, 1, 2, 2 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Shader" id=12]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+uniform vec4 color : hint_color;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value * (1.0 - smooth_size) + smooth_size);
+	COLOR = vec4(color.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.771
+shader_param/color = null
+shader_param/mask = ExtResource( 9 )
+
+[sub_resource type="Shader" id=14]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float scale : hint_range(0.0, 25.0);
+uniform float fade : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+uniform vec4 color : hint_color;
+
+void fragment()
+{
+	float p = pow(scale, 2.0);
+	float alpha = texture(mask, (UV*p)-( (0.5*p) -0.5 )).a;
+	COLOR = vec4(color.rgb, alpha*fade);
+}"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
+shader_param/scale = 0.769
+shader_param/fade = 1.09917
+shader_param/color = Color( 0, 0, 0, 1 )
+shader_param/mask = ExtResource( 3 )
+
 [node name="HUD" type="CanvasLayer" groups=[
 "HUD",
 ]]
@@ -223,5 +389,57 @@ one_shot = true
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 50, 50 )
+
+[node name="Game Over Layer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Game Over Layer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.152941, 0.141176, 0.141176, 0.631373 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game Over Layer"]
+anims/Death = SubResource( 11 )
+
+[node name="Oh No!" type="TextureRect" parent="Game Over Layer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -197.0
+margin_top = -177.488
+margin_right = 197.0
+margin_bottom = -54.4882
+rect_rotation = -3.26937
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeIn" type="ColorRect" parent="Game Over Layer"]
+visible = false
+material = SubResource( 13 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaskRect" type="ColorRect" parent="Game Over Layer"]
+material = SubResource( 15 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="animation_finished" from="GearsAnim" to="." method="_on_GearsAnim_animation_finished"]
 [connection signal="timeout" from="GearRect/GearHideTimer" to="." method="_on_GearHideTimer_timeout"]

@@ -195,6 +195,9 @@ func change_state(state: String) -> void:
 	fsm.change_state(state)
 
 func respawn():
+	var hud = get_tree().get_nodes_in_group("HUD")[0]
+	hud.play_death()
+	yield(hud, "respawn_ready")
 	global_transform.origin = last_checkpoint.spawn_position.global_transform.origin
 
 func _set_has_jetpack(value: bool) -> void:

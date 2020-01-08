@@ -1,6 +1,8 @@
 extends CanvasLayer
 class_name HUD
 
+signal respawn_ready
+
 var gears_displayed = 0 setget set_gears
 var boost_displayed = 100.0 setget set_boost
 
@@ -11,6 +13,10 @@ var gears_visible = false
 
 onready var gear_label = $GearRect/Label
 onready var boost_bar = $BoostBar
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed("debug-left"):
+		play_death()
 
 func _ready():
 	Gamestate.hud = self
@@ -42,7 +48,8 @@ func gear_collected(pos):
 		$GearsAnim.play("show")
 	$GearRect/GearHideTimer.start()
 
-
+func play_death():
+	$"Game Over Layer/AnimationPlayer".play("Death")
 
 func _on_GearsAnim_animation_finished(anim_name):
 	if anim_name=="show":
