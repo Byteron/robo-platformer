@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://graphics/level/world/IslandOverview.glb" type="PackedScene" id=1]
 [ext_resource path="res://source/items/Gear.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/level/roto_platform/RotoPlatform.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/level/world_environments/cory_procsky_env.tres" type="Environment" id=4]
 [ext_resource path="res://source/level/WaterArea.tscn" type="PackedScene" id=5]
-[ext_resource path="res://source/level/shrine/Shrine.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -105,9 +104,6 @@ shadow_enabled = true
 transform = Transform( 0.99996, 0.00897087, 0, -0.00897087, 0.99996, 0, 0, 0, 1, 0, -10.1646, 0 )
 
 [node name="WaterArea" parent="." instance=ExtResource( 5 )]
-
-[node name="Shrine" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5303, 11.4635, 102.83 )
 
 [editable path="Platforms/RotoPlatform"]
 
