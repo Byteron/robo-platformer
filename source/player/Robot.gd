@@ -44,6 +44,8 @@ onready var camera = null
 
 onready var throw_position := $Robot/RobotArmature/Skeleton/WrenchPosition
 
+onready var shape := $CollisionShape
+
 onready var dust_particles := $Robot/RunningDust
 onready var landing_dust_particles := $Robot/ImpactParticles
 
@@ -69,8 +71,6 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-
 
 func _ready() -> void:
 	last_checkpoint = get_node(first_checkpoint)
@@ -105,6 +105,28 @@ func _process(delta: float) -> void:
 
 	debug_sphere(debug_look, global_transform.basis.z * 1.2)
 	debug_sphere(debug_motion, (Vector3(motion.x, 0, motion.z) / 5))
+
+func lock() -> void:
+	shape.disabled = true
+	fsm.set_process(false)
+	fsm.set_physics_process(false)
+	fsm.set_process_input(false)
+	fsm.set_process_unhandled_input(false)
+	# set_process(false)
+	set_physics_process(false)
+	# set_process_input(false)
+	set_process_unhandled_input(false)
+
+func unlock() -> void:
+	shape.disabled = false
+	fsm.set_process(true)
+	fsm.set_physics_process(true)
+	fsm.set_process_input(true)
+	fsm.set_process_unhandled_input(true)
+	# set_process(true)
+	set_physics_process(true)
+	# set_process_input(true)
+	set_process_unhandled_input(true)
 
 func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
 	spatial.global_transform.origin = global_transform.origin + direction + debug_spatial.translation

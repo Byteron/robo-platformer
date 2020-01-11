@@ -26,4 +26,3 @@ func update(host: Node, delta: float) -> void:
 
 	elif input_direction:
 		host.change_state("Walk")
-
