@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/menu/LevelSelectionMenu.gd" type="Script" id=1]
+
+[node name="LevelSelectionMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+level_directory = "res://source"
+levels = [ "World" ]
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 540.0
+margin_top = 308.0
+margin_right = 740.0
+margin_bottom = 412.0
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 200, 50 )
+focus_mode = 0
+enabled_focus_mode = 0
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 200.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 50 )
+focus_mode = 0
+enabled_focus_mode = 0
+text = "PLAY"
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]

@@ -219,7 +219,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Robo"
-run/main_scene="res://source/World.tscn"
+run/main_scene="res://source/menu/LevelSelectionMenu.tscn"
 
 [autoload]
 
