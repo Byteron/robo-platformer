@@ -14,15 +14,20 @@ onready var tween := $Tween
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and robo and not zipping:
-		robo.change_state("Zip")
-		robo.lock()
-		zipping = true
-		call_deferred("zip_to", robo, 0)
+		zip()
+	elif event.is_action_pressed("interact") and robo and zipping:
+		tween.stop_all()
+		tween.remove_all()
+		call_deferred("_on_Tween_tween_all_completed")
 
-func zip_to(robo: Robot, idx: int) -> void:
+func zip() -> void:
 
 	if not destination:
 		return
+
+	robo.change_state("Zip")
+	robo.lock()
+	zipping = true
 
 	var dest = get_node(destination)
 
