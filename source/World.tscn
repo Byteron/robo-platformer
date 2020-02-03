@@ -3,12 +3,12 @@
 [ext_resource path="res://source/player/Robot.tscn" type="PackedScene" id=1]
 [ext_resource path="res://source/camera/Camera.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/level/test-level.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/World.gd" type="Script" id=4]
 [ext_resource path="res://source/hud/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://source/level/Checkpoint.tscn" type="PackedScene" id=7]
-[ext_resource path="res://source/level/crane/Crane.tscn" type="PackedScene" id=8]
 
 [node name="World" type="Spatial"]
-script = ExtResource( 8 )
+script = ExtResource( 4 )
 
 [node name="Robot" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 39.2611, 35.5973, 2.1806 )
@@ -27,3 +27,4 @@ transform = Transform( -0.151183, -0.48183, 0.863124, -0.0831305, 0.876265, 0.47
 
 [node name="Checkpoint" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32.3492, 36.4486, 16.6248 )
+[connection signal="died" from="Robot" to="." method="_on_Robot_died"]

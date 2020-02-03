@@ -68,7 +68,7 @@ func update(host: Node, delta: float) -> void:
 		host.play(host.ANIMATIONS.LAND)
 	elif Input.is_action_just_pressed("jump") and host.jumps > 0 and coyote_timer.is_stopped():
 			host.change_state("Jump")
-	elif Input.is_action_just_pressed("jump") and not host.jumps and host.energy < host.max_energy and host.has_jetpack and coyote_timer.is_stopped():
+	elif Input.is_action_just_pressed("jump") and not host.jumps and not host.energy.is_empty() and host.has_jetpack and coyote_timer.is_stopped():
 		host.change_state("Jetpack")
 
 	host.move_and_slide_with_snap(host.motion, Vector3.DOWN, Vector3.UP)

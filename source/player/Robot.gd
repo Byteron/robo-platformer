@@ -1,6 +1,8 @@
 extends KinematicBody
 class_name Robot
 
+signal died
+
 enum ANIMATIONS { WALK, JUMP, FALL, DIVE, LAND, THROW }
 
 const Wrench = preload("res://source/player/wrench/WrenchProjectile.tscn")
@@ -16,8 +18,6 @@ var sprinting := false
 
 var jumps := 0
 
-var energy := 0.0
-
 var can_charge = true
 var coyote_jump = false
 
@@ -27,12 +27,18 @@ export(NodePath) var first_checkpoint : NodePath
 
 export var wrench_throw_force = 70.0
 
-export var max_jumps := 2
 export var max_energy := 100.0
+export var max_health := 100.0
+
+export var max_jumps := 2
+
 export var energy_charge_rate = 50.0
 
 export var has_jetpack := true setget _set_has_jetpack
 export var has_cape := false
+
+onready var health := $Stats/Health
+onready var energy := $Stats/Energy
 
 onready var foot_area := $FootArea
 
@@ -73,14 +79,25 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _ready() -> void:
-	last_checkpoint = get_node(first_checkpoint)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	fsm.host = self
-	camera = get_node(camera_path)
-	fsm.change_state("Idle")
+	energy.max_value = max_energy
+	energy.restore()
+	
+	health.max_value = max_health
+	health.restore()
+	
 	jumps = max_jumps
+	
+	last_checkpoint = get_node(first_checkpoint)
+	camera = get_node(camera_path)
+	
+	fsm.host = self
+	fsm.change_state("Idle")
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	set_jet_particles(false)
 	set_dust_particles(false)
+	
 	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
@@ -93,11 +110,9 @@ func _process(delta: float) -> void:
 
 	sprinting = Input.is_action_pressed("sprint")
 
-	get_tree().call_group("HUD", "set_boost", ceil(max_energy-energy / max_energy *  100.0))
-
 	if can_charge and is_on_floor():
-		if energy > 0:
-			energy -= energy_charge_rate * delta
+		if not energy.is_full():
+			energy.value += energy_charge_rate * delta
 
 	if Input.is_action_just_pressed("throw") and not anim_tree.get("parameters/throw/active"):
 			play(ANIMATIONS.THROW)
@@ -112,9 +127,7 @@ func lock() -> void:
 	fsm.set_physics_process(false)
 	fsm.set_process_input(false)
 	fsm.set_process_unhandled_input(false)
-	# set_process(false)
 	set_physics_process(false)
-	# set_process_input(false)
 	set_process_unhandled_input(false)
 
 func unlock() -> void:
@@ -123,10 +136,17 @@ func unlock() -> void:
 	fsm.set_physics_process(true)
 	fsm.set_process_input(true)
 	fsm.set_process_unhandled_input(true)
-	# set_process(true)
 	set_physics_process(true)
-	# set_process_input(true)
 	set_process_unhandled_input(true)
+
+func heal(value: float) -> void:
+	health.value += value
+
+func hurt(value: float) -> void:
+	health.value -= value
+
+func kill() -> void:
+	health.value = 0
 
 func debug_sphere(spatial: Spatial, direction: Vector3) -> void:
 	spatial.global_transform.origin = global_transform.origin + direction + debug_spatial.translation
@@ -217,10 +237,8 @@ func change_state(state: String) -> void:
 	fsm.change_state(state)
 
 func respawn():
-	var hud = get_tree().get_nodes_in_group("HUD")[0]
-	hud.play_death()
-	yield(hud, "respawn_ready")
 	global_transform.origin = last_checkpoint.spawn_position.global_transform.origin
+	change_state("Idle")
 
 func _set_has_jetpack(value: bool) -> void:
 	has_jetpack = value
@@ -229,3 +247,20 @@ func _set_has_jetpack(value: bool) -> void:
 
 func _on_FSM_state_changed(state_name) -> void:
 	print(name, ": ", state_name)
+
+func _on_Energy_max_value_changed(max_value):
+	get_tree().call_group("HUD", "set_max_boost", max_value)
+
+func _on_Energy_value_changed(value):
+	get_tree().call_group("HUD", "set_boost", value)
+
+func _on_Health_max_value_changed(max_value):
+	get_tree().call_group("HUD", "set_max_health", max_value)
+
+func _on_Health_value_changed(value):
+	get_tree().call_group("HUD", "set_health", value)
+	
+	if health.is_empty():
+		change_state("Dead")
+
+

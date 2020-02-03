@@ -165,6 +165,11 @@ _global_script_classes=[ {
 "path": "res://addons/audio_booth/source/sfx/SoundBooth.gd"
 }, {
 "base": "Node",
+"class": "Stat",
+"language": "GDScript",
+"path": "res://source/player/stats/Stat.gd"
+}, {
+"base": "Node",
 "class": "State",
 "language": "GDScript",
 "path": "res://addons/finite_state_machine/source/State.gd"
@@ -211,6 +216,7 @@ _global_script_class_icons={
 "Song": "",
 "Sound": "",
 "SoundBooth": "",
+"Stat": "",
 "State": "",
 "StingerContainer": "",
 "TrackContainer": ""
