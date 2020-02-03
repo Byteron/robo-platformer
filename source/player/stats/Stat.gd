@@ -16,8 +16,8 @@ func is_full() -> bool:
 func is_empty() -> bool:
 	return value == 0
 
-func _set_max_value(value: float) -> void:
-	max_value = value
+func _set_max_value(_value: float) -> void:
+	max_value = _value
 	emit_signal("max_value_changed", max_value)
 
 func _set_value(_value: float) -> void:

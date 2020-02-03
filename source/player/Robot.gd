@@ -37,8 +37,8 @@ export var energy_charge_rate = 50.0
 export var has_jetpack := true setget _set_has_jetpack
 export var has_cape := false
 
-onready var health := $Stats/Health
-onready var energy := $Stats/Energy
+onready var health := $Stats/Health as Stat
+onready var energy := $Stats/Energy as Stat
 
 onready var foot_area := $FootArea
 
