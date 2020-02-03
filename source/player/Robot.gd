@@ -81,23 +81,23 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
 	energy.max_value = max_energy
 	energy.restore()
-	
+
 	health.max_value = max_health
 	health.restore()
-	
+
 	jumps = max_jumps
-	
+
 	last_checkpoint = get_node(first_checkpoint)
 	camera = get_node(camera_path)
-	
+
 	fsm.host = self
 	fsm.change_state("Idle")
-	
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
+
 	set_jet_particles(false)
 	set_dust_particles(false)
-	
+
 	_set_has_jetpack(has_jetpack)
 
 func _process(delta: float) -> void:
@@ -176,8 +176,8 @@ func get_walk_input_direction() -> Vector3:
 	if Devices.current_device == Devices.DEVICES.GAMEPAD:
 		input_direction.x = Input.get_joy_axis(0, JOY_AXIS_0)
 		input_direction.z = Input.get_joy_axis(0, JOY_AXIS_1)
-		input_direction.x = input_direction.x if abs(input_direction.x) > DEAD_ZONE else 0
-		input_direction.z = input_direction.z if abs(input_direction.z) > DEAD_ZONE else 0
+		input_direction.x = input_direction.x if abs(input_direction.x) > DEAD_ZONE else 0.0
+		input_direction.z = input_direction.z if abs(input_direction.z) > DEAD_ZONE else 0.0
 
 	elif Devices.current_device == Devices.DEVICES.KEYBOARD:
 		input_direction.x = int(Input.is_action_pressed("walk_right")) - int(Input.is_action_pressed("walk_left"))
@@ -259,7 +259,7 @@ func _on_Health_max_value_changed(max_value):
 
 func _on_Health_value_changed(value):
 	get_tree().call_group("HUD", "set_health", value)
-	
+
 	if health.is_empty():
 		change_state("Dead")
 
