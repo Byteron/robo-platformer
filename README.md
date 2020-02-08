@@ -1,4 +1,4 @@
 # Robo
  
-## NOTE: Please use the latest beta build of godot to run this project.
-Link: https://godotengine.org/article/dev-snapshot-godot-3-2-beta-6
+## NOTE: Please use the latest stable build of godot to run this project.
+Link: https://godotengine.org/download/
